@@ -1,8 +1,21 @@
 {
 	"name": "renum",
 	"version": "1.0.0",
-	"main": "index.js",
 	"license": "MIT",
+	"type": "module",
+	"main": "es/index.js",
+	"types": "es/index.d.ts",
+	"sideEffects": false,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/enumiton/renum.git"
+	},
+	"scripts": {
+		"dev": "vite --force --host"
+	},
+	"files": [
+		"es/**/*"
+	],
 	"dependencies": {
 		"react": "^18.1.0",
 		"react-dom": "^18.1.0"
