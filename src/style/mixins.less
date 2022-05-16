@@ -1,0 +1,43 @@
+@import "./colors/index";
+
+.user-select() {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.appearance() {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.hidden() {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+}
+
+.touch-action(@value: manipulation) {
+	-ms-touch-action: @value;
+	touch-action: @value;
+}
+
+@outline-color: @accent-fg;
+@outline-width: 0.25rem;
+
+@outline-shadow: 0 0 0 @outline-width rgba(@outline-color, 50%);
+
+.outline(@color: @outline-color, @inset: ~"") {
+	outline: 0;
+	box-shadow: 0 0 0 @outline-width rgba(@color, 50%) @inset;
+	z-index: 1;
+
+	&:not(:focus-visible) {
+		outline: 0;
+		box-shadow: none;
+	}
+}

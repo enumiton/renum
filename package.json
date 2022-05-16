@@ -16,7 +16,9 @@
 	},
 	"scripts": {
 		"dev": "vite --force --host",
-		"build": "tsc"
+		"build": "tsc",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook"
 	},
 	"files": [
 		"es/**/*"
@@ -32,6 +34,8 @@
 	"devDependencies": {
 		"@types/react": "^18.0.9",
 		"@types/react-dom": "^18.0.3",
+		"less": "^4.1.2",
+		"react-router-dom": "^6.3.0",
 		"typescript": "^4.6.3",
 		"vite": "^2.9.6"
 	}

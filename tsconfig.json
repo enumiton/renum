@@ -34,7 +34,9 @@
 		"useDefineForClassFields": true
 	},
 	"include": [
-		"./src"
+		"./src",
+		// @todo Remove.
+		"@types/global.d.ts"
 	],
 	"exclude": [
 		"node_modules"

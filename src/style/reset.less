@@ -1,0 +1,114 @@
+@import "./colors/index";
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	--accent-fg: @accent-fg;
+	--accent-emphasis: @accent-emphasis;
+	--accent-muted: @accent-muted;
+	--accent-subtle: @accent-subtle;
+
+	--secondary-fg: @secondary-fg;
+	--secondary-emphasis: @secondary-emphasis;
+	--secondary-muted: @secondary-muted;
+	--secondary-subtle: @secondary-subtle;
+
+	--tertiary-fg: @tertiary-fg;
+	--tertiary-emphasis: @tertiary-emphasis;
+	--tertiary-muted: @tertiary-muted;
+	--tertiary-subtle: @tertiary-subtle;
+
+	--success-fg: @success-fg;
+	--success-emphasis: @success-emphasis;
+	--success-muted: @success-muted;
+	--success-subtle: @success-subtle;
+
+	--attention-fg: @attention-fg;
+	--attention-emphasis: @attention-emphasis;
+	--attention-muted: @attention-muted;
+	--attention-subtle: @attention-subtle;
+
+	--severe-fg: @severe-fg;
+	--severe-emphasis: @severe-emphasis;
+	--severe-muted: @severe-muted;
+	--severe-subtle: @severe-subtle;
+
+	--danger-fg: @danger-fg;
+	--danger-emphasis: @danger-emphasis;
+	--danger-muted: @danger-muted;
+	--danger-subtle: @danger-subtle;
+
+	--background-default: @background-default;
+	--background-overlay: @background-overlay;
+	--background-subtle: @background-subtle;
+	--background-inset: @background-inset;
+
+	--border-color-default: @border-color-default;
+	--border-color-muted: @border-color-muted;
+	--border-color-subtle: @border-color-subtle;
+
+	--text-color-default: @text-color-default;
+	--text-color-emphasis: @text-color-emphasis;
+	--text-color-muted: @text-color-muted;
+	--text-color-subtle: @text-color-subtle;
+
+	--shadow-color: @shadow-color;
+
+	--neutral-emphasis: @neutral-emphasis;
+	--neutral-emphasisPlus: @neutral-emphasisPlus;
+	--neutral-muted: @neutral-muted;
+	--neutral-subtle: @neutral-subtle;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	color: @text-color-default-var;
+	background-color: @background-inset-var;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
+	line-height: 1.5;
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+ul,
+ol,
+input,
+button,
+figure,
+select,
+dl,
+dd,
+fieldset {
+	margin: 0;
+}
+
+ul,
+ol,
+input,
+button,
+fieldset {
+	padding: 0;
+}
+
+a {
+	cursor: pointer;
+	color: var(--accent-fg);
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: var(--accent-emphasis);
+		text-decoration: underline;
+		text-decoration-color: currentColor;
+	}
+}

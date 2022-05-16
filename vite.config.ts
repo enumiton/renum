@@ -1,6 +1,10 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	root: './playground',
+	esbuild: {
+		jsxInject: 'import React from \'react\'',
+	},
 	build: {
 		target: 'esnext',
 		rollupOptions: {
@@ -15,14 +19,10 @@ export default defineConfig({
 		},
 	},
 	css: {
-		// preprocessorOptions: {
-		// 	less: {
-		// 		// javascriptEnabled: true,
-		// 		modifyVars: {
-		// 			'brand-color': '#c51d63', // PS
-		// 			// 'brand-color': '#d32027', // SR
-		// 		},
-		// 	},
-		// },
+		preprocessorOptions: {
+			less: {
+				javascriptEnabled: true,
+			},
+		},
 	},
 });
