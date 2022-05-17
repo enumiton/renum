@@ -5,7 +5,7 @@ import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-do
 import { Overview } from './overview';
 import { Example } from './example';
 import './playground.less';
-import '../src/style/reset.less';
+import '../src/styles/reset.less';
 
 /*
  * @todo lazy load components

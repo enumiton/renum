@@ -1,4 +1,5 @@
 import { Button } from './button';
+import './style/index.less';
 
 const config: PlaygroundConfig = {
 	title: 'button',

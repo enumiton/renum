@@ -51,10 +51,10 @@ html {
 	--border-color-muted: @border-color-muted;
 	--border-color-subtle: @border-color-subtle;
 
-	--text-color-default: @text-color-default;
-	--text-color-emphasis: @text-color-emphasis;
-	--text-color-muted: @text-color-muted;
-	--text-color-subtle: @text-color-subtle;
+	--text-default: @text-default;
+	--text-emphasis: @text-emphasis;
+	--text-muted: @text-muted;
+	--text-subtle: @text-subtle;
 
 	--shadow-color: @shadow-color;
 
@@ -68,8 +68,8 @@ html,
 body {
 	width: 100%;
 	height: 100%;
-	color: @text-color-default-var;
-	background-color: @background-inset-var;
+	color: var(--text-default);
+	background-color: var(--background-inset);
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
 	line-height: 1.5;
 }

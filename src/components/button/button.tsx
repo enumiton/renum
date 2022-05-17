@@ -18,7 +18,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) 
 			tabIndex={ 0 }
 			role="button"
 			{ ...rest }
-			className={ classNames(prefixCls, {
+			className={ classNames(prefixCls + '-btn', {
 				'test': Math.random() > 0.5,
 			}) }
 			type={ htmlType }
