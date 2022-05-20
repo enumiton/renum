@@ -1,4 +1,5 @@
 @import "./colors/index";
+@import "./variables/index";
 
 *,
 *::before,
@@ -11,6 +12,9 @@ html {
 	--accent-emphasis: @accent-emphasis;
 	--accent-muted: @accent-muted;
 	--accent-subtle: @accent-subtle;
+
+	--accent-fg-fade-text: @accent-fg-fade-text;
+	--accent-fg-fade-bg: @accent-fg-fade-bg;
 
 	--secondary-fg: @secondary-fg;
 	--secondary-emphasis: @secondary-emphasis;
@@ -47,9 +51,22 @@ html {
 	--background-subtle: @background-subtle;
 	--background-inset: @background-inset;
 
-	--border-color-default: @border-color-default;
-	--border-color-muted: @border-color-muted;
-	--border-color-subtle: @border-color-subtle;
+	--border-default: @border-default;
+	--border-muted: @border-muted;
+	--border-subtle: @border-subtle;
+
+	--border-width-medium: @border-width-medium;
+	--border-width-large: @border-width-large;
+
+	--border-radius-small: @border-radius-small;
+	--border-radius-medium: @border-radius-medium;
+	--border-radius-large: @border-radius-large;
+	--border-radius-extra: @border-radius-extra;
+	--border-radius-extraLarge: @border-radius-extraLarge;
+
+	--border-radius-round: @border-radius-round;
+	--border-radius-pill: @border-radius-pill;
+	--border-radius-circle: @border-radius-circle;
 
 	--text-default: @text-default;
 	--text-emphasis: @text-emphasis;
@@ -57,6 +74,10 @@ html {
 	--text-subtle: @text-subtle;
 
 	--shadow-color: @shadow-color;
+	--shadow-small: @shadow-small;
+	--shadow-medium: @shadow-medium;
+	--shadow-large: @shadow-large;
+	--shadow-extra: @shadow-extra;
 
 	--neutral-emphasis: @neutral-emphasis;
 	--neutral-emphasisPlus: @neutral-emphasisPlus;

@@ -1,0 +1,43 @@
+@import "../src/styles/index";
+
+@nav-height: 42px;
+
+body {
+	padding-top: @nav-height;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	width: 100vw;
+	height: @nav-height;
+	background-color: var(--background-subtle);
+
+	& .skip {
+		position: absolute;
+		top: -999px;
+		left: -999px;
+		padding: 1em;
+		background-color: var(--background-overlay);
+		box-shadow: var(--shadow-medium);
+		border-radius: var(--border-radius-medium);
+
+		&:focus {
+			top: 1em;
+			left: 1em;
+			z-index: 100;
+
+			.outline();
+		}
+	}
+
+	& .logo {
+		font-size: 1.125em;
+		font-weight: bold;
+		text-transform: capitalize;
+	}
+}

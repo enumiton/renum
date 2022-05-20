@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
 import { Overview } from './overview';
 import { Example } from './example';
-import './playground.less';
+import styles from './playground.module.less';
 import '../src/styles/reset.less';
 
 /*
@@ -35,11 +35,11 @@ function App() {
 
 	return (
 		<>
-			<header className="header">
-				<a href="#main">Skip to main</a>
-				<span className="header__logo">RENUM</span>
+			<header className={ styles.header }>
+				<a className={ styles.skip } href="#main">Skip to main</a>
+				<span className={ styles.logo }>RENUM</span>
 			</header>
-			<aside className={ `aside ${ open ? 'aside--open' : '' }` }>
+			<aside className={ `${ styles.aside } ${ open ? styles.asideOpen : '' }` }>
 				<h2>Components</h2>
 				<Suspense fallback="Loading components...">
 					<nav>
@@ -62,7 +62,7 @@ function App() {
 					</nav>
 				</Suspense>
 			</aside>
-			<main id="main" className="main">
+			<main id="main" className={ styles.main }>
 				<h1>{ title }</h1>
 				<Routes>
 					<Route path="/" element={ <Overview /> } />
@@ -79,7 +79,7 @@ function App() {
 					}) }
 				</Routes>
 			</main>
-			<footer className="footer">
+			<footer className={ styles.footer }>
 				RENUM &copy; { new Date().getFullYear() }
 			</footer>
 		</>
