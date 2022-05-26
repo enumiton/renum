@@ -2,21 +2,19 @@
 import { Suspense, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { Overview } from './overview';
-import { Example } from './example';
-import styles from './playground.module.less';
-import '../src/styles/reset.less';
+import { Overview } from './preview/overview';
+import styles from './preview.module.less';
+import './src/styles/reset.less';
+import { capitalize } from './utils';
+import { Example } from './preview/example';
 
-/*
- * @todo lazy load components
- */
+const modules = import.meta.glob('./src/components/**/*.preview.tsx');
 
-// @ts-ignore
-const glob = import.meta.glob<PlaygroundFile>('../src/components/*/*.playground.tsx');
-// @ts-ignore
-const files = (await Promise.all(Object.values(glob).map((factory) => factory()))) as PlaygroundFile[];
+const imports = Object.entries(modules).map(function ([path, module]) {
+	const key = path.split('/').pop()!.split('.').shift()!;
 
-import.meta.globEager('./src/components/*/style/index.less');
+	return [key, module] as const;
+});
 
 function App() {
 	const { pathname } = useLocation();
@@ -49,11 +47,11 @@ function App() {
 									Overview
 								</Link>
 							</li>
-							{ files.map(function (file, i) {
+							{ imports.map(function ([key], i) {
 								return (
 									<li key={ i }>
-										<Link to={ '/components/' + file.default.title }>
-											{ file.default.title }
+										<Link to={ '/components/' + key }>
+											{ capitalize(key) }
 										</Link>
 									</li>
 								);
@@ -66,14 +64,12 @@ function App() {
 				<h1>{ title }</h1>
 				<Routes>
 					<Route path="/" element={ <Overview /> } />
-					{ files.map(function (file, i) {
-						const { default: { title }, ...examples } = file;
-
+					{ imports.map(function ([key, module], i) {
 						return (
 							<Route
 								key={ i }
-								path={ '/components/' + title }
-								element={ <Example title={ title } components={ examples } /> }
+								path={ '/components/' + key }
+								element={ <Example title={ title } components={ module } /> }
 							/>
 						);
 					}) }
