@@ -7,11 +7,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) 
 	const {
 		icon,
 		suffix,
+		type,
+		dashed,
 		htmlType = 'button',
 		...rest
 	} = props;
 
 	const { prefixCls } = useConfigProvider();
+
+	const hasChildren = !!props.children;
 
 	return (
 		<button
@@ -19,13 +23,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) 
 			role="button"
 			{ ...rest }
 			className={ classNames(prefixCls + '-btn', {
-				'test': Math.random() > 0.5,
+				[`${prefixCls}-btn-${type}`]: (!!type && type !== 'default'),
+				[`${prefixCls}-btn-icon-only`]: !hasChildren,
+				[`${prefixCls}-btn-dashed`]: !!dashed,
 			}) }
 			type={ htmlType }
 			ref={ ref }
 		>
 			{ icon }
-			{ props.children }
+			{ hasChildren ? (
+				<span>{ props.children }</span>
+			) : null }
 			{ suffix }
 		</button>
 	);

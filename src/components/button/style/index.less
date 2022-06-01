@@ -1,7 +1,139 @@
-@import "./variables";
+@import "./variables.less";
 
 .@{btn-prefix} {
 	.appearance();
 	.touch-action();
 	.user-select();
+	.outline();
+
+	position: relative;
+	display: inline-block;
+	height: @btn-height;
+	margin: 0;
+	padding: @btn-padding-y @btn-padding-x;
+	background-color: var(--btn-bg);
+	border: @btn-border-width @btn-border-style var(--btn-border);
+	border-radius: @btn-border-radius;
+	font-size: 1em;
+	color: var(--btn-color);
+	font-weight: normal;
+	text-align: left;
+	line-height: 1;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	transition: 200ms ease-out;
+	transition-property: color, background-color, border;
+
+	&:hover,
+	&:focus {
+		background-color: var(--btn-bg-hover);
+		border-color: var(--btn-border-hover);
+	}
+
+	&:active {
+		background-color: var(--btn-bg-active);
+		border-color: var(--btn-border-active);
+	}
+
+	& svg {
+		transform: translateZ(0) scale(1.125);
+
+		& + span {
+			margin-right: @btn-padding-y;
+		}
+	}
+
+	& span {
+		font-size: inherit;
+		color: inherit;
+		line-height: 1;
+
+		& + svg {
+			margin-left: @btn-padding-y;
+		}
+	}
+
+	&-icon-only {
+		width: @btn-height;
+		padding: @btn-padding-icon;
+	}
+
+	&-primary {
+		color: var(--btn-color-primary);
+		background-color: var(--btn-bg-primary);
+		border-color: var(--btn-border-primary);
+
+		&:hover,
+		&:focus {
+			background-color: var(--btn-bg-primary-hover);
+			border-color: var(--btn-border-primary-hover);
+		}
+
+		&:active {
+			background-color: var(--btn-bg-primary-active);
+			border-color: var(--btn-border-primary-active);
+		}
+	}
+
+	&-secondary {
+		color: var(--btn-color-secondary);
+		background-color: var(--btn-bg-secondary);
+		border-color: var(--btn-border-secondary);
+
+		&:hover,
+		&:focus {
+			background-color: var(--btn-bg-secondary-hover);
+			border-color: var(--btn-border-secondary-hover);
+		}
+
+		&:active {
+			background-color: var(--btn-bg-secondary-active);
+			border-color: var(--btn-border-secondary-active);
+		}
+	}
+
+	&-light {
+		color: var(--btn-color-light);
+		background-color: var(--btn-bg-light);
+		border-color: var(--btn-border-light);
+
+		&:hover,
+		&:focus {
+			background-color: var(--btn-bg-light-hover);
+			border-color: var(--btn-border-light-hover);
+		}
+
+		&:active {
+			background-color: var(--btn-bg-light-active);
+			border-color: var(--btn-border-light-active);
+		}
+	}
+
+	&-invisible {
+		background-color: transparent;
+		border-color: transparent;
+
+		&:hover,
+		&:focus {
+			background-color: var(--btn-bg-hover);
+			border-color: var(--btn-bg-hover);
+		}
+
+		&:active {
+			background-color: var(--btn-bg-active);
+			border-color: var(--btn-bg-active);
+		}
+	}
+
+	&-ghost,
+	&-ghost:hover,
+	&-ghost:focus,
+	&-ghost:active {
+		background-color: transparent;
+	}
+
+	&-dashed {
+		border-style: dashed;
+	}
 }

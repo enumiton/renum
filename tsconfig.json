@@ -35,8 +35,6 @@
 	},
 	"include": [
 		"./src",
-		// @todo Remove.
-		"@types/global.d.ts"
 	],
 	"exclude": [
 		"node_modules",

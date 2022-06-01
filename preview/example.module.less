@@ -1,21 +1,22 @@
+@import "../src/styles/variables/index.less";
+
 .container {
 	display: flex;
 	flex-flow: row wrap;
-	gap: var(--margin-medium);
+	gap: (@margin-medium * 2) @margin-medium;
 }
 
 .section {
-	@space: 0.25em;
-
-	padding: (@space * 2);
-	border: var(--border-width-medium) solid var(--border-default);
-	border-radius: var(--border-radius-medium);
+	padding: @padding-medium;
+	background-color: var(--background-default);
+	border: @border-width-medium solid var(--border-default);
+	border-radius: @border-radius-medium;
 
 	& h2 {
-		padding: 0 @space;
-		margin: -(@space * 5) 0 (@space * 2) 0;
-		background-color: var(--background-inset);
-		font-size: 1.125rem;
+		padding-bottom: calc(@font-size-large + (@border-width-medium * 2));
+		margin: -(@font-size-large * 2) 0 0;
+		font-size: @font-size-large;
 		font-weight: bold;
+		line-height: 1;
 	}
 }

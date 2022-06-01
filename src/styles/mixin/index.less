@@ -1,5 +1,3 @@
-@import "../colors/index";
-
 .border() {
 	border: var(--border-width-medium) var(--border-style) var(--border-default);
 }
@@ -30,18 +28,23 @@
 	touch-action: @value;
 }
 
-@outline-color: @accent-fg;
-@outline-width: 0.25rem;
+@outline-color: var(--primary);
+@outline-width: 2px;
 
-@outline-shadow: 0 0 0 @outline-width rgba(@outline-color, 50%);
+@outline: @outline-color solid @outline-width;
 
-.outline(@color: @outline-color, @inset: ~"") {
-	outline: 0;
-	box-shadow: 0 0 0 @outline-width rgba(@color, 50%) @inset;
-	z-index: 1;
+.outline() {
+	&:focus {
+		outline: @outline;
+	}
 
-	&:not(:focus-visible) {
-		outline: 0;
-		box-shadow: none;
+	@supports selector(:focus-visible) {
+		&:focus {
+			outline: none;
+		}
+	}
+
+	&:focus-visible {
+		outline: @outline;
 	}
 }

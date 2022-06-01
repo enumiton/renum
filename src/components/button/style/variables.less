@@ -1,6 +1,13 @@
-@import "../../../styles/index";
+@import (reference) "../../../styles/index.less";
 
 @btn-prefix: ~"@{renum-prefix}-btn";
 
-@btn-text-color: var(--text-color-default);
-@btn-background-color: var(--background-subtle);
+@btn-padding-y: 0.375em;
+@btn-padding-x: 0.75em;
+@btn-padding-icon: calc(0.625em - @btn-border-width);
+
+@btn-height: (unit(@line-height, em) + (@btn-padding-y * 2));
+
+@btn-border-width: @border-width-medium;
+@btn-border-style: @border-style;
+@btn-border-radius: @border-radius-medium;

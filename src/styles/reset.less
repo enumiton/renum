@@ -1,5 +1,8 @@
-@import "./colors/index";
-@import "./variables/index";
+@import (reference) "./mixin/index.less";
+@import (reference) "./variables/index.less";
+
+@import "./themes/dark.less";
+@import "./themes/light.less";
 
 *,
 *::before,
@@ -7,110 +10,37 @@
 	box-sizing: border-box;
 }
 
-html {
-	--accent-fg: @accent-fg;
-	--accent-emphasis: @accent-emphasis;
-	--accent-muted: @accent-muted;
-	--accent-subtle: @accent-subtle;
-
-	--accent-fg-fade-text: @accent-fg-fade-text;
-	--accent-fg-fade-bg: @accent-fg-fade-bg;
-
-	--secondary-fg: @secondary-fg;
-	--secondary-emphasis: @secondary-emphasis;
-	--secondary-muted: @secondary-muted;
-	--secondary-subtle: @secondary-subtle;
-
-	--tertiary-fg: @tertiary-fg;
-	--tertiary-emphasis: @tertiary-emphasis;
-	--tertiary-muted: @tertiary-muted;
-	--tertiary-subtle: @tertiary-subtle;
-
-	--success-fg: @success-fg;
-	--success-emphasis: @success-emphasis;
-	--success-muted: @success-muted;
-	--success-subtle: @success-subtle;
-
-	--attention-fg: @attention-fg;
-	--attention-emphasis: @attention-emphasis;
-	--attention-muted: @attention-muted;
-	--attention-subtle: @attention-subtle;
-
-	--severe-fg: @severe-fg;
-	--severe-emphasis: @severe-emphasis;
-	--severe-muted: @severe-muted;
-	--severe-subtle: @severe-subtle;
-
-	--danger-fg: @danger-fg;
-	--danger-emphasis: @danger-emphasis;
-	--danger-muted: @danger-muted;
-	--danger-subtle: @danger-subtle;
-
-	--background-default: @background-default;
-	--background-overlay: @background-overlay;
-	--background-subtle: @background-subtle;
-	--background-inset: @background-inset;
-
-	--border-default: @border-default;
-	--border-muted: @border-muted;
-	--border-subtle: @border-subtle;
-
-	--border-width-medium: @border-width-medium;
-	--border-width-large: @border-width-large;
-
-	--border-radius-small: @border-radius-small;
-	--border-radius-medium: @border-radius-medium;
-	--border-radius-large: @border-radius-large;
-	--border-radius-extra: @border-radius-extra;
-	--border-radius-extraLarge: @border-radius-extraLarge;
-
-	--border-radius-round: @border-radius-round;
-	--border-radius-pill: @border-radius-pill;
-	--border-radius-circle: @border-radius-circle;
-
-	--text-default: @text-default;
-	--text-emphasis: @text-emphasis;
-	--text-muted: @text-muted;
-	--text-subtle: @text-subtle;
-
-	--shadow-color: @shadow-color;
-	--shadow-small: @shadow-small;
-	--shadow-medium: @shadow-medium;
-	--shadow-large: @shadow-large;
-	--shadow-extra: @shadow-extra;
-
-	--neutral-emphasis: @neutral-emphasis;
-	--neutral-emphasisPlus: @neutral-emphasisPlus;
-	--neutral-muted: @neutral-muted;
-	--neutral-subtle: @neutral-subtle;
-
-	--margin-narrowerder: @margin-narrowerder;
-	--margin-narrow: @margin-narrow;
-	--margin-extraSmall: @margin-extraSmall;
-	--margin-small: @margin-small;
-	--margin-medium: @margin-medium;
-	--margin-large: @margin-large;
-	--margin-extra: @margin-extra;
-	--margin-extraLarge: @margin-extraLarge;
-
-	--padding-narrowerder: @padding-narrowerder;
-	--padding-narrow: @padding-narrow;
-	--padding-extraSmall: @padding-extraSmall;
-	--padding-small: @padding-small;
-	--padding-medium: @padding-medium;
-	--padding-large: @padding-large;
-	--padding-extra: @padding-extra;
-	--padding-extraLarge: @padding-extraLarge;
+body {
+	color: var(--text-default);
+	background-color: var(--bg-inset);
+	font: @font;
+	font-feature-settings: @font-feature;
+	transition: 200ms ease-out;
+	transition-property: color, background-color;
 }
 
-html,
-body {
-	width: 100%;
-	height: 100%;
-	color: var(--text-default);
-	background-color: var(--background-inset);
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
-	line-height: 1.5;
+h1 {
+	font-size: @font-size-h1;
+}
+
+h2 {
+	font-size: @font-size-h2;
+}
+
+h3 {
+	font-size: @font-size-h3;
+}
+
+h4 {
+	font-size: @font-size-h4;
+}
+
+h5 {
+	font-size: @font-size-h5;
+}
+
+h6 {
+	font-size: @font-size-h6;
 }
 
 body,
@@ -140,14 +70,26 @@ fieldset {
 }
 
 a {
-	cursor: pointer;
-	color: var(--accent-fg);
+	.outline();
+
+	color: var(--primary);
 	text-decoration: none;
+	cursor: pointer;
+	text-decoration-color: currentColor;
 
 	&:hover,
-	&:focus {
-		color: var(--accent-emphasis);
+	&:focus,
+	&:active {
 		text-decoration: underline;
-		text-decoration-color: currentColor;
 	}
+
+	&:active {
+		color: var(--primary-emphasis);
+	}
+}
+
+svg {
+	display: inline-block;
+	vertical-align: -0.125em;
+	line-height: 0;
 }

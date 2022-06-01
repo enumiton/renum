@@ -1,0 +1,32 @@
+@white: #ffffff;
+@black: #000000;
+
+.grays(@base: @black) {
+	@min: 0;
+	@max: 24;
+
+	@is-dark: boolean(lightness(@base) < 50%);
+
+	each(range(@min, @max, 1), {
+		@clr: if(@is-dark, lighten(@base, (@value / @max) * 100%), darken(@base, (@value / @max) * 100%));
+
+		--gray-@{value}: @clr;
+	})
+}
+
+.shades(@name, @clr) {
+	@hue: hue(@clr);
+	@saturation: saturation(@clr);
+
+	& {
+		--@{name}-100: hsl(@hue, @saturation, (1 / 10) * 100%);
+		--@{name}-200: hsl(@hue, @saturation, (2 / 10) * 100%);
+		--@{name}-300: hsl(@hue, @saturation, (3 / 10) * 100%);
+		--@{name}-400: hsl(@hue, @saturation, (4 / 10) * 100%);
+		--@{name}-500: hsl(@hue, @saturation, (5 / 10) * 100%);
+		--@{name}-600: hsl(@hue, @saturation, (6 / 10) * 100%);
+		--@{name}-700: hsl(@hue, @saturation, (7 / 10) * 100%);
+		--@{name}-800: hsl(@hue, @saturation, (8 / 10) * 100%);
+		--@{name}-900: hsl(@hue, @saturation, (9 / 10) * 100%);
+	}
+}
