@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import styles from './example.module.less';
 
-type Imports = { [key: string]: (FC | { readonly title: string; }) };
+type Imports = { [key: string]: (FC | { readonly title: string; }); };
 
 type Props = {
 	readonly title: string;
@@ -16,7 +16,6 @@ function Example(props: Props) {
 	}
 
 	useEffect(function () {
-		window.document.title = props.title + ' — Renum';
 		get();
 	}, []);
 
