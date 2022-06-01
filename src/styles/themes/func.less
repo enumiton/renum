@@ -8,9 +8,10 @@
 	@is-dark: boolean(lightness(@base) < 50%);
 
 	each(range(@min, @max, 1), {
-		@clr: if(@is-dark, lighten(@base, (@value / @max) * 100%), darken(@base, (@value / @max) * 100%));
+		@v: (@value / @max) * 100%;
+		@percentage: if(@is-dark, (100% - @v), @v);
 
-		--gray-@{value}: @clr;
+		--gray-@{value}: hsl(0, 0%, @percentage);
 	})
 }
 
