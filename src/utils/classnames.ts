@@ -1,9 +1,13 @@
 import { isString } from './is';
 
-function classNames(...classes: (Record<string, boolean> | string)[]): string {
+function classNames(...classes: (Record<string, boolean> | string | undefined)[]): string {
 	let str = [];
 
 	for (const item of classes) {
+		if (!item) {
+			continue;
+		}
+
 		if (isString(item)) {
 			str.push(item);
 			continue;

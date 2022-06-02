@@ -39,13 +39,17 @@ async function generate() {
 
 		let name = strip(file.substring(0, file.lastIndexOf('.')));
 		const content = await readFile(`${INPUT}/${file}`, 'utf-8');
-		const svg = content.replace(/<svg .*>/, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em">');
+		const svg = content
+			.replace(/<svg .*>/, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em">')
+			.replace(/(\n|\r|\t)+/g, '');
+
+		// @todo implement svgo
 
 		if (name[0].match(/(\d)/)) {
 			name = 'A' + name;
 		}
 
-		const component = `import { Icon } from '../components/Icon';
+		const component = `import { Icon } from '../components/icon';
 
 export const ${name} = (
 	<Icon>

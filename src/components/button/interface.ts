@@ -23,4 +23,4 @@ interface ButtonProps extends Omit<Base, 'type'> {
 	readonly block?: boolean | undefined;
 }
 
-export { ButtonProps, ButtonType, ButtonShape };
+export type { ButtonProps, ButtonType, ButtonShape };
