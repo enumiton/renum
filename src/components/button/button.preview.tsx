@@ -68,5 +68,5 @@ function Icons() {
 	);
 }
 
-export { Simple, Types, Radius, Loading, Block, Icons };
+export { Types, Radius, Loading, Block, Icons };
 export default config;
