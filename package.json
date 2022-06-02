@@ -17,7 +17,7 @@
 	"scripts": {
 		"dev": "vite --force --host",
 		"icons": "node generate_icons.js",
-		"build": "tsc"
+		"build": "yarn icons && tsc && copy.sh"
 	},
 	"files": [
 		"es/**/*",
