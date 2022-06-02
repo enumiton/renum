@@ -11,7 +11,7 @@
 		@v: (@value / @max) * 100%;
 		@percentage: if(@is-dark, (100% - @v), @v);
 
-		--gray-@{value}: hsl(0, 0%, @percentage);
+		--gray-@{value}: mix(@primary-color, hsl(0, 0%, @percentage), 6%);
 	})
 }
 
@@ -20,14 +20,14 @@
 	@saturation: saturation(@clr);
 
 	& {
-		--@{name}-100: hsl(@hue, @saturation, (1 / 10) * 100%);
-		--@{name}-200: hsl(@hue, @saturation, (2 / 10) * 100%);
-		--@{name}-300: hsl(@hue, @saturation, (3 / 10) * 100%);
-		--@{name}-400: hsl(@hue, @saturation, (4 / 10) * 100%);
-		--@{name}-500: hsl(@hue, @saturation, (5 / 10) * 100%);
-		--@{name}-600: hsl(@hue, @saturation, (6 / 10) * 100%);
-		--@{name}-700: hsl(@hue, @saturation, (7 / 10) * 100%);
-		--@{name}-800: hsl(@hue, @saturation, (8 / 10) * 100%);
-		--@{name}-900: hsl(@hue, @saturation, (9 / 10) * 100%);
+		--@{name}-100: mix(@primary-color, hsl(@hue, @saturation, (1 / 10) * 100%), 6%);
+		--@{name}-200: mix(@primary-color, hsl(@hue, @saturation, (2 / 10) * 100%), 6%);
+		--@{name}-300: mix(@primary-color, hsl(@hue, @saturation, (3 / 10) * 100%), 6%);
+		--@{name}-400: mix(@primary-color, hsl(@hue, @saturation, (4 / 10) * 100%), 6%);
+		--@{name}-500: mix(@primary-color, hsl(@hue, @saturation, (5 / 10) * 100%), 6%);
+		--@{name}-600: mix(@primary-color, hsl(@hue, @saturation, (6 / 10) * 100%), 6%);
+		--@{name}-700: mix(@primary-color, hsl(@hue, @saturation, (7 / 10) * 100%), 6%);
+		--@{name}-800: mix(@primary-color, hsl(@hue, @saturation, (8 / 10) * 100%), 6%);
+		--@{name}-900: mix(@primary-color, hsl(@hue, @saturation, (9 / 10) * 100%), 6%);
 	}
 }

@@ -1,4 +1,4 @@
-@primary-color: #b00ccc;
+@primary-color: #0c72cc;
 @complementary-color: spin(@primary-color, 180);
 
 @hue-1: spin(@primary-color, -(hue(@primary-color)));
@@ -26,11 +26,9 @@
 & {
 	--primary: @primary-color;
 	--primary-contrast: contrast(@primary-color);
-	--primary-muted: fade(@primary-color, 10%);
 
 	--complementary: @complementary-color;
 	--complementary-contrast: contrast(@complementary-color);
-	--complementary-muted: fade(@complementary-color, 10%);
 
 	.shades(~"red", @red);
 	.shades(~"orange", @orange);

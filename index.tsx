@@ -9,7 +9,7 @@ import { capitalize } from './utils';
 import { Example } from './preview/example';
 import { Button } from './src/components/button/button';
 
-const $styles = import.meta.globEager('./src/components/*/style/index.less');
+const _ = import.meta.globEager('./src/components/*/style/index.less');
 const modules = import.meta.glob('./src/components/**/*.preview.tsx');
 
 const imports = Object.entries(modules).map(function ([path, module]) {
@@ -49,6 +49,7 @@ function App() {
 					<Button
 						icon={ menu }
 						type="invisible"
+						shape="circle"
 						onClick={ () => setOpen((v) => !v) }
 						aria-label={ open ? 'Close sidemenu' : 'Open sidemenu' }
 						aria-live="polite"

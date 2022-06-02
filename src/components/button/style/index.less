@@ -20,7 +20,7 @@
 	text-align: left;
 	line-height: 1;
 	white-space: nowrap;
-	vertical-align: middle;
+	vertical-align: inherit;
 	cursor: pointer;
 	transition: 200ms ease-out;
 	transition-property: color, background-color, border;
@@ -38,20 +38,20 @@
 
 	& svg {
 		transform: translateZ(0) scale(1.125);
-
-		& + span {
-			margin-right: @btn-padding-y;
-		}
 	}
 
 	& span {
 		font-size: inherit;
 		color: inherit;
 		line-height: 1;
+	}
 
-		& + svg {
-			margin-left: @btn-padding-y;
-		}
+	&-icon span {
+		margin-left: @btn-padding-y;
+	}
+
+	&-suffix span {
+		margin-right: @btn-padding-y;
 	}
 
 	&-icon-only {
@@ -76,20 +76,20 @@
 		}
 	}
 
-	&-secondary {
-		color: var(--btn-color-secondary);
-		background-color: var(--btn-bg-secondary);
-		border-color: var(--btn-border-secondary);
+	&-complementary {
+		color: var(--btn-color-complementary);
+		background-color: var(--btn-bg-complementary);
+		border-color: var(--btn-border-complementary);
 
 		&:hover,
 		&:focus {
-			background-color: var(--btn-bg-secondary-hover);
-			border-color: var(--btn-border-secondary-hover);
+			background-color: var(--btn-bg-complementary-hover);
+			border-color: var(--btn-border-complementary-hover);
 		}
 
 		&:active {
-			background-color: var(--btn-bg-secondary-active);
-			border-color: var(--btn-border-secondary-active);
+			background-color: var(--btn-bg-complementary-active);
+			border-color: var(--btn-border-complementary-active);
 		}
 	}
 
@@ -133,7 +133,39 @@
 		background-color: transparent;
 	}
 
+	&-round {
+		border-radius: @btn-border-radius-round;
+	}
+
+	&-pill {
+		border-radius: @btn-border-radius-pill;
+	}
+
+	&-circle {
+		border-radius: @btn-border-radius-circle;
+	}
+
+	&-loading {
+		cursor: wait;
+	}
+
 	&-dashed {
 		border-style: dashed;
+	}
+
+	&-block {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+
+	&[disabled],
+	&[disabled]:hover,
+	&[disabled]:focus,
+	&[disabled]:active {
+		background-color: var(--btn-bg-disabled);
+		border-color: var(--btn-border-disabled);
+		color: var(--btn-color-disabled);
+		cursor: not-allowed;
 	}
 }
