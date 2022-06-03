@@ -1,4 +1,8 @@
 # Renum
+![NPM Version](https://img.shields.io/npm/v/@enumiton/renum?color=%230c72cc&label=%40enumiton%2Frenum)
+![Package License](https://img.shields.io/github/license/enumiton/renum)
+
+## Description
 Another React component library with two unique traits: no unnecessary depenencies and a small package size.
 
 ## Getting started
