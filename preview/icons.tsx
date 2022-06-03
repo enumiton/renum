@@ -18,11 +18,6 @@ function Icons() {
 			</header>
 			<div className={ styles.list }>
 				{ imports.slice(0, max).map(function (key, i) {
-					console.log(key);
-					if (key === 'index') {
-						return;
-					}
-
 					const Component = lazy(() => import('../src/icons/' + key + '.tsx'));
 
 					return (
