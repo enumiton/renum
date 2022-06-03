@@ -23,11 +23,11 @@ import { Button } from '@enumiton/renum';
 import '@enumiton/renum/es/styles/reset.less';
 
 function App() {
-	return (
-		<Button type="primary">
-			Hello world
-		</Button>
-	);
+  return (
+    <Button type="primary">
+      Hello world
+    </Button>
+  );
 }
 ```
 
@@ -42,17 +42,18 @@ The icons have already been optimized using svgo so you don't have to.
 ### Usage
 Icons are imported from `@enumiton/renum/icons`. All icons are in seperate files to make tree shaking easy.
 ```tsx
+import { Button } from '@enumiton/renum';
 import { Menu } from '@enumiton/renum/icons';
 
 function App() {
-	return (
-		<Button
-			icon={ <Menu /> }
-			type="invisible"
-			shape="circle"
-			aria-label="Open menu"
-		/>
-	);
+  return (
+    <Button
+      icon={ <Menu /> }
+      type="invisible"
+      shape="circle"
+      aria-label="Open menu"
+    />
+  );
 }
 ```
 
