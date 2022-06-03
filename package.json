@@ -2,6 +2,15 @@
 	"name": "@enumiton/renum",
 	"description": "A minimalistic react component library without unnecessary dependencies.",
 	"version": "0.0.2",
+	"keywords": [
+		"renum",
+		"react",
+		"react-dom",
+		"library",
+		"components",
+		"ui",
+		"nodeps"
+	],
 	"license": "MIT",
 	"type": "module",
 	"main": "es/index.js",
