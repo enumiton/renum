@@ -17,7 +17,7 @@ npm install @enumiton/renum
 ```
 
 ### Usage
-All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by change the `font-size` of the component or its parent.
+All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by changing the `font-size` of the component or its parent.
 ```tsx
 import { Button } from '@enumiton/renum';
 import '@enumiton/renum/es/styles/reset.less';
