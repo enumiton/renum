@@ -4,6 +4,7 @@
 	display: flex;
 	flex-flow: row wrap;
 	gap: 1em;
+	margin: @margin-medium 0;
 }
 
 .icon {
@@ -15,12 +16,14 @@
 	border-radius: @border-radius-large;
 
 	& span {
+		display: block;
+		text-align: center;
+
 		&:first-child {
 			font-size: 2.25em;
 		}
 
 		&:last-child {
-			display: block;
 			margin-top: @margin-small;
 		}
 	}
