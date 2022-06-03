@@ -40,7 +40,10 @@ async function generate() {
 		let name = strip(file.substring(0, file.lastIndexOf('.')));
 		const content = await readFile(`${INPUT}/${file}`, 'utf-8');
 		const svg = content
-			.replace(/<svg .*>/, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em">')
+			.replace(
+				/<svg .*>/,
+				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+			)
 			.replace(/(\n|\r|\t)+/g, '');
 
 		// @todo implement svgo
@@ -51,15 +54,19 @@ async function generate() {
 
 		const component = `import { Icon } from '../components/icon';
 
-export const ${name} = (
-	<Icon>
-		${svg}
-	</Icon>
-);`
+function ${name}() {
+	return (
+		<Icon>
+			${svg}
+		</Icon>
+	);
+}
+
+export default ${name};`;
 
 		await writeFile(`${OUTPUT}/${name}.tsx`, component, 'utf-8');
 
-		await appendFile(ICON_INDEX, `export { ${name} } from './${name}';\n`);
+		await appendFile(ICON_INDEX, `export { default as ${name} } from './${name}';\n`);
 	}
 
 	await writeFile(ROOT_INDEX, "export * from './es/icons/index'");

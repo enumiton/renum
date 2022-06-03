@@ -4,14 +4,21 @@ import { useConfigProvider } from "../renum-provider";
 import type { IconProps } from "./interface";
 
 const Icon = forwardRef<HTMLSpanElement, IconProps>(function (props, ref) {
+	const {
+		className,
+		children,
+		...rest
+	} = props;
+
 	const { prefixCls } = useConfigProvider();
+	console.log('fdsa');
 
 	return (
 		<span
 			ref={ ref }
-			className={ classNames(prefixCls + '-icon', props.className) }
+			className={ classNames(prefixCls + '-icon', className) }
 		>
-			{ cloneElement(props.children, props) }
+			{ cloneElement(children, rest) }
 		</span>
 	);
 });

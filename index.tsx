@@ -8,6 +8,7 @@ import './src/styles/reset.less';
 import { capitalize } from './utils';
 import { Example } from './preview/example';
 import { Button } from './src/components/button/button';
+import { Icons } from './preview/icons';
 
 const _ = import.meta.globEager('./src/components/*/style/index.less');
 const modules = import.meta.glob('./src/components/**/*.preview.tsx');
@@ -73,6 +74,11 @@ function App() {
 										Overview
 									</Link>
 								</li>
+								<li>
+									<Link to="/icons">
+										Icons
+									</Link>
+								</li>
 								{ imports.map(function ([key], i) {
 									return (
 										<li key={ i }>
@@ -90,6 +96,7 @@ function App() {
 					<h1>{ title }</h1>
 					<Routes>
 						<Route path="/" element={ <Overview /> } />
+						<Route path="/icons" element={ <Icons /> } />
 						{ imports.map(function ([key, module], i) {
 							return (
 								<Route
