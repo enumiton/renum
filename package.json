@@ -1,5 +1,6 @@
 {
 	"name": "@enumiton/renum",
+	"description": "A minimalistic react component library without unnecessary dependencies.",
 	"version": "0.0.1",
 	"license": "MIT",
 	"type": "module",
