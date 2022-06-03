@@ -11,7 +11,6 @@ const Icon = forwardRef<HTMLSpanElement, IconProps>(function (props, ref) {
 	} = props;
 
 	const { prefixCls } = useConfigProvider();
-	console.log('fdsa');
 
 	return (
 		<span
