@@ -1,0 +1,14 @@
+@import "./variables.less";
+
+.@{loading-prefix} {
+	&-active svg {
+		transform: translateZ(0);
+		animation: spin @loading-spin-speed linear infinite;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: translateZ(0) rotate(360deg);
+	}
+}

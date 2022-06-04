@@ -19,12 +19,17 @@
 		display: block;
 		text-align: center;
 
-		&:first-child {
-			font-size: 2.25em;
-		}
-
 		&:last-child {
 			margin-top: @margin-small;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
+
+	:global {
+		.@{renum-prefix}-icon {
+			font-size: 2.25em;
 		}
 	}
 }
