@@ -63,7 +63,8 @@ body {
 	border-right: @border-width-medium @border-style var(--border-muted);
 	transition: margin 200ms ease-in-out;
 
-	&.open {
+	&.open,
+	&:focus-within {
 		margin: 0;
 	}
 

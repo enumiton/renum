@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Button } from './button';
+import { default as Menu } from '../../icons/Menu2';
 import './style/index.less';
 
 const config = {
 	title: 'button',
 };
-
-const menu = <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 12h16M4 18h16" /></svg>;
 
 function Types() {
 	return (
@@ -31,7 +30,7 @@ function Radius() {
 			<Button shape="pill">Pill shape</Button>
 			<Button
 				shape="circle"
-				icon={ menu }
+				icon={ <Menu /> }
 				aria-label="Circular shape"
 			/>
 		</div>
@@ -62,8 +61,8 @@ function Block() {
 function Icons() {
 	return (
 		<div style={ { display: 'flex', flexFlow: 'row wrap', gap: '0.5em' } }>
-			<Button icon={ menu }>Icon</Button>
-			<Button suffix={ menu }>Suffix</Button>
+			<Button icon={ <Menu /> }>Icon</Button>
+			<Button suffix={ <Menu /> }>Suffix</Button>
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { Suspense, useEffect, useState } from 'react';
+import { StrictMode, Suspense, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
 import { Overview } from './preview/overview';
@@ -9,6 +9,7 @@ import { capitalize } from './utils';
 import { Example } from './preview/example';
 import { Button } from './src/components/button/button';
 import { Icons } from './preview/icons';
+import { default as Menu } from './src/icons/Menu2';
 
 const _ = import.meta.globEager('./src/components/*/style/index.less');
 const modules = import.meta.glob('./src/components/**/*.preview.tsx');
@@ -18,8 +19,6 @@ const imports = Object.entries(modules).map(function ([path, module]) {
 
 	return [key, module] as const;
 });
-
-const menu = <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16M4 12h16M4 18h16" /></svg>;
 
 function App() {
 	const { pathname } = useLocation();
@@ -48,7 +47,7 @@ function App() {
 				<a className={ styles.skip } href="#main">Skip to main</a>
 				<div>
 					<Button
-						icon={ menu }
+						icon={ <Menu /> }
 						type="invisible"
 						shape="circle"
 						onClick={ () => setOpen((v) => !v) }
@@ -118,9 +117,11 @@ function App() {
 
 function Providers() {
 	return (
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<StrictMode>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</StrictMode>
 	);
 }
 

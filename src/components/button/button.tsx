@@ -44,13 +44,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) 
 				[`${prefixCls}-btn-loading`]: (!!loading),
 				[`${prefixCls}-btn-block`]: (!!block),
 				[`${prefixCls}-btn-dashed`]: !!dashed,
-			}) }
+			}, props.className) }
 			type={ htmlType }
 			ref={ ref }
 		>
 			{ icon }
 			{ hasChildren ? (
-				<span>{ props.children }</span>
+				<span className={ prefixCls + '-btn-text' }>{ props.children }</span>
 			) : null }
 			{ suffix }
 		</button>
