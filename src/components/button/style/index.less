@@ -8,7 +8,11 @@
 	.outline();
 
 	position: relative;
-	display: inline-block;
+	display: inline-flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: @btn-padding-y;
 	height: @btn-height;
 	margin: 0;
 	padding: @btn-padding-y @btn-padding-x;
@@ -47,14 +51,6 @@
 		line-height: 1;
 	}
 
-	&-icon &-text {
-		margin-left: @btn-padding-y;
-	}
-
-	&-suffix &-text {
-		margin-right: @btn-padding-y;
-	}
-
 	&-icon-only {
 		width: @btn-height;
 		padding: @btn-padding-icon;
@@ -63,51 +59,51 @@
 	&-primary {
 		color: var(--btn-color-primary);
 		background-color: var(--btn-bg-primary);
-		border-color: var(--btn-border-primary);
+		border-color: var(--btn-bg-primary);
 
 		&:hover,
 		&:focus {
 			background-color: var(--btn-bg-primary-hover);
-			border-color: var(--btn-border-primary-hover);
+			border-color: var(--btn-bg-primary-hover);
 		}
 
 		&:active {
 			background-color: var(--btn-bg-primary-active);
-			border-color: var(--btn-border-primary-active);
+			border-color: var(--btn-bg-primary-active);
 		}
 	}
 
 	&-complementary {
 		color: var(--btn-color-complementary);
 		background-color: var(--btn-bg-complementary);
-		border-color: var(--btn-border-complementary);
+		border-color: var(--btn-bg-complementary);
 
 		&:hover,
 		&:focus {
 			background-color: var(--btn-bg-complementary-hover);
-			border-color: var(--btn-border-complementary-hover);
+			border-color: var(--btn-bg-complementary-hover);
 		}
 
 		&:active {
 			background-color: var(--btn-bg-complementary-active);
-			border-color: var(--btn-border-complementary-active);
+			border-color: var(--btn-bg-complementary-active);
 		}
 	}
 
 	&-light {
 		color: var(--btn-color-light);
 		background-color: var(--btn-bg-light);
-		border-color: var(--btn-border-light);
+		border-color: var(--btn-bg-light);
 
 		&:hover,
 		&:focus {
 			background-color: var(--btn-bg-light-hover);
-			border-color: var(--btn-border-light-hover);
+			border-color: var(--btn-bg-light-hover);
 		}
 
 		&:active {
 			background-color: var(--btn-bg-light-active);
-			border-color: var(--btn-border-light-active);
+			border-color: var(--btn-bg-light-active);
 		}
 	}
 
@@ -155,7 +151,6 @@
 	}
 
 	&-block {
-		display: block;
 		width: 100%;
 		text-align: center;
 	}
@@ -165,7 +160,7 @@
 	&[disabled]:focus,
 	&[disabled]:active {
 		background-color: var(--btn-bg-disabled);
-		border-color: var(--btn-border-disabled);
+		border-color: var(--btn-bg-disabled);
 		color: var(--btn-color-disabled);
 		cursor: not-allowed;
 	}
