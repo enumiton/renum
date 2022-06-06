@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
-import { Button } from '../src/components/button';
-import { Loading } from '../src/components/loading';
+import { Button } from '../../src/components/button';
+import { Loading } from '../../src/components/loading';
 import styles from './icons.module.less';
 
 const modules = import.meta.glob('../src/icons/*.tsx');
@@ -38,4 +38,4 @@ function Icons() {
 	);
 }
 
-export { Icons };
+export default Icons;

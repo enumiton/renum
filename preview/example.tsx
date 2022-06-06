@@ -4,7 +4,6 @@ import styles from './example.module.less';
 type Imports = { [key: string]: (FC | { readonly title: string; }); };
 
 type Props = {
-	readonly title: string;
 	readonly components: () => Promise<Imports>;
 };
 

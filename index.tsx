@@ -8,8 +8,8 @@ import './src/styles/reset.less';
 import { capitalize } from './utils';
 import { Example } from './preview/example';
 import { Button } from './src/components/button/button';
-import { Icons } from './preview/icons';
 import { default as Menu } from './src/icons/Menu2';
+import { Icons } from './preview/icons';
 
 const _ = import.meta.globEager('./src/components/*/style/index.less');
 const modules = import.meta.glob('./src/components/**/*.preview.tsx');
@@ -65,46 +65,47 @@ function App() {
 			<div className={ styles.container }>
 				<aside className={ `${styles.aside} ${open ? styles.open : ''}` }>
 					<h2>Components</h2>
-					<Suspense fallback="Loading components...">
-						<nav>
-							<ul>
-								<li>
-									<Link to="/">
-										Overview
-									</Link>
-								</li>
-								<li>
-									<Link to="/icons">
-										Icons
-									</Link>
-								</li>
-								{ imports.map(function ([key], i) {
-									return (
-										<li key={ i }>
-											<Link to={ '/components/' + key }>
-												{ capitalize(key) }
-											</Link>
-										</li>
-									);
-								}) }
-							</ul>
-						</nav>
-					</Suspense>
+					<nav>
+						<ul>
+							<li>
+								<Link to="/">
+									Overview
+								</Link>
+							</li>
+							<li>
+								<Link to="/icons">
+									Icons
+								</Link>
+							</li>
+							{ imports.map(function ([key], i) {
+								return (
+									<li key={ i }>
+										<Link to={ '/components/' + key }>
+											{ capitalize(key) }
+										</Link>
+									</li>
+								);
+							}) }
+						</ul>
+					</nav>
 				</aside>
 				<main id="main" className={ styles.main }>
 					<h1>{ title }</h1>
 					<Routes>
-						<Route path="/" element={ <Overview /> } />
+						<Route index element={ <Overview /> } />
 						<Route path="/icons" element={ <Icons /> } />
-						{ imports.map(function ([key, module], i) {
-							return (
-								<Route
-									key={ i }
-									path={ '/components/' + key }
-									element={ <Example title={ title } components={ module } /> }
-								/>
-							);
-						}) }
+						<Route path="/components">
+							<Route index element={ <Overview /> } />
+							{ imports.map(function ([key, module], i) {
+								return (
+									<Route
+										key={ i }
+										path={ key }
+										element={ <Example components={ module } /> }
+									/>
+								);
+							}) }
+						</Route>
 					</Routes>
 				</main>
 			</div>
