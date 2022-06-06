@@ -6,9 +6,9 @@ type ButtonType = 'default' | 'primary' | 'complementary' | 'light' | 'invisible
 
 type ButtonShape = 'default' | 'round' | 'pill' | 'circle';
 
-interface ButtonProps extends Omit<Base, 'type'> {
-	readonly icon?: ReactElement;
-	readonly suffix?: ReactElement;
+interface ButtonProps extends Omit<Base, 'type' | 'children'> {
+	readonly icon?: ReactElement | undefined;
+	readonly suffix?: ReactElement | undefined;
 	/** @default 'default' */
 	readonly shape?: ButtonShape | undefined;
 	/** @default 'default' */
@@ -21,6 +21,7 @@ interface ButtonProps extends Omit<Base, 'type'> {
 	readonly loading?: boolean | undefined;
 	/** @default false */
 	readonly block?: boolean | undefined;
+	readonly children?: string | number | boolean | null | undefined;
 }
 
 export type { ButtonProps, ButtonType, ButtonShape };
