@@ -1,5 +1,5 @@
 import { Loading } from './loading';
-import './style/index.less';
+
 const config = {
 	title: 'loading',
 };
