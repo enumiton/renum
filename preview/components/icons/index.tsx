@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Loading } from "../../src/components/loading";
+import { lazy, Suspense } from 'react';
+import { Loading } from '../../../src';
 
 const Component = lazy(() => import('./icons'));
 

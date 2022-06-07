@@ -2,18 +2,19 @@
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { Overview } from './preview/overview';
+import { Overview } from './components/overview';
 import styles from './preview.module.less';
-import './src/styles/reset.less';
 import { capitalize } from './utils';
-import { Example } from './preview/example';
-import { Button } from './src/components/button/button';
-import { default as Menu } from './src/icons/Menu2';
-import { Icons } from './preview/icons';
-import Moon from './src/icons/Moon';
+import { Example } from './components/example';
+import { Button } from '../src';
+import { Icons } from './components/icons';
+import { default as Menu } from '../src/icons/Menu2';
+import Moon from '../src/icons/Moon';
+import '../src/styles/reset.less';
 
-const _ = import.meta.globEager('./src/components/*/style/index.less');
-const modules = import.meta.glob('./src/components/**/*.preview.tsx');
+// @ts-ignore
+const _ = import.meta.globEager('../src/components/*/style/index.less');
+const modules = import.meta.glob('../src/components/**/*.preview.tsx');
 
 const imports = Object.entries(modules).map(function ([path, module]) {
 	const key = path.split('/').pop()!.split('.').shift()!;

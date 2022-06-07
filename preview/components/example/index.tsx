@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import styles from './example.module.less';
+import { Loading } from '../../../src';
 
 type Imports = { [key: string]: (FC | { readonly title: string; }); };
 
@@ -19,7 +20,7 @@ function Example(props: Props) {
 	}, []);
 
 	if (Object.keys(components).length <= 0) {
-		return <span>Loading...</span>;
+		return <Loading active />;
 	}
 
 	return (

@@ -1,8 +1,9 @@
 /// <reference types="vite/client" />
 import { lazy, Suspense, useState } from 'react';
-import { Button, Loading } from '../../src';
+import { Button, Loading } from '../../../src';
 import styles from './icons.module.less';
-import Plus from '../../src/icons/Plus';
+import Plus from '../../../src/icons/Plus';
+import ExternalLink from '../../../src/icons/ExternalLink';
 
 const modules = import.meta.glob('../../src/icons/*.tsx');
 
@@ -42,6 +43,7 @@ function Icons() {
 					More
 				</Button>
 			</div>
+			<a href="//tabler-icons.io/" target="_blank">View all on tabler-icons.io <ExternalLink /></a>
 		</div>
 	);
 }
