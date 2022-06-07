@@ -1,0 +1,103 @@
+name: "\U0001F47E Bug report"
+title: "[Bug] --"
+description: Use this template to report a bug.
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: "A short and clear description of what the problem is."
+      placeholder: A short description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: "How do you encounter this bug? Please explain the steps to reproduce."
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: What do you expect to happen or see?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: What do you see instead?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Renum version
+      description: The exact version of Renum that you're using
+    validations:
+      required: true
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device
+      description: What device were you using when the issue appeared?
+      options:
+        - Desktop
+        - Laptop
+        - Smartphone
+        - Tablet (e.g. iPad)
+        - Other (specify below)
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: What browser were you using?
+      options:
+        - Chrome
+        - Edge
+        - Firefox
+        - Safari
+        - Opera
+        - Other (specify below)
+    validations:
+      required: true
+  - type: dropdown
+    id: browser-version
+    attributes:
+      label: Browser version
+      description: What browser release channel were you using?
+      options:
+        - Stable
+        - Pre-release
+        - Other version (specify below)
+    validations:
+      required: true
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating system
+      description: What operating system were you using?
+      options:
+        - Android
+        - iOS
+        - Linux
+        - MacOS
+        - Windows
+        - Other (specify below)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Extra comments
+      description: Please enter any extra information that could be of use.
+    validations:
+      required: false

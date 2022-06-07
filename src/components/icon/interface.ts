@@ -1,4 +1,4 @@
-import type { ReactElement, SVGAttributes } from "react";
+import type { ReactElement, SVGAttributes } from 'react';
 
 type Base = SVGAttributes<SVGElement>;
 

@@ -1,7 +1,7 @@
-import { cloneElement, forwardRef } from "react";
-import { classNames } from "../../utils";
-import { useConfigProvider } from "../renum-provider";
-import type { IconProps } from "./interface";
+import { cloneElement, forwardRef } from 'react';
+import { classNames } from '../../utils';
+import { useConfigProvider } from '../renum-provider';
+import type { IconProps } from './interface';
 
 const Icon = forwardRef<HTMLSpanElement, IconProps>(function (props, ref) {
 	const {

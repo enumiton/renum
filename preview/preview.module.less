@@ -1,4 +1,4 @@
-@import "../src/styles/index.less";
+@import (reference) "./src/styles/index.less";
 
 @nav-height: 42px;
 
@@ -108,6 +108,7 @@ body {
 .footer {
 	padding: @padding-large;
 	background-color: var(--bg-subtle);
+	border-top: @border-width-medium @border-style var(--border-muted);
 	text-align: center;
 	font-size: @font-size-large;
 }

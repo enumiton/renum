@@ -15,19 +15,29 @@
 	})
 }
 
-.shades(@name, @clr) {
+.shades(@name, @clr, @mix: true) {
 	@hue: hue(@clr);
 	@saturation: saturation(@clr);
 
+	@hsl-1: hsl(@hue, @saturation, (1 / 10) * 100%);
+	@hsl-2: hsl(@hue, @saturation, (2 / 10) * 100%);
+	@hsl-3: hsl(@hue, @saturation, (3 / 10) * 100%);
+	@hsl-4: hsl(@hue, @saturation, (4 / 10) * 100%);
+	@hsl-5: hsl(@hue, @saturation, (5 / 10) * 100%);
+	@hsl-6: hsl(@hue, @saturation, (6 / 10) * 100%);
+	@hsl-7: hsl(@hue, @saturation, (7 / 10) * 100%);
+	@hsl-8: hsl(@hue, @saturation, (8 / 10) * 100%);
+	@hsl-9: hsl(@hue, @saturation, (9 / 10) * 100%);
+
 	& {
-		--@{name}-100: mix(@primary-color, hsl(@hue, @saturation, (1 / 10) * 100%), 6%);
-		--@{name}-200: mix(@primary-color, hsl(@hue, @saturation, (2 / 10) * 100%), 6%);
-		--@{name}-300: mix(@primary-color, hsl(@hue, @saturation, (3 / 10) * 100%), 6%);
-		--@{name}-400: mix(@primary-color, hsl(@hue, @saturation, (4 / 10) * 100%), 6%);
-		--@{name}-500: mix(@primary-color, hsl(@hue, @saturation, (5 / 10) * 100%), 6%);
-		--@{name}-600: mix(@primary-color, hsl(@hue, @saturation, (6 / 10) * 100%), 6%);
-		--@{name}-700: mix(@primary-color, hsl(@hue, @saturation, (7 / 10) * 100%), 6%);
-		--@{name}-800: mix(@primary-color, hsl(@hue, @saturation, (8 / 10) * 100%), 6%);
-		--@{name}-900: mix(@primary-color, hsl(@hue, @saturation, (9 / 10) * 100%), 6%);
+		--@{name}-100: if(@mix, mix(@primary-color, @hsl-1, 6%), @hsl-1);
+		--@{name}-200: if(@mix, mix(@primary-color, @hsl-2, 6%), @hsl-2);
+		--@{name}-300: if(@mix, mix(@primary-color, @hsl-3, 6%), @hsl-3);
+		--@{name}-400: if(@mix, mix(@primary-color, @hsl-4, 6%), @hsl-4);
+		--@{name}-500: if(@mix, mix(@primary-color, @hsl-5, 6%), @hsl-5);
+		--@{name}-600: if(@mix, mix(@primary-color, @hsl-6, 6%), @hsl-6);
+		--@{name}-700: if(@mix, mix(@primary-color, @hsl-7, 6%), @hsl-7);
+		--@{name}-800: if(@mix, mix(@primary-color, @hsl-8, 6%), @hsl-8);
+		--@{name}-900: if(@mix, mix(@primary-color, @hsl-9, 6%), @hsl-9);
 	}
 }

@@ -10,7 +10,7 @@
 	position: relative;
 	display: inline-flex;
 	flex-flow: row nowrap;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	gap: @btn-padding-y;
 	height: @btn-height;
@@ -47,7 +47,6 @@
 	}
 
 	&-text {
-		flex: 1;
 		font-size: inherit;
 		color: inherit;
 		line-height: 1;
@@ -95,17 +94,17 @@
 	&-light {
 		color: var(--btn-color-light);
 		background-color: var(--btn-bg-light);
-		border-color: var(--btn-bg-light);
+		border-color: transparent;
 
 		&:hover,
 		&:focus {
 			background-color: var(--btn-bg-light-hover);
-			border-color: var(--btn-bg-light-hover);
+			border-color: transparent;
 		}
 
 		&:active {
 			background-color: var(--btn-bg-light-active);
-			border-color: var(--btn-bg-light-active);
+			border-color: transparent;
 		}
 	}
 

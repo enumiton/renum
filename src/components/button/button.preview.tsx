@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Button } from './button';
 import { default as Menu } from '../../icons/Menu2';
-import './style/index.less';
 
 const config = {
 	title: 'button',
@@ -53,7 +52,7 @@ function Block() {
 	return (
 		<div>
 			<Button>Default</Button>
-			<Button block style={ { marginTop: "0.5em" } }>Block</Button>
+			<Button block style={ { marginTop: '0.5em' } }>Block</Button>
 		</div>
 	);
 }

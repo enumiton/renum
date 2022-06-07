@@ -1,18 +1,20 @@
 /// <reference types="vite/client" />
-import { StrictMode, Suspense, useEffect, useState } from 'react';
+import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { Overview } from './preview/overview';
+import { Overview } from './components/overview';
 import styles from './preview.module.less';
-import './src/styles/reset.less';
 import { capitalize } from './utils';
-import { Example } from './preview/example';
-import { Button } from './src/components/button/button';
-import { default as Menu } from './src/icons/Menu2';
-import { Icons } from './preview/icons';
+import { Example } from './components/example';
+import { Button } from '../src';
+import { Icons } from './components/icons';
+import { default as Menu } from '../src/icons/Menu2';
+import Moon from '../src/icons/Moon';
+import '../src/styles/reset.less';
 
-const _ = import.meta.globEager('./src/components/*/style/index.less');
-const modules = import.meta.glob('./src/components/**/*.preview.tsx');
+// @ts-ignore
+const _ = import.meta.globEager('../src/components/*/style/index.less');
+const modules = import.meta.glob('../src/components/**/*.preview.tsx');
 
 const imports = Object.entries(modules).map(function ([path, module]) {
 	const key = path.split('/').pop()!.split('.').shift()!;
@@ -57,13 +59,17 @@ function App() {
 					<span className={ styles.logo }>RENUM</span>
 				</div>
 				<div>
-					<Button onClick={ () => setTheme((v) => v === 'light' ? 'dark' : 'light') }>
+					<Button
+						type="invisible"
+						icon={ <Moon /> }
+						onClick={ () => setTheme((v) => v === 'light' ? 'dark' : 'light') }
+					>
 						Change theme
 					</Button>
 				</div>
 			</header>
 			<div className={ styles.container }>
-				<aside className={ `${styles.aside} ${open ? styles.open : ''}` }>
+				<aside className={ `${ styles.aside } ${ open ? styles.open : '' }` }>
 					<h2>Components</h2>
 					<nav>
 						<ul>
