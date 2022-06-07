@@ -1,25 +1,25 @@
+/// <reference types="vite/client" />
 import { lazy, Suspense, useState } from 'react';
-import { Button } from '../../src/components/button';
-import { Loading } from '../../src/components/loading';
+import { Button, Loading } from '../../src';
 import styles from './icons.module.less';
+import Plus from '../../src/icons/Plus';
 
-const modules = import.meta.glob('../src/icons/*.tsx');
+const modules = import.meta.glob('../../src/icons/*.tsx');
 
 const imports = Object.keys(modules).map(function (path) {
 	return path.split('/').pop()!.split('.').shift()!;
 });
 
+const PER_PAGE = 15;
+
 function Icons() {
-	const [max, setMax] = useState(15);
+	const [max, setMax] = useState(PER_PAGE);
 
 	return (
 		<div>
-			<header>
-
-			</header>
 			<div className={ styles.list }>
 				{ imports.slice(0, max).map(function (key, i) {
-					const Component = lazy(() => import('../src/icons/' + key + '.tsx'));
+					const Component = lazy(() => import('../../src/icons/' + key + '.tsx'));
 
 					return (
 						<div key={ i } className={ styles.icon }>
@@ -32,7 +32,15 @@ function Icons() {
 				}) }
 			</div>
 			<div>
-				<Button block onClick={ () => setMax((v) => v + 15) }>More</Button>
+				<Button
+					block
+					dashed
+					icon={ <Plus /> }
+					hidden={ max >= imports.length }
+					onClick={ () => setMax((v) => v + PER_PAGE) }
+				>
+					More
+				</Button>
 			</div>
 		</div>
 	);
