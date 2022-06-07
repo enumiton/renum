@@ -1,51 +1,62 @@
 @import (reference) "./func.less";
+@import (reference) "./common.less";
 
 html {
-	@import (multiple) "./common.less";
+	--primary-hover: lighten(@primary-color, 5%);
+	--primary-active: lighten(@primary-color, 10%);
+	--primary-muted: fade(@primary-color, 10%);
+	--primary-muted-hover: fade(@primary-color, 15%);
+	--primary-muted-active: fade(@primary-color, 20%);
 
-	--primary-hover: darken(@primary-color, 5%);
-	--primary-active: darken(@primary-color, 10%);
-
-	--complementary-hover: darken(@complementary-color, 5%);
-	--complementary-active: darken(@complementary-color, 10%);
+	--complementary-hover: lighten(@complementary-color, 5%);
+	--complementary-active: lighten(@complementary-color, 10%);
 
 	.grays(@black);
 
 	// body
-	--bg-default: var(--gray-24);
-	--bg-overlay: var(--gray-24);
-	--bg-inset: var(--gray-23);
-	--bg-subtle: var(--gray-23);
+	--bg-default: var(--gray-0);
+	--bg-overlay: var(--gray-0);
+	--bg-inset: var(--gray-1);
+	--bg-subtle: var(--gray-1);
 
 	// text
-	--text-default: var(--gray-1);
-	--text-emphasis: var(--gray-0);
-	--text-subtle: var(--gray-5);
-	--text-muted: var(--gray-8);
+	--text-default: var(--gray-23);
+	--text-emphasis: var(--gray-24);
+	--text-subtle: var(--gray-19);
+	--text-muted: var(--gray-16);
 
 	// border
-	--border-default: var(--gray-16);
-	--border-muted: var(--gray-18);
-	--border-subtle: var(--gray-20);
+	--border-default: var(--gray-8);
+	--border-muted: var(--gray-6);
+	--border-subtle: var(--gray-4);
 
 	// btn
 	--btn-color: var(--text-default);
 	--btn-color-primary: var(--primary-contrast);
+	--btn-color-complementary: var(--complementary-contrast);
+	--btn-color-light: var(--primary);
 	--btn-color-invisible: var(--gray-24);
+	--btn-color-disabled: var(--gray-14);
 
-	--btn-border: var(--gray-16);
-	--btn-border-hover: var(--gray-14);
-	--btn-border-active: var(--gray-12);
-
-	--btn-border-primary: var(--primary);
-	--btn-border-primary-hover: var(--primary-hover);
-	--btn-border-primary-active: var(--primary-active);
-
-	--btn-bg: var(--gray-20);
-	--btn-bg-hover: var(--gray-18);
-	--btn-bg-active: var(--gray-16);
+	--btn-bg: var(--gray-2);
+	--btn-bg-hover: var(--gray-4);
+	--btn-bg-active: var(--gray-6);
 
 	--btn-bg-primary: var(--primary);
 	--btn-bg-primary-hover: var(--primary-hover);
 	--btn-bg-primary-active: var(--primary-active);
+
+	--btn-bg-complementary: var(--complementary);
+	--btn-bg-complementary-hover: var(--complementary-hover);
+	--btn-bg-complementary-active: var(--complementary-active);
+
+	--btn-bg-light: var(--primary-muted);
+	--btn-bg-light-hover: var(--primary-muted-hover);
+	--btn-bg-light-active: var(--primary-muted-active);
+
+	--btn-bg-disabled: var(--gray-2);
+
+	--btn-border: var(--gray-8);
+	--btn-border-hover: var(--gray-10);
+	--btn-border-active: var(--gray-12);
 }

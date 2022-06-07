@@ -1,8 +1,7 @@
 @import (reference) "./func.less";
+@import (reference) "./common.less";
 
 html[data-theme="dark"] {
-	@import (multiple) "./common.less";
-
 	--primary-hover: lighten(@primary-color, 5%);
 	--primary-active: lighten(@primary-color, 10%);
 	--primary-muted: fade(@primary-color, 50%);
@@ -36,6 +35,7 @@ html[data-theme="dark"] {
 	--btn-color-primary: var(--primary-contrast);
 	--btn-color-complementary: var(--complementary-contrast);
 	--btn-color-invisible: var(--gray-24);
+	--btn-color-light: var(--primary-800);
 	--btn-color-disabled: var(--gray-14);
 
 	--btn-bg: var(--gray-4);
