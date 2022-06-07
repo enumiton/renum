@@ -1,0 +1,122 @@
+@import "./variables.less";
+@import (reference) "../../icon/style/variables.less";
+
+.@{input-prefix} {
+	.appearance();
+	.touch-action();
+	font: @font;
+
+	position: relative;
+	display: inline-block;
+	padding: @input-padding-y @input-padding-x;
+	height: @input-height;
+	background-color: var(--input-bg);
+	border: @border-width-medium @border-style var(--input-border);
+	border-radius: @input-border-radius;
+	color: var(--input-color);
+	font-size: 1em;
+	line-height: 1;
+	outline: 0;
+	transition: 200ms ease-in-out;
+	transition-property: border, box-shadow;
+	z-index: 1;
+
+	&::-ms-reveal {
+		color: inherit;
+		background-color: currentColor;
+	}
+
+	&::-webkit-credentials-auto-fill-button {
+		color: inherit;
+		background-color: currentColor;
+	}
+
+	&::-webkit-search-cancel-button,
+	&::-webkit-contacts-auto-fill-button,
+	&::-webkit-inner-spin-button,
+	&::-webkit-credentials-auto-fill-button,
+	&::-webkit-caps-lock-indicator {
+		background-color: var(--text-subtle);
+		cursor: pointer;
+	}
+
+	&:hover {
+		border-color: var(--input-border-hover);
+	}
+
+	&:focus,
+	&:active {
+		border-color: var(--input-border-active);
+	}
+
+	&:focus-visible {
+		box-shadow: 0 0 0 @outline-width var(--primary-muted);
+	}
+
+	&-wrapper {
+		position: relative;
+		display: inline-block;
+		white-space: nowrap;
+		z-index: 1;
+
+		&-prefix .@{input-prefix} {
+			.remove-border-radius("top", "left");
+			.remove-border-radius("bottom", "left");
+			margin-left: -@border-width-medium;
+		}
+
+		&-suffix .@{input-prefix} {
+			.remove-border-radius("top", "right");
+			.remove-border-radius("bottom", "right");
+			margin-right: -@border-width-medium;
+		}
+	}
+
+	&-inner {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		z-index: 2;
+
+		& .@{icon-prefix} {
+			position: absolute;
+			top: @input-icon-top;
+			left: (@input-padding-x * 0.5);
+			transform: translateZ(0) scale(unit(@font-size-large));
+			pointer-events: none;
+			z-index: 3;
+		}
+	}
+
+	&-prefix,
+	&-suffix {
+		position: relative;
+		display: inline-block;
+		padding: @input-padding-y @input-padding-x;
+		height: @input-height;
+		background-color: var(--input-bg-fix);
+		border: @border-width-medium @border-style var(--input-border);
+		font-size: 1em;
+		line-height: 1;
+		vertical-align: top;
+		transition: 200ms ease-in-out;
+		transition-property: background-color, border;
+		z-index: 1;
+	}
+
+	&-prefix {
+		border-radius: @input-border-radius-fix 0 0 @input-border-radius-fix;
+	}
+
+	&-suffix {
+		border-radius: 0 @input-border-radius-fix @input-border-radius-fix 0;
+	}
+
+	&-icon {
+		padding-left: @input-padding-icon;
+	}
+
+	&-borderless {
+		border-color: transparent !important;
+	}
+}

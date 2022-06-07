@@ -1,7 +1,3 @@
-.border() {
-	border: var(--border-width-medium) var(--border-style) var(--border-default);
-}
-
 .user-select() {
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -26,6 +22,15 @@
 .touch-action(@value: manipulation) {
 	-ms-touch-action: @value;
 	touch-action: @value;
+}
+
+.remove-border-radius(@pos1, @pos2) {
+	@firefox: ~ '@{pos1}@{pos2}';
+	@everything_else: ~ '@{pos1}-@{pos2}';
+
+	-moz-border-radius-@{firefox}: 0;
+	-webkit-border-@{everything_else}-radius: 0;
+	border-@{everything_else}-radius: 0;
 }
 
 @outline-color: var(--primary);
