@@ -11,7 +11,7 @@
 		@v: (@value / @max) * 100%;
 		@percentage: if(@is-dark, (100% - @v), @v);
 
-		--gray-@{value}: mix(@primary-color, hsl(0, 0%, @percentage), 6%);
+		--gray-@{value}: mix(@primary-color, hsl(0, 0%, @percentage), 2%);
 	})
 }
 
