@@ -21,6 +21,13 @@
 	transition-property: border, box-shadow;
 	z-index: 1;
 
+	&::placeholder {
+		font: inherit;
+		font-size: 1em;
+		color: var(--text-placeholder);
+		opacity: 1;
+	}
+
 	&::-ms-reveal {
 		color: inherit;
 		background-color: currentColor;
@@ -47,9 +54,6 @@
 	&:focus,
 	&:active {
 		border-color: var(--input-border-active);
-	}
-
-	&:focus-visible {
 		box-shadow: 0 0 0 @outline-width var(--primary-muted);
 	}
 
