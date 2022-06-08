@@ -18,7 +18,7 @@
 	line-height: 1;
 	outline: 0;
 	transition: 200ms ease-in-out;
-	transition-property: border, box-shadow;
+	transition-property: color, background-color, border, box-shadow;
 	z-index: 1;
 
 	&::placeholder {
@@ -53,6 +53,7 @@
 
 	&:focus,
 	&:active {
+		background-color: var(--input-bg-active);
 		border-color: var(--input-border-active);
 		box-shadow: 0 0 0 @outline-width var(--primary-muted);
 	}
