@@ -1,0 +1,35 @@
+name: "\U000267F Accessibility question"
+title: "[A11y] --"
+description: Use this template for any questions related to accessibility.
+labels:
+  - a11y
+assignees:
+  - enumiton
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: What are you trying to make?
+      description: "Give a short summary of what you're trying to create."
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is wrong?
+      description: "What issue are you facing with the thing you're trying to create."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What is the expected behaviour?
+      placeholder: What do you expect to happen or see?
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+    validations:
+      required: false
