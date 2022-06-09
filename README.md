@@ -1,6 +1,6 @@
 # Renum
 
-![NPM Version](https://img.shields.io/npm/v/@enumiton/renum?color=%230c72cc&label=%40enumiton%2Frenum)
+[![npm](https://img.shields.io/npm/v/@enumiton/renum?color=0c72cc)](https://www.npmjs.com/package/@enumiton/renum)
 ![Package License](https://img.shields.io/github/license/enumiton/renum)
 
 ## Description
@@ -29,11 +29,11 @@ import { Button } from '@enumiton/renum';
 import '@enumiton/renum/es/styles/reset.less';
 
 function App() {
-  return (
-    <Button type="primary">
-      Hello world
-    </Button>
-  );
+	return (
+		<Button type="primary">
+			Hello world
+		</Button>
+	);
 }
 ```
 
@@ -58,14 +58,14 @@ import { Button } from '@enumiton/renum';
 import { Menu } from '@enumiton/renum/icons';
 
 function App() {
-  return (
-    <Button
-      icon={ <Menu /> }
-      type="invisible"
-      shape="circle"
-      aria-label="Open menu"
-    />
-  );
+	return (
+		<Button
+			icon={ <Menu /> }
+			type="invisible"
+			shape="circle"
+			aria-label="Open menu"
+		/>
+	);
 }
 ```
 
