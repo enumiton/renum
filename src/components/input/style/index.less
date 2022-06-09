@@ -1,4 +1,5 @@
 @import "./variables.less";
+@import (reference) "../../button/style/variables.less";
 @import (reference) "../../icon/style/variables.less";
 
 .@{input-prefix} {
@@ -33,11 +34,13 @@
 		background-color: currentColor;
 	}
 
+	//noinspection CssInvalidPseudoSelector
 	&::-webkit-credentials-auto-fill-button {
 		color: inherit;
 		background-color: currentColor;
 	}
 
+	//noinspection CssInvalidPseudoSelector
 	&::-webkit-search-cancel-button,
 	&::-webkit-contacts-auto-fill-button,
 	&::-webkit-inner-spin-button,
@@ -60,7 +63,9 @@
 
 	&-wrapper {
 		position: relative;
-		display: inline-block;
+		display: inline-flex;
+		flex-flow: row nowrap;
+		align-items: center;
 		white-space: nowrap;
 		z-index: 1;
 
@@ -79,8 +84,6 @@
 
 	&-inner {
 		position: relative;
-		display: inline-block;
-		vertical-align: middle;
 		z-index: 2;
 
 		& .@{icon-prefix} {
@@ -97,16 +100,23 @@
 	&-suffix {
 		position: relative;
 		display: inline-block;
-		padding: @input-padding-y @input-padding-x;
+		padding: 0;
 		height: @input-height;
 		background-color: var(--input-bg-fix);
 		border: @border-width-medium @border-style var(--input-border);
 		font-size: 1em;
-		line-height: 1;
-		vertical-align: top;
-		transition: 200ms ease-in-out;
+		transition: @transition-speed-fast ease-in-out;
 		transition-property: background-color, border;
 		z-index: 1;
+
+		&-text {
+			padding: calc(@input-padding-y - @border-width-medium) @input-padding-x;
+		}
+
+		& .@{btn-prefix} {
+			margin: -@border-width-medium;
+			border-radius: inherit;
+		}
 	}
 
 	&-prefix {

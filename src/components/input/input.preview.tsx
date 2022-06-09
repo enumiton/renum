@@ -1,5 +1,6 @@
 import { Input } from './input';
 import User from '../../icons/User';
+import { Button } from '../button';
 
 const config = {
 	title: 'input',
@@ -20,7 +21,9 @@ function Icon() {
 function Size() {
 	return (
 		<div>
-			<p>To change the size of the input you only need to change the <code>font-size</code> of the input or any of its parents.</p>
+			<p>
+				To change the size of the input you only need to change the <code>font-size</code> of the input or any of its parents.
+			</p>
 			<div style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }>
 				<Input wrapperStyle={ { fontSize: '0.875em' } } defaultValue="Small" icon={ <User /> } />
 				<Input defaultValue="Default" icon={ <User /> } />
@@ -37,6 +40,11 @@ function Fixes() {
 				<Input prefix="Prefix" />
 				<Input suffix="Suffix" />
 				<Input prefix="Prefix" defaultValue="and" suffix="Suffix" icon={ <User /> } />
+				<Input
+					suffix={ (
+						<Button>Search</Button>
+					) }
+				/>
 				<Input wrapperStyle={ { fontSize: '1.125em' } } defaultValue="Large" />
 			</div>
 		</div>

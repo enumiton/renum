@@ -1,7 +1,7 @@
-import { forwardRef } from "react";
-import { classNames } from "../../utils";
-import { useConfigProvider } from "../renum-provider";
-import type { InputProps } from "./interface";
+import { forwardRef, isValidElement } from 'react';
+import { classNames } from '../../utils';
+import { useConfigProvider } from '../renum-provider';
+import type { InputProps } from './interface';
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 	const {
@@ -17,6 +17,22 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 
 	const { prefixCls } = useConfigProvider();
 
+	function fix(name: 'prefix' | 'suffix', value: InputProps['prefix']) {
+		if (!value) {
+			return null;
+		}
+
+		const classes = classNames(prefixCls + '-input-' + name, {
+			[`${ prefixCls }-input-${ name }-text`]: !isValidElement(value),
+		});
+
+		return (
+			<span className={ classes }>
+				{ value }
+			</span>
+		);
+	}
+
 	return (
 		<div
 			style={ wrapperStyle }
@@ -25,11 +41,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 				[`${ prefixCls }-input-wrapper-suffix`]: !!suffix,
 			}, wrapperClassName) }
 		>
-			{ !!prefix ? (
-				<div className={ prefixCls + '-input-prefix' }>
-					{ prefix }
-				</div>
-			) : null }
+			{ fix('prefix', prefix) }
 			<div className={ prefixCls + '-input-inner' }>
 				{ icon }
 				<input
@@ -42,11 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 					}, props.className) }
 				/>
 			</div>
-			{ !!suffix ? (
-				<div className={ prefixCls + '-input-suffix' }>
-					{ suffix }
-				</div>
-			) : null }
+			{ fix('suffix', suffix) }
 		</div>
 	);
 });
