@@ -59,12 +59,12 @@ import { Menu } from '@enumiton/renum/icons';
 
 function App() {
   return (
-          <Button
-                  icon={ <Menu /> }
-                  type="invisible"
-                  shape="circle"
-                  aria-label="Open menu"
-          />
+    <Button
+      icon={ <Menu /> }
+      type="invisible"
+      shape="circle"
+      aria-label="Open menu"
+    />
   );
 }
 ```
