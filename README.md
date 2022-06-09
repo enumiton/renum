@@ -29,11 +29,11 @@ import { Button } from '@enumiton/renum';
 import '@enumiton/renum/es/styles/reset.less';
 
 function App() {
-	return (
-		<Button type="primary">
-			Hello world
-		</Button>
-	);
+  return (
+    <Button type="primary">
+      Hello world
+    </Button>
+  );
 }
 ```
 
@@ -58,14 +58,14 @@ import { Button } from '@enumiton/renum';
 import { Menu } from '@enumiton/renum/icons';
 
 function App() {
-	return (
-		<Button
-			icon={ <Menu /> }
-			type="invisible"
-			shape="circle"
-			aria-label="Open menu"
-		/>
-	);
+  return (
+          <Button
+                  icon={ <Menu /> }
+                  type="invisible"
+                  shape="circle"
+                  aria-label="Open menu"
+          />
+  );
 }
 ```
 
