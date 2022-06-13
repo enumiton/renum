@@ -24,6 +24,9 @@ npm install @enumiton/renum
 All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by changing
 the `font-size` of the component or its parent.
 
+There is currently no compiled css file which includes all styles. For the time being you'll need a compiler which can 
+dynamically import the component styles from `components/[name]/style/index.less`.
+
 ```tsx
 import { Button } from '@enumiton/renum';
 import '@enumiton/renum/es/styles/reset.less';
