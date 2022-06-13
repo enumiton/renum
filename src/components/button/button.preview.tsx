@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Button } from './button';
-import { default as Menu } from '../../icons/Menu2';
+import { default as Send } from '../../icons/Send';
+import { default as External } from '../../icons/ExternalLink';
+import { default as AlignLeft } from '../../icons/AlignLeft';
+import { default as AlignCenter } from '../../icons/AlignCenter';
+import { default as AlignRight } from '../../icons/AlignRight';
 
 const config = {
 	title: 'button',
@@ -29,7 +33,7 @@ function Radius() {
 			<Button shape="pill">Pill shape</Button>
 			<Button
 				shape="circle"
-				icon={ <Menu /> }
+				icon={ <Send /> }
 				aria-label="Circular shape"
 			/>
 		</div>
@@ -60,11 +64,21 @@ function Block() {
 function Icons() {
 	return (
 		<div style={ { display: 'flex', flexFlow: 'row wrap', gap: '0.5em' } }>
-			<Button icon={ <Menu /> }>Icon</Button>
-			<Button suffix={ <Menu /> }>Suffix</Button>
+			<Button icon={ <Send /> }>Icon</Button>
+			<Button suffix={ <External /> }>Suffix</Button>
 		</div>
 	);
 }
 
-export { Types, Radius, Loading, Block, Icons };
+function Group() {
+	return (
+		<Button.Group>
+			<Button icon={ <AlignLeft /> } aria-label="Align text left" />
+			<Button icon={ <AlignCenter /> } aria-label="Align text center" />
+			<Button icon={ <AlignRight /> } aria-label="Align text right" />
+		</Button.Group>
+	);
+}
+
+export { Types, Radius, Loading, Block, Icons, Group };
 export default config;

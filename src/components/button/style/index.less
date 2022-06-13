@@ -159,6 +159,36 @@
 		text-align: center;
 	}
 
+	&-group {
+		white-space: nowrap;
+
+		& .@{btn-prefix} {
+
+			&:hover,
+			&:focus {
+				z-index: 2;
+			}
+
+			&:first-child {
+				.remove-border-radius("top", "right");
+				.remove-border-radius("bottom", "right");
+			}
+
+			& + .@{btn-prefix} {
+				margin-left: -@btn-border-width;
+
+				&:last-child {
+					.remove-border-radius("top", "left");
+					.remove-border-radius("bottom", "left");
+				}
+
+				&:not(:last-child) {
+					border-radius: 0;
+				}
+			}
+		}
+	}
+
 	&[disabled],
 	&[disabled]:hover,
 	&[disabled]:focus,

@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactElement } from 'react';
+import type { ButtonHTMLAttributes, HTMLAttributes, ReactElement } from 'react';
 
 type Base = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -24,4 +24,7 @@ interface ButtonProps extends Omit<Base, 'type' | 'children'> {
 	readonly children?: string | number | boolean | null | undefined;
 }
 
-export type { ButtonProps, ButtonType, ButtonShape };
+interface ButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
+}
+
+export type { ButtonProps, ButtonType, ButtonShape, ButtonGroupProps };

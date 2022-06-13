@@ -1,11 +1,16 @@
-import type { MouseEvent } from 'react';
+import type { ForwardRefExoticComponent, MouseEvent, RefAttributes } from 'react';
 import { forwardRef } from 'react';
 import type { ButtonProps } from './interface';
 import { classNames } from '../../utils';
 import { useConfigProvider } from '../renum-provider';
 import { Loading } from '../loading';
+import { Group } from './group';
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) {
+interface Button extends ForwardRefExoticComponent<ButtonProps & RefAttributes<HTMLButtonElement>> {
+	Group: typeof Group;
+}
+
+const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) {
 	const {
 		icon,
 		suffix,
@@ -18,7 +23,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) 
 		...rest
 	} = props;
 
-	const { prefixCls } = useConfigProvider();
+	const { getPrefixCls } = useConfigProvider();
+
+	const prefixCls = getPrefixCls('btn');
 
 	function handleClick(e: MouseEvent<HTMLButtonElement>) {
 		if (props.disabled) {
@@ -34,26 +41,28 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) 
 			role="button"
 			{ ...rest }
 			onClick={ handleClick }
-			className={ classNames(prefixCls + '-btn', {
-				[`${ prefixCls }-btn-${ type }`]: (!!type && type !== 'default'),
-				[`${ prefixCls }-btn-${ shape }`]: (!!shape && shape !== 'default'),
-				[`${ prefixCls }-btn-icon-only`]: !props.children,
-				[`${ prefixCls }-btn-icon`]: !!icon,
-				[`${ prefixCls }-btn-suffix`]: !!suffix,
-				[`${ prefixCls }-btn-loading`]: (!!loading),
-				[`${ prefixCls }-btn-block`]: (!!block),
-				[`${ prefixCls }-btn-dashed`]: !!dashed,
+			className={ classNames(prefixCls, {
+				[`${ prefixCls }-${ type }`]: (!!type && type !== 'default'),
+				[`${ prefixCls }-${ shape }`]: (!!shape && shape !== 'default'),
+				[`${ prefixCls }-icon-only`]: !props.children,
+				[`${ prefixCls }-icon`]: !!icon,
+				[`${ prefixCls }-suffix`]: !!suffix,
+				[`${ prefixCls }-loading`]: (!!loading),
+				[`${ prefixCls }-block`]: (!!block),
+				[`${ prefixCls }-dashed`]: !!dashed,
 			}, props.className) }
 			type={ htmlType }
 			ref={ ref }
 		>
 			{ loading ? <Loading active /> : icon }
 			{ (!!props.children) ? (
-				<span className={ prefixCls + '-btn-text' }>{ props.children }</span>
+				<span className={ prefixCls + '-text' }>{ props.children }</span>
 			) : null }
 			{ suffix }
 		</button>
 	);
-});
+}) as Button;
+
+Button.Group = Group;
 
 export { Button };
