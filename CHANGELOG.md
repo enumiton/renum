@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.1.4
+
+- Fixed font styles for input
+- Added `getPrefixCls` to the context
+- Button
+  - Fixed font styles
+  - Tweaked disabled bg color is dark mode
+  - Added minor `Button.Group` component
+- Added a visual `:active` indicator when in `:focus-visible` mode
+
 ## v0.1.3
 
 - Tweaked background colors
