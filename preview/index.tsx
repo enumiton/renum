@@ -6,7 +6,7 @@ import { Overview } from './components/overview';
 import styles from './preview.module.less';
 import { capitalize } from './utils';
 import { Example } from './components/example';
-import { Button } from '../src';
+import { Button, RenumProvider } from '../src';
 import { Icons } from './components/icons';
 import { default as Menu } from '../src/icons/Menu2';
 import Moon from '../src/icons/Moon';
@@ -125,9 +125,11 @@ function App() {
 function Providers() {
 	return (
 		<StrictMode>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
+			<RenumProvider>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</RenumProvider>
 		</StrictMode>
 	);
 }
