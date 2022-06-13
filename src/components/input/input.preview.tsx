@@ -1,6 +1,7 @@
 import { Input } from './input';
 import User from '../../icons/User';
 import { Button } from '../button';
+import { default as Search } from '../../icons/Search';
 
 const config = {
 	title: 'input',
@@ -42,7 +43,7 @@ function Fixes() {
 				<Input prefix="Prefix" defaultValue="and" suffix="Suffix" icon={ <User /> } />
 				<Input
 					suffix={ (
-						<Button>Search</Button>
+						<Button icon={ <Search /> }>Search</Button>
 					) }
 				/>
 				<Input wrapperStyle={ { fontSize: '1.125em' } } defaultValue="Large" />
