@@ -51,5 +51,10 @@
 
 	&:focus-visible {
 		outline: @outline;
+		outline-offset: @outline-width;
+
+		&:active {
+			outline-offset: 0;
+		}
 	}
 }
