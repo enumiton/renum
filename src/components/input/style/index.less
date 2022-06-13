@@ -5,7 +5,6 @@
 .@{input-prefix} {
 	.appearance();
 	.touch-action();
-	font: @font;
 
 	position: relative;
 	display: inline-block;
@@ -14,6 +13,9 @@
 	background-color: var(--input-bg);
 	border: @border-width-medium @border-style var(--input-border);
 	border-radius: @input-border-radius;
+	font: inherit;
+	letter-spacing: inherit;
+	font-feature-settings: inherit;
 	color: var(--input-color);
 	font-size: 1em;
 	line-height: 1;
