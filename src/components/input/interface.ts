@@ -6,7 +6,9 @@ interface InputProps extends Omit<Base, 'prefix'> {
 	readonly icon?: ReactElement | undefined;
 	readonly prefix?: ReactElement | string | number | null | undefined;
 	readonly suffix?: ReactElement | string | number | null | undefined;
+	/** @default false */
 	readonly borderless?: boolean | undefined;
+	/** @default false */
 	readonly clearable?: boolean | undefined;
 	readonly onClear?: (() => void);
 	readonly wrapperClassName?: string | undefined;
