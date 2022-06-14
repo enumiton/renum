@@ -28,7 +28,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function (prop
 	const prefixCls = getPrefixCls('btn');
 
 	function handleClick(e: MouseEvent<HTMLButtonElement>) {
-		if (props.disabled) {
+		if (props?.disabled || loading) {
 			return;
 		}
 
