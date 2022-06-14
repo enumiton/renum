@@ -190,12 +190,16 @@
 	}
 
 	&[disabled],
-	&[disabled]:hover,
-	&[disabled]:focus,
-	&[disabled]:active {
-		background-color: var(--btn-bg-disabled);
-		border-color: var(--btn-bg-disabled);
-		color: var(--btn-color-disabled);
-		cursor: not-allowed;
+	&:disabled {
+
+		&,
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: var(--btn-bg-disabled);
+			border-color: var(--btn-bg-disabled);
+			color: var(--btn-color-disabled);
+			cursor: not-allowed;
+		}
 	}
 }
