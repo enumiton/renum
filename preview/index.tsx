@@ -6,11 +6,10 @@ import { Overview } from './components/overview';
 import styles from './preview.module.less';
 import { capitalize } from './utils';
 import { Example } from './components/example';
-import { Button, RenumProvider } from '../src';
+import { RenumProvider } from '../src';
 import { Icons } from './components/icons';
-import { default as Menu } from '../src/icons/Menu2';
-import Moon from '../src/icons/Moon';
 import '../src/styles/reset.less';
+import { Header } from './components/header';
 
 // @ts-ignore
 const _ = import.meta.globEager('../src/components/*/style/index.less');
@@ -26,7 +25,6 @@ function App() {
 	const { pathname } = useLocation();
 
 	const [open, setOpen] = useState(false);
-	const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 	const [title, setTitle] = useState('Overview — Renum');
 
 	function handleLocation() {
@@ -37,37 +35,11 @@ function App() {
 		setTitle(title);
 	}
 
-	useEffect(function () {
-		window.document.documentElement.dataset.theme = theme;
-	}, [theme]);
-
 	useEffect(handleLocation, [pathname]);
 
 	return (
 		<>
-			<header className={ styles.header }>
-				<a className={ styles.skip } href="#main">Skip to main</a>
-				<div>
-					<Button
-						icon={ <Menu /> }
-						type="invisible"
-						shape="circle"
-						onClick={ () => setOpen((v) => !v) }
-						aria-label={ open ? 'Close sidemenu' : 'Open sidemenu' }
-						aria-live="polite"
-					/>
-					<span className={ styles.logo }>RENUM</span>
-				</div>
-				<div>
-					<Button
-						type="invisible"
-						icon={ <Moon /> }
-						onClick={ () => setTheme((v) => v === 'light' ? 'dark' : 'light') }
-					>
-						Change theme
-					</Button>
-				</div>
-			</header>
+			<Header open={ open } onToggle={ () => setOpen((v) => !v) } />
 			<div className={ styles.container }>
 				<aside className={ `${ styles.aside } ${ open ? styles.open : '' }` }>
 					<h2>Components</h2>
