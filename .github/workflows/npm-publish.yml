@@ -2,7 +2,7 @@ name: Publish to NPM
 
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   build:
@@ -12,12 +12,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: build
+          run: yarn && yarn build
 
   publish-npm:
     needs: build
