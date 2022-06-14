@@ -1,5 +1,5 @@
 export { Button } from './components/button';
-export type { ButtonProps, ButtonShape, ButtonType } from './components/button';
+export type { ButtonProps, ButtonType, ButtonShape, ButtonGroupProps } from './components/button';
 
 export { Icon } from './components/icon';
 export type { IconProps } from './components/icon';
