@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from './button';
 import { default as Send } from '../../icons/Send';
 import { default as External } from '../../icons/ExternalLink';
@@ -42,6 +42,14 @@ function Radius() {
 
 function Loading() {
 	const [loading, setLoading] = useState(true);
+
+	useEffect(function () {
+		if (loading) {
+			window.setTimeout(function () {
+				setLoading(false);
+			}, 2000);
+		}
+	}, [loading]);
 
 	return (
 		<div>
