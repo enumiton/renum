@@ -1,0 +1,27 @@
+@import "./variables.less";
+@import (reference) "../../input/style/variables.less";
+@import (reference) "../../icon/style/variables.less";
+
+.@{select-prefix} {
+	.appearance();
+	.touch-action();
+
+	.input(inline-flex);
+	align-items: center;
+	gap: @input-padding-y;
+	cursor: pointer;
+
+	& .@{icon-prefix} {
+		transform: translateZ(0) scale(unit(@font-size-large));
+	}
+
+	&-text {
+		font-size: inherit;
+		color: inherit;
+		line-height: 1;
+	}
+
+	&-wrapper {
+		display: inline-block;
+	}
+}

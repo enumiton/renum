@@ -13,7 +13,15 @@ export type { LoadingProps } from './components/loading';
 export { RenumProvider, RenumConsumer, useConfigProvider } from './components/renum-provider';
 export type { RenumConfig } from './components/renum-provider';
 
+export { Portal } from './components/portal';
+export type { PortalProps } from './components/portal';
+
+export { Select } from './components/select';
+export type { SelectProps, SelectValue } from './components/select';
+
 export {
+	TRUE,
+	FALSE,
 	classNames,
 	isString,
 } from './utils';

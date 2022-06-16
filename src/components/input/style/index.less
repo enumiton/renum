@@ -6,23 +6,7 @@
 	.appearance();
 	.touch-action();
 
-	position: relative;
-	display: inline-block;
-	padding: @input-padding-y @input-padding-x;
-	height: @input-height;
-	background-color: var(--input-bg);
-	border: @border-width-medium @border-style var(--input-border);
-	border-radius: @input-border-radius;
-	font: inherit;
-	letter-spacing: inherit;
-	font-feature-settings: inherit;
-	color: var(--input-color);
-	font-size: 1em;
-	line-height: 1;
-	outline: 0;
-	transition: @transition-speed-fast ease-in-out;
-	transition-property: color, background-color, border, box-shadow;
-	z-index: 1;
+	.input();
 
 	&::placeholder {
 		font: inherit;
@@ -50,17 +34,6 @@
 	&::-webkit-caps-lock-indicator {
 		background-color: var(--text-subtle);
 		cursor: pointer;
-	}
-
-	&:hover {
-		border-color: var(--input-border-hover);
-	}
-
-	&:focus,
-	&:active {
-		background-color: var(--input-bg-active);
-		border-color: var(--input-border-active);
-		box-shadow: 0 0 0 @outline-width var(--primary-muted);
 	}
 
 	&-wrapper {
