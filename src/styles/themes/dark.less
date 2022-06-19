@@ -31,6 +31,9 @@ html[data-theme="dark"] {
 	--border-muted: var(--gray-6);
 	--border-subtle: var(--gray-4);
 
+	// shadow
+	--shadow-color: rgba(@black, 0.2);
+
 	// btn
 	--btn-color: var(--text-default);
 	--btn-color-primary: var(--primary-contrast);
@@ -54,7 +57,6 @@ html[data-theme="dark"] {
 	--btn-bg-light: var(--primary-muted);
 	--btn-bg-light-hover: var(--primary-muted-hover);
 	--btn-bg-light-active: var(--primary-muted-active);
-
 	--btn-bg-disabled: var(--gray-3);
 
 	--btn-border: var(--gray-8);
@@ -64,12 +66,22 @@ html[data-theme="dark"] {
 	// input
 	--input-color: var(--text-default);
 	--input-color-placeholder: var(--text-muted);
+	--input-color-disabled: var(--gray-14);
 
 	--input-bg: var(--bg-inset);
 	--input-bg-active: var(--bg-default);
 	--input-bg-fix: var(--bg-default);
+	--input-bg-disabled: var(--gray-1);
 
 	--input-border: var(--gray-8);
 	--input-border-hover: var(--gray-10);
 	--input-border-active: var(--primary);
+	--input-border-disabled: var(--gray-4);
+
+	// select
+	--select-bg-list: var(--bg-overlay);
+	--select-bg-option-hover: var(--gray-4);
+	--select-bg-option-active: var(--gray-6);
+
+	--select-border-list: var(--border-muted);
 }
