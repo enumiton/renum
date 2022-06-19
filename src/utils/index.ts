@@ -1,7 +1,3 @@
-import { classNames } from './classnames';
-import { isString } from './is';
-
-const TRUE = 'true';
-const FALSE = 'false';
-
-export { TRUE, FALSE, classNames, isString };
+export { classNames } from './classnames';
+export { isString } from './is';
+export { Key, getKey } from './keys';

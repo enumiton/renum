@@ -1,5 +1,5 @@
 import { forwardRef, useId, useState } from 'react';
-import { classNames, FALSE } from '../../utils';
+import { classNames } from '../../utils';
 import { useConfigProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
 import { default as Selector } from '../../icons/Selector';
@@ -55,7 +55,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				id={ listId }
 				role="listbox"
 				aria-labelledby={ labelId }
-				aria-multiselectable={ FALSE }
+				aria-multiselectable={ false }
 				className={ prefixCls + '-list' }
 			>
 				{ options.map(Option) }
