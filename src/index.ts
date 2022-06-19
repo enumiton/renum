@@ -20,8 +20,6 @@ export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
 
 export {
-	TRUE,
-	FALSE,
 	classNames,
 	isString,
 } from './utils';
