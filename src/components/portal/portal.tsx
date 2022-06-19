@@ -7,19 +7,27 @@ import type { PortalProps } from './interface';
 function Portal({ key, target, container, ...props }: PortalProps) {
 	const { getPrefixCls } = useConfigProvider();
 	const prefixCls = getPrefixCls('portal');
-	const [position, setPosition] = useState({ left: 0, top: 0 });
+	const [position, setPosition] = useState({ left: 0, top: 0, width: 0, height: 0 });
 
 	const mount = container || document.body;
 
-	useEffect(function () {
+	// @todo handle `position`
+	function update() {
 		if (!target?.current) {
 			return;
 		}
 
-		const { top, left, height } = target.current.getBoundingClientRect();
+		const { top, left, width, height } = target.current.getBoundingClientRect();
 
-		setPosition({ top: top + height, left });
-	}, [target?.current, props.hidden]);
+		setPosition({
+			top: top + height + window.scrollY,
+			left: left + window.scrollX,
+			width,
+			height
+		});
+	}
+
+	useEffect(update, [target?.current, props.hidden]);
 
 	if (!mount) {
 		throw new Error('[Renum/Portal]: no mount');
@@ -29,7 +37,7 @@ function Portal({ key, target, container, ...props }: PortalProps) {
 		<div
 			{ ...props }
 			className={ classNames(prefixCls, props.className) }
-			style={ { left: position.left, top: position.top } }
+			style={ { left: position.left, top: position.top, minWidth: position.width } }
 		>
 			{ props.children }
 		</div>
