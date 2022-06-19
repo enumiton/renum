@@ -13,6 +13,8 @@
 
 @input-icon-top: ((@input-height - 1em) * 0.5);
 
+@input-shadow-focus: 0 0 0 @outline-width var(--primary-muted);
+
 .input(@display: inline-block) {
 	position: relative;
 	display: @display;
@@ -40,6 +42,20 @@
 	&:active {
 		background-color: var(--input-bg-active);
 		border-color: var(--input-border-active);
-		box-shadow: 0 0 0 @outline-width var(--primary-muted);
+		box-shadow: @input-shadow-focus;
+	}
+
+	&[disabled],
+	&:disabled {
+
+		&,
+		&:hover,
+		&:focus,
+		&:active {
+			color: var(--input-color-disabled);
+			background-color: var(--input-bg-disabled);
+			border-color: var(--input-border-disabled);
+			box-shadow: none;
+		}
 	}
 }

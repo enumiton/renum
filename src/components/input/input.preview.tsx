@@ -58,5 +58,11 @@ function Borderless() {
 	);
 }
 
-export { Simple, Icon, Size, Fixes, Borderless };
+function Disabled() {
+	return (
+		<Input disabled defaultValue="Disabled" />
+	);
+}
+
+export { Simple, Icon, Size, Fixes, Borderless, Disabled };
 export default config;
