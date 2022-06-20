@@ -1,8 +1,8 @@
-name: "\U0001F47E Bug report"
+name: "👾 Bug report"
 title: "[Bug] --"
 description: Use this template to report a bug.
 labels:
-  - bug
+  - "👾 bug"
 body:
   - type: textarea
     id: summary

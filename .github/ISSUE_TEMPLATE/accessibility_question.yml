@@ -1,8 +1,8 @@
-name: "\u267f Accessibility question"
+name: "♿️ Accessibility question"
 title: "[A11y] --"
 description: Use this template for any questions related to accessibility.
 labels:
-  - a11y
+  - "♿️ a11y"
 assignees:
   - enumiton
 body:
