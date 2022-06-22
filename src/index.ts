@@ -21,5 +21,11 @@ export type { SelectProps, SelectValue } from './components/select';
 
 export {
 	classNames,
+	clamp,
+	isNullable,
+	isNonNullable,
 	isString,
+	isHTMLElement,
+	isHTMLInputElement,
+	isHTMLButtonElement,
 } from './utils';
