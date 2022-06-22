@@ -192,26 +192,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			case Key.Delete:
 				setSelected(undefined);
 				return;
-			case Key.Home:
-			case Key.End:
-				e.preventDefault();
-				open();
-				update((normalized === Key.Home) ? Direction.Start : Direction.End);
-				return;
-			case Key.PageUp:
-			case Key.PageDown:
-				e.preventDefault();
-				open();
-				update((normalized === Key.PageUp) ? Direction.Prev10 : Direction.Next10);
-				return;
-			case Key.Up:
-			case Key.Right:
-			case Key.Down:
-			case Key.Left:
-				e.preventDefault();
-				open();
-				update((normalized === Key.Up || normalized === Key.Left) ? Direction.Prev : Direction.Next);
-				return;
 		}
 
 		move(e, normalized);
