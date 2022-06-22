@@ -1,5 +1,8 @@
+import { default as UserIcon } from '../../icons/User';
 import type { SelectOptions } from './interface';
 import { Select } from './select';
+
+const ICON = <UserIcon />;
 
 const config = {
 	title: 'select',
@@ -11,6 +14,7 @@ const options: SelectOptions = Array(25).fill(null).map(function () {
 	return {
 		label: str,
 		value: str,
+		icon: Math.random() > 0.5 ? ICON : undefined,
 	};
 });
 

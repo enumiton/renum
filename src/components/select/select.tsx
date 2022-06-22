@@ -1,15 +1,30 @@
-import { forwardRef, useId, useState } from 'react';
-import { classNames } from '../../utils';
+import { forwardRef, KeyboardEvent, MouseEvent, MutableRefObject, useId, useRef, useState } from 'react';
+import { default as Selector } from '../../icons/Selector';
+import { clamp, classNames, getKey, isHTMLElement, isNullable, Key } from '../../utils';
+import { Overlay } from '../overlay';
 import { useConfigProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
-import { default as Selector } from '../../icons/Selector';
-import { Overlay } from '../overlay';
 
 const SELECTOR_ICON = <Selector />;
 
+const ARIA_SELECTED = '[aria-selected="true"]';
+const ARIA_DISABLED = '[aria-disabled="true"]';
+
+function NOT(selector: string): string {
+	return ':not(' + selector + ')';
+};
+
+const enum Direction {
+	Next = +1,
+	Next10 = +10,
+	Prev = -1,
+	Prev10 = -10,
+	Start = 2,
+	End = 3,
+}
+
 const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) {
 	const {
-		icon,
 		placeholder,
 		value: $value,
 		options,
@@ -25,21 +40,217 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 	const [expanded, setExpanded] = useState<boolean>(false);
 	const [selected, setSelected] = useState<number | undefined>();
 
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const listboxRef = useRef<HTMLUListElement>(null);
+
 	const { getPrefixCls } = useConfigProvider();
 	const prefixCls = getPrefixCls('select');
 
-	function handleButtonClick() {
-		setExpanded((v) => !v);
+	function close() {
+		const btn = buttonRef.current;
+		const ul = listboxRef.current;
+
+		if (btn) {
+			btn.focus();
+		}
+
+		setExpanded(false);
+
+		if (!isHTMLElement(ul)) {
+			return;
+		}
+
+		const lis = [...ul.querySelectorAll<HTMLLIElement>(`li${ NOT(ARIA_DISABLED) }.${ prefixCls }-option-hover`)];
+
+		for (const li of lis) {
+			li.classList.remove(`${ prefixCls }-option-hover`);
+		}
 	}
 
-	function Option(option: SelectOption, index: number) {
+	function open() {
+		if (expanded) {
+			return;
+		}
+
+		setExpanded(true);
+
+		update();
+	}
+
+	function update(direction?: Direction, hovered?: HTMLLIElement) {
+		const ul = listboxRef.current;
+
+		if (!isHTMLElement(ul)) {
+			return;
+		}
+
+		const lis = [...ul.querySelectorAll('li' + NOT(ARIA_DISABLED))];
+		const hoveredOption = hovered ?? ul.querySelector(`li${ NOT(ARIA_DISABLED) }.${ prefixCls }-option-hover`);
+		const selectedOption = ul.querySelector('li' + ARIA_SELECTED + NOT(ARIA_DISABLED));
+
+		let index = -1;
+
+		if (!hoveredOption && selectedOption) {
+			index = lis.indexOf(selectedOption);
+		}
+		else if (hoveredOption) {
+			index = lis.indexOf(hoveredOption);
+		}
+
+		switch (direction) {
+			case Direction.Start:
+			case Direction.End:
+				index = (direction === Direction.Start) ? 0 : lis.length - 1;
+				break;
+			default:
+				if (direction === undefined) {
+					index = Math.max(index, 0);
+				} else {
+					index = clamp(index + direction, 0, lis.length - 1);
+				}
+				break;
+		}
+
+		const option = lis?.[index];
+
+		if (!isHTMLElement(option)) {
+			return;
+		}
+
+		hoveredOption?.classList?.remove?.(`${ prefixCls }-option-hover`);
+
+		ul.setAttribute('aria-activedescendant', option.id);
+
+		option.focus();
+		option.classList.add(`${ prefixCls }-option-hover`);
+	}
+
+	function move(e: KeyboardEvent<HTMLButtonElement> | KeyboardEvent<HTMLLIElement>, normalized: Key) {
+		switch (normalized) {
+			case Key.Home:
+			case Key.End:
+				e.preventDefault();
+				open();
+				update((normalized === Key.Home) ? Direction.Start : Direction.End);
+				break;
+			case Key.PageUp:
+			case Key.PageDown:
+				e.preventDefault();
+				open();
+				update((normalized === Key.PageUp) ? Direction.Prev10 : Direction.Next10);
+				break;
+			case Key.Up:
+			case Key.Right:
+			case Key.Down:
+			case Key.Left:
+				e.preventDefault();
+				open();
+				update((normalized === Key.Up || normalized === Key.Left) ? Direction.Prev : Direction.Next);
+				break;
+		}
+	}
+
+	function handleButtonClick() {
+		if (expanded) {
+			close();
+		} else {
+			open();
+		}
+	}
+
+	function handleLiClick(option: SelectOption) {
+		return function (e: MouseEvent<HTMLLIElement>) {
+			const li = e.target;
+
+			if (!isHTMLElement(li)) {
+				return;
+			}
+
+			const disabled = li.getAttribute('aria-disabled');
+
+			if (isNullable(disabled) || disabled === 'true') {
+				return;
+			}
+
+			setSelected(options.indexOf(option));
+		};
+	}
+
+	function handleButtonKeyDown(e: KeyboardEvent<HTMLButtonElement>) {
+		const normalized = getKey(e.key);
+
+		switch (normalized) {
+			case Key.Escape:
+				close();
+				return;
+			case Key.Space:
+			case Key.Enter:
+				e.preventDefault();
+				open();
+				return;
+			case Key.Clear:
+			case Key.Delete:
+				setSelected(undefined);
+				return;
+			case Key.Home:
+			case Key.End:
+				e.preventDefault();
+				open();
+				update((normalized === Key.Home) ? Direction.Start : Direction.End);
+				return;
+			case Key.PageUp:
+			case Key.PageDown:
+				e.preventDefault();
+				open();
+				update((normalized === Key.PageUp) ? Direction.Prev10 : Direction.Next10);
+				return;
+			case Key.Up:
+			case Key.Right:
+			case Key.Down:
+			case Key.Left:
+				e.preventDefault();
+				open();
+				update((normalized === Key.Up || normalized === Key.Left) ? Direction.Prev : Direction.Next);
+				return;
+		}
+
+		move(e, normalized);
+	}
+
+	function handleLiKeyDown(e: KeyboardEvent<HTMLLIElement>) {
+		const normalized = getKey(e.key);
+		const target = e.target;
+
+		switch (normalized) {
+			case Key.Escape:
+				close();
+				return;
+			case Key.Space:
+			case Key.Enter:
+				e.preventDefault();
+
+				if (isHTMLElement(target)) {
+					target.click();
+				}
+
+				return;
+		}
+
+		move(e, normalized);
+	}
+
+	function renderOption(option: SelectOption, index: number) {
 		return (
 			<li
 				key={ index }
 				id={ id + '-option-' + index }
 				role="option"
-				aria-label={ option?.aria }
+				aria-label={ option?.ariaLabel }
+				aria-selected={ (selected === options.indexOf(option)) }
+				aria-disabled={ option?.disabled ?? false }
 				tabIndex={ -1 }
+				onKeyDown={ handleLiKeyDown }
+				onClick={ handleLiClick(option) }
 				className={ prefixCls + '-option' }
 				data-value={ option.value }
 			>
@@ -49,21 +260,22 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		);
 	}
 
-	function list() {
+	function renderList() {
 		return (
 			<ul
+				ref={ listboxRef }
 				id={ listId }
 				role="listbox"
 				aria-labelledby={ labelId }
 				aria-multiselectable={ false }
 				className={ prefixCls + '-list' }
 			>
-				{ options.map(Option) }
+				{ options.map(renderOption) }
 			</ul>
 		);
 	}
 
-	function children() {
+	function renderBtnText() {
 		let label: string | number | undefined = placeholder;
 
 		if (selected !== undefined) {
@@ -71,9 +283,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		}
 
 		return (
-			<span className={ classNames(prefixCls + '-text', {
-				[`${ prefixCls }-placeholder`]: selected === undefined,
-			}) }>
+			<span
+				aria-label={ selected ? options?.[selected]?.ariaLabel : undefined }
+				className={ classNames(prefixCls + '-text', {
+					[`${ prefixCls }-placeholder`]: selected === undefined,
+				}) }
+			>
 				{ label }
 			</span>
 		);
@@ -82,22 +297,33 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 	return (
 		<Overlay
 			className={ prefixCls + '-wrapper' }
-			content={ list() }
+			content={ renderList() }
 			hidden={ !expanded }
 		>
 			<button
 				{ ...rest }
-				ref={ ref }
+				ref={ function (node) {
+					(buttonRef as MutableRefObject<HTMLButtonElement | null>).current = node;
+
+					if (typeof ref === 'function') {
+						ref(node);
+					} else if (ref) {
+						ref.current = node;
+					}
+				} }
 				id={ buttonId }
-				role="button"
 				type="button"
-				onClick={ handleButtonClick }
+				role="button"
 				aria-haspopup="listbox"
 				aria-expanded={ expanded }
+				onClick={ handleButtonClick }
+				onKeyDown={ handleButtonKeyDown }
 				className={ classNames(prefixCls, rest.className) }
 			>
-				{ icon }
-				{ children() }
+				{ (selected !== undefined) ? (
+					options?.[selected]?.icon
+				) : null }
+				{ renderBtnText() }
 				{ SELECTOR_ICON }
 			</button>
 		</Overlay>
@@ -105,3 +331,4 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 });
 
 export { Select };
+

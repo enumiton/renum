@@ -7,6 +7,8 @@
 	.touch-action();
 
 	.input(inline-flex);
+	min-width: calc(5ch + (@input-padding-x * 2) + @input-padding-y + @font-size-large + (@border-width-medium * 2));
+	justify-content: space-between;
 	align-items: center;
 	gap: @input-padding-y;
 	cursor: pointer;
@@ -19,6 +21,9 @@
 		font-size: inherit;
 		color: inherit;
 		line-height: 1;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	&-placeholder {
@@ -33,10 +38,10 @@
 		display: block;
 		min-width: inherit;
 		max-height: (((unit(@line-height, em) + @input-padding-y * 2) * 4.5) + (@input-padding-y * 2));
-		padding: @input-padding-y;
+		padding: @input-padding-y 0;
 		margin-top: @outline-width;
 		background-color: var(--select-bg-list);
-		border-radius: (@select-list-border-radius * 1.25);
+		border-radius: @select-list-border-radius;
 		border: @border-width-medium @border-style var(--select-border-list);
 		font-size: 1rem;
 		box-shadow: @shadow-medium;
@@ -51,18 +56,19 @@
 		display: block;
 		padding: @input-padding-y @input-padding-x;
 		background-color: transparent;
-		border-radius: @input-border-radius;
 		color: var(--text-default);
 		font-size: 1em;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		cursor: pointer;
+		outline: none;
 		transition: @transition-speed-fast ease-out;
 		transition-property: color, background-color;
 
 		&:hover,
-		&:focus {
+		&:focus,
+		&-hover:not([aria-selected="true"]) {
 			background-color: var(--select-bg-option-hover);
 		}
 
@@ -72,6 +78,26 @@
 
 		& .@{icon-prefix} {
 			margin-right: @input-padding-y;
+			transform: translateZ(0) scale(unit(@font-size-large));
+		}
+
+		& * {
+			pointer-events: none;
+		}
+
+		&[aria-selected="true"] {
+			color: var(--primary-200);
+			background-color: var(--primary-muted);
+
+			&:hover,
+			&:focus,
+			&.@{select-prefix}-option-hover {
+				background-color: var(--primary-muted-hover);
+			}
+
+			&:active {
+				background-color: var(--primary-muted-active);
+			}
 		}
 	}
 
