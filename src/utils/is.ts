@@ -12,6 +12,10 @@ function isString(value: any): value is string {
 	return (typeof value === 'string');
 }
 
+function isNode(value: any): value is Node {
+	return (value instanceof Node);
+}
+
 function isHTMLElement(value: any): value is HTMLElement {
 	return (value instanceof HTMLElement);
 }
@@ -28,6 +32,7 @@ export {
 	isNullable,
 	isNonNullable,
 	isString,
+	isNode,
 	isHTMLElement,
 	isHTMLInputElement,
 	isHTMLButtonElement,

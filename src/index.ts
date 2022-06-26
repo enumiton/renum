@@ -22,9 +22,11 @@ export type { SelectProps, SelectValue } from './components/select';
 export {
 	classNames,
 	clamp,
+	contains,
 	isNullable,
 	isNonNullable,
 	isString,
+	isNode,
 	isHTMLElement,
 	isHTMLInputElement,
 	isHTMLButtonElement,

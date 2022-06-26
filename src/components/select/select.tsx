@@ -1,6 +1,7 @@
-import { forwardRef, KeyboardEvent, MouseEvent, MutableRefObject, useId, useRef, useState } from 'react';
-import { default as Selector } from '../../icons/Selector';
-import { clamp, classNames, getKey, isHTMLElement, isNullable, Key } from '../../utils';
+import type { KeyboardEvent, MouseEvent, MutableRefObject } from 'react';
+import { forwardRef, useEffect, useId, useRef, useState } from 'react';
+import { default as Selector } from '../../icons/Selector'; // Unsafe?
+import { clamp, classNames, contains, getKey, isHTMLElement, isNullable, Key } from '../../utils';
 import { Overlay } from '../overlay';
 import { useConfigProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
@@ -12,7 +13,7 @@ const ARIA_DISABLED = '[aria-disabled="true"]';
 
 function NOT(selector: string): string {
 	return ':not(' + selector + ')';
-};
+}
 
 const enum Direction {
 	Next = +1,
@@ -67,17 +68,19 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		}
 	}
 
-	function open() {
+	function open(focus: boolean = false) {
 		if (expanded) {
 			return;
 		}
 
 		setExpanded(true);
 
-		update();
+		if (focus) {
+			setHover();
+		}
 	}
 
-	function update(direction?: Direction, hovered?: HTMLLIElement) {
+	function setHover(direction?: Direction, hovered?: HTMLLIElement) {
 		const ul = listboxRef.current;
 
 		if (!isHTMLElement(ul)) {
@@ -92,8 +95,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 
 		if (!hoveredOption && selectedOption) {
 			index = lis.indexOf(selectedOption);
-		}
-		else if (hoveredOption) {
+		} else if (hoveredOption) {
 			index = lis.indexOf(hoveredOption);
 		}
 
@@ -131,13 +133,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			case Key.End:
 				e.preventDefault();
 				open();
-				update((normalized === Key.Home) ? Direction.Start : Direction.End);
+				setHover((normalized === Key.Home) ? Direction.Start : Direction.End);
 				break;
 			case Key.PageUp:
 			case Key.PageDown:
 				e.preventDefault();
 				open();
-				update((normalized === Key.PageUp) ? Direction.Prev10 : Direction.Next10);
+				setHover((normalized === Key.PageUp) ? Direction.Prev10 : Direction.Next10);
 				break;
 			case Key.Up:
 			case Key.Right:
@@ -145,8 +147,14 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			case Key.Left:
 				e.preventDefault();
 				open();
-				update((normalized === Key.Up || normalized === Key.Left) ? Direction.Prev : Direction.Next);
+				setHover((normalized === Key.Up || normalized === Key.Left) ? Direction.Prev : Direction.Next);
 				break;
+		}
+	}
+
+	function handleOutsideClick(e: Event) {
+		if (!contains(e.target, [buttonRef.current, listboxRef.current])) {
+			close();
 		}
 	}
 
@@ -173,6 +181,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			}
 
 			setSelected(options.indexOf(option));
+			close();
 		};
 	}
 
@@ -181,12 +190,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 
 		switch (normalized) {
 			case Key.Escape:
+				e.preventDefault();
 				close();
 				return;
 			case Key.Space:
 			case Key.Enter:
 				e.preventDefault();
-				open();
+				open(true);
 				return;
 			case Key.Clear:
 			case Key.Delete:
@@ -274,6 +284,16 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		);
 	}
 
+	useEffect(function () {
+		if (expanded) {
+			window.addEventListener('click', handleOutsideClick);
+		}
+
+		return function () {
+			window.removeEventListener('click', handleOutsideClick);
+		};
+	}, [expanded]);
+
 	return (
 		<Overlay
 			className={ prefixCls + '-wrapper' }
@@ -300,9 +320,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				onKeyDown={ handleButtonKeyDown }
 				className={ classNames(prefixCls, rest.className) }
 			>
-				{ (selected !== undefined) ? (
+				{ (selected === undefined) ? null : (
 					options?.[selected]?.icon
-				) : null }
+				) }
 				{ renderBtnText() }
 				{ SELECTOR_ICON }
 			</button>
