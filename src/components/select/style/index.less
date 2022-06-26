@@ -56,7 +56,7 @@
 		display: block;
 		padding: @input-padding-y @input-padding-x;
 		background-color: transparent;
-		color: var(--text-default);
+		color: var(--select-color);
 		font-size: 1em;
 		white-space: nowrap;
 		overflow: hidden;
@@ -86,17 +86,17 @@
 		}
 
 		&[aria-selected="true"] {
-			color: var(--primary-200);
-			background-color: var(--primary-muted);
+			color: var(--select-color-selected);
+			background-color: var(--select-bg-option-selected);
 
 			&:hover,
 			&:focus,
 			&.@{select-prefix}-option-hover {
-				background-color: var(--primary-muted-hover);
+				background-color: var(--select-bg-option-selected-hover);
 			}
 
 			&:active {
-				background-color: var(--primary-muted-active);
+				background-color: var(--select-bg-option-selected-active);
 			}
 		}
 
