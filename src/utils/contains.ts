@@ -8,16 +8,12 @@ function contains(target: El, containers: El | El[]): boolean {
 	}
 
 	if (!Array.isArray(containers)) {
-		if (isHTMLElement(containers)) {
-			return containers.contains(target);
-		}
-
-		return false;
+		return isHTMLElement(containers) && containers.contains(target);
 	}
 
 	for (const container of containers) {
-		if (isHTMLElement(container)) {
-			return container.contains(target);
+		if (isHTMLElement(container) && container.contains(target)) {
+			return true;
 		}
 	}
 

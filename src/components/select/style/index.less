@@ -99,6 +99,12 @@
 				background-color: var(--primary-muted-active);
 			}
 		}
+
+		&[aria-disabled="true"] {
+			color: var(--input-color-disabled);
+			background-color: var(--input-bg-disabled);
+			cursor: not-allowed;
+		}
 	}
 
 	&[aria-expanded="true"] {

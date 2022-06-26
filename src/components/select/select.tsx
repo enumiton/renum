@@ -195,6 +195,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				return;
 			case Key.Space:
 			case Key.Enter:
+			case Key.Backspace:
 				e.preventDefault();
 				open(true);
 				return;

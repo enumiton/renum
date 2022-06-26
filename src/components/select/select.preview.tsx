@@ -15,6 +15,7 @@ const options: SelectOptions = Array(25).fill(null).map(function () {
 		label: str,
 		value: str,
 		icon: Math.random() > 0.5 ? ICON : undefined,
+		disabled: Math.random() > 0.75,
 	};
 });
 
