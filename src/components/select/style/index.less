@@ -20,7 +20,7 @@
 	&-text {
 		font-size: inherit;
 		color: inherit;
-		line-height: 1;
+		line-height: @line-height;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
@@ -30,8 +30,23 @@
 		color: var(--text-placeholder);
 	}
 
+	& + &-clear {
+		position: absolute;
+		top: (@input-padding-y + 0.25em);
+		right: calc(@input-padding-x + @border-width-medium);
+		z-index: 2;
+	}
+
+	@media (hover: hover) {
+		&:not(:hover) + .@{select-prefix}-clear:not(:hover):not([hidden]) {
+			opacity: 0;
+		}
+	}
+
 	&-wrapper {
+		position: relative;
 		display: inline-block;
+		z-index: 1;
 	}
 
 	&-list {
@@ -83,6 +98,10 @@
 
 		& * {
 			pointer-events: none;
+		}
+
+		&-hover {
+			transition-duration: 0s;
 		}
 
 		&[aria-selected="true"] {

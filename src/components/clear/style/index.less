@@ -1,0 +1,24 @@
+@import (reference) "./variables.less";
+
+.@{clear-prefix} {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	background-color: var(--clear-bg);
+	border-radius: @border-radius-circle;
+	line-height: 1;
+	font-size: 1em;
+	color: var(--clear-color);
+	cursor: pointer;
+	transition: @transition-speed-fast ease-out;
+	transition-property: color, background-color, opacity;
+
+	&:hover,
+	&:focus {
+		background-color: var(--clear-bg-hover);
+	}
+
+	&:active {
+		background-color: var(--clear-bg-active);
+	}
+}

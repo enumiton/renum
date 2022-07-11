@@ -5,6 +5,7 @@ import { clamp, classNames, contains, getKey, isHTMLElement, isNullable, Key } f
 import { Overlay } from '../overlay';
 import { useConfigProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
+import { Clear } from '../clear';
 
 const SELECTOR_ICON = <Selector />;
 
@@ -24,8 +25,16 @@ const enum Direction {
 	End = 3,
 }
 
+const enum OptionState {
+	None,
+	Hovered,
+	Selected,
+	Disabled,
+}
+
 const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) {
 	const {
+		name,
 		placeholder,
 		value: $value,
 		options,
@@ -80,6 +89,35 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		}
 	}
 
+	function getLis(type: OptionState.Hovered | OptionState.Selected): HTMLLIElement | null
+	function getLis(type: OptionState.None | OptionState.Disabled): HTMLLIElement[]
+	function getLis(type: OptionState = OptionState.None): (HTMLLIElement | null) | HTMLLIElement[] {
+		const list = listboxRef.current;
+
+		if (!list) {
+			return [];
+		}
+
+		let selector = 'li';
+
+		switch (type) {
+			case OptionState.None:
+				selector += NOT(ARIA_DISABLED);
+				break;
+			case OptionState.Hovered:
+				selector += `${ NOT(ARIA_DISABLED) }.${ prefixCls }-option-hover`;
+				return list.querySelector<HTMLLIElement>(selector);
+			case OptionState.Selected:
+				selector += ARIA_SELECTED + NOT(ARIA_DISABLED);
+				return list.querySelector<HTMLLIElement>(selector);
+			case OptionState.Disabled:
+				selector += ARIA_DISABLED;
+				break;
+		}
+
+		return [...list.querySelectorAll<HTMLLIElement>(selector)];
+	}
+
 	function setHover(direction?: Direction, hovered?: HTMLLIElement) {
 		const ul = listboxRef.current;
 
@@ -87,9 +125,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			return;
 		}
 
-		const lis = [...ul.querySelectorAll('li' + NOT(ARIA_DISABLED))];
-		const hoveredOption = hovered ?? ul.querySelector(`li${ NOT(ARIA_DISABLED) }.${ prefixCls }-option-hover`);
-		const selectedOption = ul.querySelector('li' + ARIA_SELECTED + NOT(ARIA_DISABLED));
+		const lis = getLis(OptionState.None);
+		const hoveredOption = hovered ?? getLis(OptionState.Hovered);
+		const selectedOption = getLis(OptionState.Selected);
 
 		let index = -1;
 
@@ -158,6 +196,22 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		}
 	}
 
+	function handleListFocusIn() {
+		const lis = getLis(OptionState.None);
+
+		for (const li of lis) {
+			li.setAttribute('tabindex', '-1');
+		}
+	}
+
+	function handleListFocusOut() {
+		const lis = getLis(OptionState.None);
+
+		for (const li of lis) {
+			li.setAttribute('tabindex', '0');
+		}
+	}
+
 	function handleButtonClick() {
 		if (expanded) {
 			close();
@@ -195,12 +249,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				return;
 			case Key.Space:
 			case Key.Enter:
-			case Key.Backspace:
 				e.preventDefault();
 				open(true);
 				return;
 			case Key.Clear:
 			case Key.Delete:
+			case Key.Backspace:
 				setSelected(undefined);
 				return;
 		}
@@ -239,7 +293,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				aria-label={ option?.ariaLabel }
 				aria-selected={ (selected === options.indexOf(option)) }
 				aria-disabled={ option?.disabled ?? false }
-				tabIndex={ -1 }
+				tabIndex={ 0 }
 				onKeyDown={ handleLiKeyDown }
 				onClick={ handleLiClick(option) }
 				className={ prefixCls + '-option' }
@@ -270,12 +324,12 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		let label: string | number | undefined = placeholder;
 
 		if (selected !== undefined) {
-			label = options?.[selected]?.label;
+			label = options.at(selected)?.label;
 		}
 
 		return (
 			<span
-				aria-label={ selected ? options?.[selected]?.ariaLabel : undefined }
+				aria-label={ selected ? options.at(selected)?.ariaLabel : undefined }
 				className={ classNames(prefixCls + '-text', {
 					[`${ prefixCls }-placeholder`]: selected === undefined,
 				}) }
@@ -286,12 +340,24 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 	}
 
 	useEffect(function () {
+		const listbox = listboxRef.current;
+
 		if (expanded) {
 			window.addEventListener('click', handleOutsideClick);
+
+			if (listbox) {
+				listbox.addEventListener('focusin', handleListFocusIn);
+				listbox.addEventListener('focusout', handleListFocusOut);
+			}
 		}
 
 		return function () {
 			window.removeEventListener('click', handleOutsideClick);
+
+			if (listbox) {
+				listbox.removeEventListener('focusin', handleListFocusIn);
+				listbox.removeEventListener('focusout', handleListFocusOut);
+			}
 		};
 	}, [expanded]);
 
@@ -301,6 +367,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			content={ renderList() }
 			hidden={ !expanded }
 		>
+			<input type="hidden" name={ name } value={ selected ? options.at(selected)?.value : undefined } hidden />
 			<button
 				{ ...rest }
 				ref={ function (node) {
@@ -322,11 +389,18 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				className={ classNames(prefixCls, rest.className) }
 			>
 				{ (selected === undefined) ? null : (
-					options?.[selected]?.icon
+					options.at(selected)?.icon
 				) }
 				{ renderBtnText() }
 				{ SELECTOR_ICON }
 			</button>
+			<Clear
+				className={ prefixCls + '-clear' }
+				hidden={ (selected === undefined) }
+				onClick={ function () {
+					return setSelected(undefined);
+				} }
+			/>
 		</Overlay>
 	);
 });
