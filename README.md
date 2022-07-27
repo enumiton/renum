@@ -90,9 +90,9 @@ Todo
 - [ ] Publish & release a beta version.
 - Components:
     - [x] Button
-    - [ ] Button Group
+    - [x] Button Group
     - [x] Input
-    - [ ] Select
+    - [x] Select
     - [ ] Checkbox
     - [ ] Radio
     - [ ] Segmented Control
