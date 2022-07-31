@@ -2,6 +2,7 @@ import { Button } from '../../../src/components/button';
 import { default as Menu } from '../../../src/icons/Menu2';
 import { default as Moon } from '../../../src/icons/Moon';
 import styles from '../../preview.module.less';
+import { useEffect } from 'react';
 
 type Props = {
 	readonly open: boolean;
@@ -10,14 +11,20 @@ type Props = {
 
 const html = window.document.documentElement;
 
-let theme = html.dataset.theme;
+let theme = window.localStorage.getItem('theme') || 'dark';
 
 function toggleTheme() {
 	theme = (theme === 'light') ? 'dark' : 'light';
+
+	window.localStorage.setItem('theme', theme);
 	html.dataset.theme = theme;
 }
 
 function Header(props: Props) {
+	useEffect(function () {
+		html.dataset.theme = theme;
+	}, []);
+
 	return (
 		<header className={ styles.header }>
 			<a className={ styles.skip } href="#main">Skip to main</a>

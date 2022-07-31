@@ -19,8 +19,9 @@ body {
 	width: 100vw;
 	padding: 0 @padding-extra;
 	height: @nav-height;
-	background-color: var(--gray-2);
+	background-color: var(--gray-0);
 	color: var(--text-emphasis);
+	box-shadow: 0 3px 6px -2px var(--shadow-color);
 	z-index: @z-index-sticky;
 
 	& .skip {
@@ -48,6 +49,12 @@ body {
 	}
 }
 
+html[data-theme="dark"] {
+	.header {
+		background-color: var(--gray-2);
+	}
+}
+
 .container {
 	display: flex;
 	flex-flow: row nowrap;
@@ -56,6 +63,8 @@ body {
 .aside {
 	@width: 280px;
 
+	position: sticky;
+	top: @nav-height;
 	display: block;
 	width: @width;
 	margin-left: -@width;
