@@ -15,15 +15,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 		...rest
 	} = props;
 
-	const { prefixCls } = useConfigProvider();
+	const { getPrefixCls } = useConfigProvider();
+	const prefixCls = getPrefixCls('input');
 
-	function fix(name: 'prefix' | 'suffix', value: InputProps['prefix']) {
+	function addon(name: 'prefix' | 'suffix', value: InputProps['prefix']) {
 		if (!value) {
 			return null;
 		}
 
-		const classes = classNames(prefixCls + '-input-' + name, {
-			[`${ prefixCls }-input-${ name }-text`]: !isValidElement(value),
+		const classes = classNames(`${ prefixCls }-${ name }`, {
+			[`${ prefixCls }-${ name }-text`]: !isValidElement(value),
 		});
 
 		return (
@@ -36,25 +37,25 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 	return (
 		<div
 			style={ wrapperStyle }
-			className={ classNames(prefixCls + '-input-wrapper', {
-				[`${ prefixCls }-input-wrapper-prefix`]: !!prefix,
-				[`${ prefixCls }-input-wrapper-suffix`]: !!suffix,
+			className={ classNames(prefixCls + '-wrapper', {
+				[`${ prefixCls }-wrapper-prefix`]: !!prefix,
+				[`${ prefixCls }-wrapper-suffix`]: !!suffix,
 			}, wrapperClassName) }
 		>
-			{ fix('prefix', prefix) }
-			<div className={ prefixCls + '-input-inner' }>
+			{ addon('prefix', prefix) }
+			<div className={ prefixCls + '-inner' }>
 				{ icon }
 				<input
 					{ ...rest }
 					prefix={ htmlPrefix }
 					ref={ ref }
-					className={ classNames(prefixCls + '-input', {
-						[`${ prefixCls }-input-icon`]: !!icon,
-						[`${ prefixCls }-input-borderless`]: !!borderless,
+					className={ classNames(prefixCls, {
+						[`${ prefixCls }-icon`]: !!icon,
+						[`${ prefixCls }-borderless`]: !!borderless,
 					}, props.className) }
 				/>
 			</div>
-			{ fix('suffix', suffix) }
+			{ addon('suffix', suffix) }
 		</div>
 	);
 });
