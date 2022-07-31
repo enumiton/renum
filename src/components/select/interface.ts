@@ -19,6 +19,8 @@ interface SelectProps<T = SelectValue> extends Omit<ButtonHTMLAttributes<HTMLBut
 	readonly value?: T;
 	readonly options: SelectOptions<T>;
 	readonly onChange?: ((value: T) => void) | undefined;
+	/** @default true */
+	readonly clearable?: boolean | undefined;
 }
 
 export type { SelectProps, SelectOptions, SelectOption, SelectValue };

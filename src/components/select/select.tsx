@@ -39,6 +39,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		value: $value,
 		options,
 		onChange,
+		clearable = true,
 		...rest
 	} = props;
 
@@ -255,7 +256,9 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			case Key.Clear:
 			case Key.Delete:
 			case Key.Backspace:
-				setSelected(undefined);
+				if (clearable) {
+					setSelected(undefined);
+				}
 				return;
 		}
 
@@ -394,13 +397,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				{ renderBtnText() }
 				{ SELECTOR_ICON }
 			</button>
-			<Clear
-				className={ prefixCls + '-clear' }
-				hidden={ (selected === undefined) }
-				onClick={ function () {
-					return setSelected(undefined);
-				} }
-			/>
+			{ clearable ? (
+				<Clear
+					className={ prefixCls + '-clear' }
+					hidden={ (selected === undefined) }
+					onClick={ function () {
+						return setSelected(undefined);
+					} }
+				/>
+			) : null }
 		</Overlay>
 	);
 });
