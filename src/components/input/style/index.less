@@ -57,17 +57,50 @@
 		}
 	}
 
+	&-clearable:not(:placeholder-shown) {
+		padding-right: @input-padding-icon;
+	}
+
 	&-inner {
 		position: relative;
 		z-index: 2;
 
-		& .@{icon-prefix} {
+		& > .@{icon-prefix} {
 			position: absolute;
 			top: @input-icon-top;
 			left: (@input-padding-x * 0.5);
 			transform: translateZ(0) scale(unit(@font-size-large));
 			pointer-events: none;
 			z-index: 3;
+		}
+
+		& .@{input-prefix}-clear {
+			position: absolute;
+			top: @input-icon-top;
+			right: (@input-padding-x * 0.5);
+			opacity: 1;
+			z-index: 3;
+
+			&::before {
+				@pad: 0.25em;
+
+				content: "";
+				position: absolute;
+				top: -@pad;
+				right: 0;
+				bottom: 0;
+				left: -@pad;
+				width: 100%;
+				height: 100%;
+				padding: @pad;
+				box-sizing: content-box;
+			}
+		}
+	}
+
+	@media (hover: hover) {
+		&:not(:hover) + &-clear:not(:hover):not([hidden]) {
+			opacity: 0;
 		}
 	}
 

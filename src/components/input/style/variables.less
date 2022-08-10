@@ -34,12 +34,12 @@
 	transition-property: color, background-color, border, box-shadow;
 	z-index: 1;
 
-	&:hover {
+	&:not(:read-only):hover {
 		border-color: var(--input-border-hover);
 	}
 
-	&:focus,
-	&:active {
+	&:not(:read-only):focus,
+	&:not(:read-only):active {
 		background-color: var(--input-bg-active);
 		border-color: var(--input-border-active);
 		box-shadow: @input-shadow-focus;
