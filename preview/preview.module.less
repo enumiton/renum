@@ -22,7 +22,7 @@ body {
 	background-color: var(--gray-0);
 	color: var(--text-emphasis);
 	box-shadow: 0 3px 6px -2px var(--shadow-color);
-	z-index: @z-index-sticky;
+	z-index: @z-index-sticky + 5;
 
 	& .skip {
 		.outline();
@@ -63,15 +63,19 @@ html[data-theme="dark"] {
 .aside {
 	@width: 280px;
 
-	position: sticky;
+	position: fixed;
 	top: @nav-height;
+	left: 0;
+	bottom: 0;
 	display: block;
-	width: @width;
+	width: 100vw;
+	max-width: @width;
 	margin-left: -@width;
-	height: calc(100vh - @nav-height);
+	height: 100vh;
 	background-color: var(--bg-default);
 	border-right: @border-width-medium @border-style var(--border-muted);
 	transition: margin @transition-speed-medium ease-in-out;
+	z-index: @z-index-sticky;
 
 	&.open,
 	&:focus-within {
@@ -104,20 +108,20 @@ html[data-theme="dark"] {
 }
 
 .main {
-	flex: 1;
 	display: block;
+	min-height: calc(100vh - @nav-height);
 	padding: @padding-medium;
 
 	& > h1 {
 		font-size: @font-size-h3;
 		line-height: 1;
-		margin-bottom: 3.5rem;
+		margin-bottom: 1.5rem;
 	}
 }
 
 .footer {
 	padding: @padding-large;
-	background-color: var(--bg-subtle);
+	background-color: var(--gray-2);
 	border-top: @border-width-medium @border-style var(--border-muted);
 	text-align: center;
 	font-size: @font-size-large;
