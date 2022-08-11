@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.2.0
+
+- Added Select component
+- Updated some JSDocs
+- Button
+  - Fixed text colors
+  - Fixed disabled style
+  - Fixed styles for loading & light type
+  - Fixed `onClick` being called when `loading` is `true`
+- ButtonGroup
+  - Fixed props type export
+- Input
+  - Fixed cursor style when disabled
+  - Added `clearable` prop
+  - Fixed miscellaneous styling issues
+
 ## v0.1.4
 
 - Fixed font styles for input
