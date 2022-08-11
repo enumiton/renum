@@ -1,4 +1,5 @@
-import { FormEvent, forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
+import type { FormEvent } from 'react';
+import { forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
 import { classNames, isHTMLInputElement, isNullable } from '../../utils';
 import { useConfigProvider } from '../renum-provider';
 import type { InputProps } from './interface';
@@ -57,6 +58,24 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 		}
 	}
 
+	function handleClear() {
+		setValue('');
+	}
+
+	function renderClear() {
+		if (!clearable || readOnly || disabled) {
+			return null;
+		}
+
+		return (
+			<Clear
+				className={ prefixCls + '-clear' }
+				hidden={ isNullable(value) || value === '' }
+				onClick={ handleClear }
+			/>
+		);
+	}
+
 	useEffect(function () {
 		if (mounted.current) {
 			if (_value !== value) {
@@ -94,15 +113,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 						[`${ prefixCls }-borderless`]: borderless,
 					}, props.className) }
 				/>
-				{ (clearable && !readOnly && !disabled) ? (
-					<Clear
-						className={ prefixCls + '-clear' }
-						hidden={ isNullable(value) || value === '' }
-						onClick={ function () {
-							setValue('');
-						} }
-					/>
-				) : null }
+				{ renderClear() }
 			</div>
 			{ addon('suffix', suffix) }
 		</div>
