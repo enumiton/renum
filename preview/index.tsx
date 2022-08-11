@@ -1,19 +1,21 @@
 /// <reference types="vite/client" />
+import type { FC } from 'react';
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
+import { BrowserRouter, Link, useLocation, useRoutes } from 'react-router-dom';
 import { Overview } from './components/overview';
 import styles from './preview.module.less';
 import { capitalize } from './utils';
-import { Example } from './components/example';
 import { RenumProvider } from '../src';
-import { Icons } from './components/icons';
 import '../src/styles/reset.less';
 import { Header } from './components/header';
+import { Icons } from './components/icons';
+import { Example } from './components/example';
 
-// @ts-ignore
-const _ = import.meta.globEager('../src/components/*/style/index.less');
-const modules = import.meta.glob('../src/components/**/*.preview.tsx');
+import.meta.glob('../src/components/*/style/index.less', { eager: true });
+
+const modules = import.meta.glob<FC>('../src/components/**/*.preview.tsx');
 
 const imports = Object.entries(modules).map(function ([path, module]) {
 	const key = path.split('/').pop()!.split('.').shift()!;
@@ -21,11 +23,42 @@ const imports = Object.entries(modules).map(function ([path, module]) {
 	return [key, module] as const;
 });
 
+function generateRoutes(): RouteObject[] {
+	return [
+		{
+			path: '/',
+			element: <Overview />,
+		},
+		{
+			path: '/icons',
+			element: <Icons />,
+		},
+		{
+			path: '/components',
+			children: [
+				{
+					index: true,
+					element: <Overview />,
+				},
+				...(imports.map(function ([key]) {
+					return {
+						path: key,
+						// 🫠
+						element: Example({ component: key }),
+					};
+				})),
+			],
+		},
+	];
+}
+
 function App() {
 	const { pathname } = useLocation();
 
 	const [open, setOpen] = useState(false);
 	const [title, setTitle] = useState('Overview — Renum');
+
+	const routes = useRoutes(generateRoutes());
 
 	function handleLocation() {
 		let title = (pathname === '/') ? 'Overview' : pathname.split('/').pop()!.replaceAll('-', ' ');
@@ -69,26 +102,11 @@ function App() {
 				</aside>
 				<main id="main" className={ styles.main }>
 					<h1>{ title }</h1>
-					<Routes>
-						<Route index element={ <Overview /> } />
-						<Route path="/icons" element={ <Icons /> } />
-						<Route path="/components">
-							<Route index element={ <Overview /> } />
-							{ imports.map(function ([key, module], i) {
-								return (
-									<Route
-										key={ i }
-										path={ key }
-										element={ <Example components={ module } /> }
-									/>
-								);
-							}) }
-						</Route>
-					</Routes>
+					{ routes }
 				</main>
 			</div>
 			<footer className={ styles.footer }>
-				RENUM &copy; { new Date().getFullYear() }
+				RENUM © { new Date().getFullYear() }
 			</footer>
 		</>
 	);

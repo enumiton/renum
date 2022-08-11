@@ -1,7 +1,6 @@
 import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './example.module.less';
-import { Loading } from '../../../src';
 
 type Alert = {
 	readonly title?: string;
@@ -16,34 +15,35 @@ type Imports = {
 };
 
 type Props = {
-	readonly components: () => Promise<Imports>;
+	readonly component: string;
 };
 
-function Example(props: Props) {
+function Example({ component }: Props) {
 	const [components, setComponents] = useState<Imports>({});
+	const mounted = useRef(false);
 
 	// @ts-ignore
 	const alerts = components['default']?.['alerts'] as (Alert[] | undefined);
 
 	async function get() {
-		setComponents(await props.components());
+		setComponents(await import(`../../../src/components/${ component }/${ component }.preview.tsx`));
 	}
 
 	useEffect(function () {
-		get();
+		if (!mounted.current) {
+			void get();
+		}
+
+		mounted.current = true;
 	}, []);
 
-	if (Object.keys(components).length <= 0) {
-		return <Loading active />;
-	}
-
 	return (
-		<>
+		<div>
 			{ (alerts && alerts.length > 0) ? (
 				<div>
-					{ alerts.map(function (alert) {
+					{ alerts.map(function (alert, i) {
 						return (
-							<div>
+							<div key={ i }>
 								<p>
 									{ alert.description }
 								</p>
@@ -66,7 +66,7 @@ function Example(props: Props) {
 					);
 				}) }
 			</div>
-		</>
+		</div>
 	);
 }
 
