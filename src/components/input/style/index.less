@@ -99,7 +99,7 @@
 	}
 
 	@media (hover: hover) {
-		&:not(:hover) + &-clear:not(:hover):not([hidden]) {
+		&:not(:hover, :focus) + &-clear:not(:hover):not([hidden]) {
 			opacity: 0;
 		}
 	}
