@@ -1,1 +1,1 @@
-export * from './es/icons/index'
+export * from './es/icons/index';

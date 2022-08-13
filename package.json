@@ -28,7 +28,7 @@
 	"bugs": "https://github.com/enumiton/renum/issues",
 	"scripts": {
 		"dev": "vite --force --host",
-		"icons": "node generate_icons.js",
+		"icons": "node ./scripts/icons.js",
 		"build": "yarn icons && tsc && ./copy.sh"
 	},
 	"files": [
