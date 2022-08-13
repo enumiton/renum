@@ -1,0 +1,85 @@
+@import (reference) "./variables.less";
+
+.@{radio-prefix} {
+	.appearance();
+	.touch-action();
+	.outline();
+
+	display: inline-block;
+	width: @radio-size;
+	height: @radio-size;
+	padding: 0;
+	margin: 0;
+	background-color: var(--radio-bg);
+	border-radius: @radio-border-radius;
+	border: @radio-border-width @border-style var(--radio-border);
+	box-shadow: none;
+	font-size: 1em;
+	line-height: 1;
+	vertical-align: middle;
+	transition: @transition-speed-fast @transition-easing;
+	transition-property: border, background-color;
+	cursor: pointer;
+
+	&:active {
+		border-color: var(--radio-border-active);
+		border-width: @radio-border-width-focus;
+	}
+
+	&-wrapper {
+		position: relative;
+		display: inline-block;
+		font-size: 1em;
+		line-height: 1;
+		vertical-align: middle;
+
+		&:hover .@{radio-prefix}:not([checked], :checked, [disabled], :disabled) {
+			border-color: var(--radio-border-hover);
+		}
+	}
+
+	&-label {
+		display: inline-block;
+		padding-left: @radio-label-padding-x;
+		font-size: 1em;
+		color: var(--radio-color);
+		line-height: 1;
+		vertical-align: middle;
+		cursor: pointer;
+		transition: color @transition-speed-fast @transition-easing;
+	}
+
+	&[checked],
+	&:checked {
+		border-color: var(--radio-border-checked);
+		border-width: @radio-border-width-active;
+	}
+
+	&[disabled],
+	&:disabled {
+		&,
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: var(--radio-bg-disabled);
+			border-color: var(--radio-border-disabled);
+			border-width: @radio-border-width;
+			cursor: not-allowed;
+		}
+
+		&[checked],
+		&:checked {
+			border-width: @radio-border-width-active;
+		}
+
+		& + .@{radio-prefix}-label {
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				color: var(--radio-color-disabled);
+				cursor: not-allowed;
+			}
+		}
+	}
+}

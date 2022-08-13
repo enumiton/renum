@@ -16,6 +16,9 @@ export type { RenumConfig } from './components/renum-provider';
 export { Portal } from './components/portal';
 export type { PortalProps } from './components/portal';
 
+export { Radio } from './components/radio';
+export type { RadioProps } from './components/radio';
+
 export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
 
