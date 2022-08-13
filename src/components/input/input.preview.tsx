@@ -7,21 +7,14 @@ import { useState } from 'react';
 
 const config = {
 	title: 'input',
-	alerts: [
-		{
-			description: (
-				<>Since <code>StrictMode</code> will render every component twice, the <code>defaultValue</code> attribute will overwritten</>
-			),
-		},
-	],
 };
 
 function Simple() {
 	return (
 		<div style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }>
 			<Input placeholder="Placeholder" />
-			<Input value="Readonly" readOnly />
-			<Input value="Disabled" disabled />
+			<Input defaultValue="Readonly" readOnly />
+			<Input defaultValue="Disabled" disabled />
 		</div>
 	);
 }
@@ -39,9 +32,9 @@ function Size() {
 				To change the size of the input you only need to change the <code>font-size</code> of the input or any of its parents.
 			</p>
 			<div style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }>
-				<Input wrapperStyle={ { fontSize: '0.875em' } } value="Small" icon={ <User /> } />
-				<Input value="Default" icon={ <User /> } />
-				<Input wrapperStyle={ { fontSize: '1.125em' } } value="Large" icon={ <User /> } />
+				<Input wrapperStyle={ { fontSize: '0.875em' } } defaultValue="Small" icon={ <User /> } />
+				<Input defaultValue="Default" icon={ <User /> } />
+				<Input wrapperStyle={ { fontSize: '1.125em' } } defaultValue="Large" icon={ <User /> } />
 			</div>
 		</div>
 	);
@@ -85,7 +78,7 @@ function Fixes() {
 
 function Borderless() {
 	return (
-		<Input borderless value="Borderless" />
+		<Input borderless defaultValue="Borderless" />
 	);
 }
 

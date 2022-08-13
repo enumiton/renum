@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react';
-import { forwardRef, isValidElement, useEffect, useRef, useState } from 'react';
+import { forwardRef, isValidElement, useEffect, useState } from 'react';
 import { classNames, isHTMLInputElement, isNullable } from '../../utils';
 import { useConfigProvider } from '../renum-provider';
 import type { InputProps } from './interface';
@@ -25,8 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 	const { getPrefixCls } = useConfigProvider();
 	const prefixCls = getPrefixCls('input');
 
-	const [value, setValue] = useState<string | number>('');
-	const mounted = useRef(false);
+	const [value, setValue] = useState<string | number>(defaultValue ?? _value ?? '');
 
 	function addon(name: 'prefix' | 'suffix', value: InputProps['prefix']) {
 		if (!value) {
@@ -77,15 +76,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 	}
 
 	useEffect(function () {
-		if (mounted.current) {
-			if (_value !== value) {
-				setValue(_value ?? '');
-			}
-		} else {
-			setValue(_value ?? defaultValue ?? '');
+		if (_value !== undefined && _value !== value) {
+			setValue(_value ?? '');
 		}
-
-		mounted.current = true;
 	}, [_value]);
 
 	return (
