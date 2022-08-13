@@ -85,8 +85,8 @@ export default ${ name };`;
 		await appendFile(ICON_INDEX, `export { default as ${ name } } from './${ name }';\n`, 'utf-8');
 	}
 
-	await writeFile(ROOT_INDEX, 'export * from \'./es/icons/index\';', 'utf-8');
-	await writeFile(TYPE, 'export * from \'./es/icons/index\';', 'utf-8');
+	await writeFile(ROOT_INDEX, 'export * from \'./es/icons/index\';\n', 'utf-8');
+	await writeFile(TYPE, 'export * from \'./es/icons/index\';\n', 'utf-8');
 
 	console.log('Icons generated');
 })();
