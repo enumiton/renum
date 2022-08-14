@@ -17,6 +17,26 @@ function Example() {
 	);
 }
 
+function WithFieldset() {
+	const [disabled, setDisabled] = useState(false);
+
+	return (
+		<div>
+			<fieldset disabled={ disabled } style={ { marginBottom: '1em' } }>
+				<legend>Fieldset legend</legend>
+				<div style={ { display: 'flex', flexDirection: 'column', gap: '0.5em' } }>
+					<Radio name="fieldset" value={ 1 } label="Option 1" />
+					<Radio name="fieldset" value={ 2 } label="Option 2" />
+					<Radio name="fieldset" value={ 3 } label="Option 3" />
+				</div>
+			</fieldset>
+			<Button onClick={ () => setDisabled((v) => !v) }>
+				{ disabled ? 'Enable fieldset' : 'Disable fieldset' }
+			</Button>
+		</div>
+	);
+}
+
 function Disabled() {
 	const [disabled, setDisabled] = useState(true);
 
@@ -35,5 +55,5 @@ function Disabled() {
 	);
 }
 
-export { Example, Disabled };
+export { Example, WithFieldset, Disabled };
 export default config;
