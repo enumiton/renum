@@ -1,6 +1,6 @@
 import { isString } from './is';
 
-function classNames(...classes: (Record<string, boolean> | string | undefined)[]): string {
+function classNames(...classes: (Record<string, boolean | null | undefined> | string | undefined)[]): string {
 	let str = [];
 
 	for (const item of classes) {

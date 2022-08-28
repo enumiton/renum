@@ -1,6 +1,9 @@
 export { Button } from './components/button';
 export type { ButtonProps, ButtonType, ButtonShape, ButtonGroupProps } from './components/button';
 
+export { Checkbox } from './components/checkbox';
+export type { CheckboxProps } from './components/checkbox';
+
 export { Icon } from './components/icon';
 export type { IconProps } from './components/icon';
 

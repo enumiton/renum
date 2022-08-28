@@ -1,0 +1,117 @@
+@import (reference) "./variables.less";
+
+.@{checkbox-prefix} {
+	.appearance();
+	.touch-action();
+	.outline();
+
+	position: relative;
+	display: inline-block;
+	width: @font-size-large;
+	height: @font-size-large;
+	padding: 0;
+	margin: 0;
+	background-color: var(--input-bg);
+	border: @border-width-medium @border-style var(--input-border);
+	border-radius: @border-radius-small;
+	font-size: @font-size-medium;
+	line-height: 1;
+	vertical-align: middle;
+	cursor: pointer;
+	transition: @transition-speed-fast @transition-easing;
+	transition-property: background-color, border;
+	z-index: 1;
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		aspect-ratio: 1 / 1;
+		background-color: var(--primary-contrast);
+		border-radius: inherit;
+		transition: transform @transition-speed-medium cubic-bezier(1, 0.33, 0.66, 1.5);
+		clip-path: polygon(76.831% 24.747%, 77.811% 23.946%, 80.056% 23.031%, 82.444% 23.031%, 84.689% 23.946%, 85.669% 24.747%, 86.417% 25.648%, 87.327% 27.701%, 87.457% 29.904%, 86.807% 32.031%, 86.189% 32.997%, 85.669% 33.586%, 44.003% 75.253%, 43.102% 76%, 41.049% 76.91%, 38.846% 77.04%, 36.719% 76.39%, 35.753% 75.773%, 35.164% 75.253%, 14.331% 54.419%, 13.53% 53.439%, 12.614% 51.194%, 12.614% 48.806%, 13.53% 46.561%, 14.331% 45.581%, 15.231% 44.833%, 17.285% 43.923%, 19.487% 43.793%, 21.615% 44.443%, 22.581% 45.061%, 23.169% 45.581%, 39.579% 61.994%, 76.831% 24.747%, 76.831% 24.747%);
+		transform: scale(0);
+		transform-origin: center;
+		opacity: 0;
+	}
+
+	&:is([checked], :checked) {
+		background-color: var(--primary);
+		border-color: var(--primary);
+
+		&::before {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	&-label {
+		.user-select();
+		.touch-action();
+
+		display: inline-block;
+		padding-left: @checkbox-label-padding-x;
+		color: var(--input-color);
+		font-size: @font-size-medium;
+		vertical-align: middle;
+		cursor: pointer;
+	}
+
+	&-wrapper {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		z-index: 1;
+
+		&:hover,
+		&:focus {
+			& .@{checkbox-prefix}:not([disabled], :disabled, [checked], :checked) {
+				border-color: var(--input-border-hover);
+			}
+
+			& .@{checkbox-prefix}:not([disabled], :disabled):is([checked], :checked) {
+				background-color: var(--primary-hover);
+				border-color: var(--primary-hover);
+			}
+		}
+
+		&:active {
+			& .@{checkbox-prefix}:not([disabled], :disabled) {
+				border-color: var(--input-border-active);
+			}
+
+			& .@{checkbox-prefix}:not([disabled], :disabled):is([checked], :checked) {
+				background-color: var(--primary-active);
+				border-color: var(--primary-active);
+			}
+		}
+	}
+
+	&:is([disabled], :disabled) {
+		background-color: var(--input-bg-disabled);
+		border-color: var(--input-border-disabled);
+		cursor: not-allowed;
+
+		&::before {
+			background-color: var(--input-color-disabled);
+		}
+
+		&:is([checked], :checked) {
+			background-color: var(--checkbox-bg-checked-disabled);
+			border-color: var(--checkbox-border-checked-disabled);
+
+			&::before {
+				background-color: var(--checkbox-color-checked-disabled);
+			}
+		}
+
+		& + .@{checkbox-prefix}-label {
+			color: var(--checkbox-color-disabled);
+			cursor: not-allowed;
+		}
+	}
+}
