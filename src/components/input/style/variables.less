@@ -27,7 +27,7 @@
 	letter-spacing: inherit;
 	font-feature-settings: inherit;
 	color: var(--input-color);
-	font-size: 1em;
+	font-size: @font-size-medium;
 	line-height: 1;
 	outline: 0;
 	transition: @transition-speed-fast ease-in-out;
@@ -45,9 +45,7 @@
 		box-shadow: @input-shadow-focus;
 	}
 
-	&[disabled],
-	&:disabled {
-
+	&:is([disabled], :disabled) {
 		&,
 		&:hover,
 		&:focus,

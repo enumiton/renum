@@ -14,7 +14,7 @@
 	border-radius: @radio-border-radius;
 	border: @radio-border-width @border-style var(--radio-border);
 	box-shadow: none;
-	font-size: 1em;
+	font-size: @font-size-medium;
 	line-height: 1;
 	vertical-align: middle;
 	transition: @transition-speed-fast @transition-easing;
@@ -29,7 +29,7 @@
 	&-wrapper {
 		position: relative;
 		display: inline-block;
-		font-size: 1em;
+		font-size: @font-size-medium;
 		line-height: 1;
 		vertical-align: middle;
 
@@ -41,7 +41,7 @@
 	&-label {
 		display: inline-block;
 		padding-left: @radio-label-padding-x;
-		font-size: 1em;
+		font-size: @font-size-medium;
 		color: var(--radio-color);
 		line-height: 1;
 		vertical-align: middle;
@@ -55,8 +55,7 @@
 		border-width: @radio-border-width-active;
 	}
 
-	&[disabled],
-	&:disabled {
+	&:is([disabled], :disabled) {
 		&,
 		&:hover,
 		&:focus,
