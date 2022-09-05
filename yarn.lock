@@ -10,9 +10,9 @@
     regenerator-runtime "^0.13.4"
 
 "@tabler/icons@^1.78.1":
-  version "1.78.1"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.78.1.tgz#7577c1b22c736cec43718e512c89b4452c926e99"
-  integrity sha512-QT/94Hufvzn4PxsEyN9NTh96XmNaGGgMh7sKcBZ2216pE9B+Ala98KpdNwTKKBlEvRvHw9y14zW4qFYzxGOhZw==
+  version "1.92.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.92.0.tgz#e068938db61d5f932d317a8fd18acd5c0204496e"
+  integrity sha512-eZP5jYvNPtZKiWj1Bn2C+zjvGXhQoormXAyE3TH7ihCxXBHMzKF/ZLYhU3rnMC/+NjuLDBifKc6dmwoh7s62vQ==
 
 "@types/node@^18.6.1":
   version "18.6.1"
