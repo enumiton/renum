@@ -97,20 +97,20 @@
 		cursor: not-allowed;
 
 		&::before {
-			background-color: var(--input-color-disabled);
+			background-color: var(--input-color-disabled2);
 		}
 
 		&:is([checked], :checked) {
-			background-color: var(--checkbox-bg-checked-disabled);
-			border-color: var(--checkbox-border-checked-disabled);
+			background-color: var(--input-bg-disabled);
+			border-color: var(--input-border-disabled);
 
 			&::before {
-				background-color: var(--checkbox-color-checked-disabled);
+				background-color: var(--input-color-disabled2);
 			}
 		}
 
 		& + .@{checkbox-prefix}-label {
-			color: var(--checkbox-color-disabled);
+			color: var(--input-color-disabled2);
 			cursor: not-allowed;
 		}
 	}

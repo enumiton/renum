@@ -73,7 +73,7 @@ html[data-theme="dark"] {
 	margin-left: -@width;
 	height: 100vh;
 	background-color: var(--bg-default);
-	border-right: @border-width-medium @border-style var(--border-muted);
+	box-shadow: @shadow-small;
 	transition: margin @transition-speed-medium @transition-easing;
 	z-index: @z-index-sticky;
 
@@ -122,7 +122,6 @@ html[data-theme="dark"] {
 .footer {
 	padding: @padding-large;
 	background-color: var(--gray-2);
-	border-top: @border-width-medium @border-style var(--border-muted);
 	text-align: center;
 	font-size: @font-size-large;
 }
