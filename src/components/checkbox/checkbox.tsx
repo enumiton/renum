@@ -3,6 +3,7 @@ import type { CheckboxProps } from './interface';
 import { useConfigProvider } from '../renum-provider';
 import { classNames } from '../../utils';
 
+// @todo intermediate state
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function (props, ref) {
 	const {
 		label,

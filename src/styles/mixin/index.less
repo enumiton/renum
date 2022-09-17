@@ -24,13 +24,13 @@
 	touch-action: @value;
 }
 
-.remove-border-radius(@pos1, @pos2) {
-	@firefox: ~ '@{pos1}@{pos2}';
-	@everything_else: ~ '@{pos1}-@{pos2}';
+.remove-border-radius(@lhs, @rhs) {
+	@firefox: ~'@{lhs}@{rhs}';
+	@other: ~'@{lhs}-@{rhs}';
 
 	-moz-border-radius-@{firefox}: 0;
-	-webkit-border-@{everything_else}-radius: 0;
-	border-@{everything_else}-radius: 0;
+	-webkit-border-@{other}-radius: 0;
+	border-@{other}-radius: 0;
 }
 
 @outline-color: var(--primary);
