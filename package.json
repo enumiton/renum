@@ -24,7 +24,7 @@
 		"type": "git",
 		"url": "https://github.com/enumiton/renum.git"
 	},
-	"homepage": "https://github.com/enumiton/renum#readme",
+	"homepage": "https://renum.enumiton.dev",
 	"bugs": "https://github.com/enumiton/renum/issues",
 	"scripts": {
 		"dev": "vite --force --host",
