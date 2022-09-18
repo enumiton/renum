@@ -98,7 +98,7 @@ Todo
     - [x] Checkbox
     - [x] Radio
     - [ ] Segmented Control
-    - [ ] Alert
+    - [x] Alert
     - [ ] Breadcrumbs
     - [ ] Badge
     - [ ] Paper
