@@ -29,7 +29,7 @@
 	"scripts": {
 		"dev": "vite --force --host",
 		"icons": "node ./scripts/icons.js",
-		"build": "yarn icons && tsc && ./copy.sh"
+		"build": "yarn icons && vite build && tsc && ./copy.sh"
 	},
 	"files": [
 		"es/**/*",

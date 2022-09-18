@@ -1,6 +1,6 @@
 @import (reference) "./src/styles/index.less";
 
-@nav-height: 42px;
+@nav-height: 3rem;
 
 body {
 	--container-max: @screen-monitor-medium;
@@ -110,7 +110,7 @@ html[data-theme="dark"] {
 .main {
 	display: block;
 	min-height: calc(100vh - @nav-height);
-	padding: @padding-medium;
+	padding: (@padding-medium + @nav-height) @padding-medium @padding-medium;
 
 	& > h1 {
 		font-size: @font-size-h3;
