@@ -9,11 +9,11 @@ import { default as AlertCirceIcon } from '../../icons/AlertCircle';
 import { default as CloseIcon } from '../../icons/X';
 import { classNames } from '../../utils';
 
-const INFO_ICON = <InfoIcon/>;
-const SUCCESS_ICON = <CircleCheckIcon/>;
-const DANGER_ICON = <AlertTriangleIcon/>;
-const ERROR_ICON = <AlertCirceIcon/>;
-const CLOSE_ICON = <CloseIcon/>;
+const INFO_ICON = <InfoIcon />;
+const SUCCESS_ICON = <CircleCheckIcon />;
+const DANGER_ICON = <AlertTriangleIcon />;
+const ERROR_ICON = <AlertCirceIcon />;
+const CLOSE_ICON = <CloseIcon />;
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function (props, ref) {
 	const {
