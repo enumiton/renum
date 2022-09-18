@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.3.0
+
+- Added Alert component
+- Added Checkbox component (no intermediate state styling yet)
+- Added a css file including all styles, removing the requirement to have an import util
+- Normalized a bunch of colors for input components
+- Fixed some outline styles
+
 ## v0.2.0
 
 - Added Select component

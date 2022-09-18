@@ -21,35 +21,38 @@ npm install @enumiton/renum
 
 ### Usage
 
-All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by changing
+All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by
+changing
 the `font-size` of the component or its parent.
 
-There is currently no compiled css file which includes all styles. For the time being you'll need a compiler which can 
-dynamically import the component styles from `components/[name]/style/index.less`.
+You can either import all styles from `@enumiton/renum/es/styles/renum.css|less` or import them dynamically using a
+library like [vite-plugin-style-import](https://npmjs.com/package/vite-plugin-style-import).
 
 ```tsx
 import { Button } from '@enumiton/renum';
-import '@enumiton/renum/es/styles/reset.less';
+import '@enumiton/renum/es/styles/renum.less';
 
 function App() {
-  return (
-    <Button type="primary">
-      Hello world
-    </Button>
-  );
+	return (
+		<Button type="primary">
+			Hello world
+		</Button>
+	);
 }
 ```
 
 ## Types
 
-Since `renum` is written entirely in TypeScript it has types out-of-the-box. It is recommended to always use TypeScript when using
+Since `renum` is written entirely in TypeScript it has types out-of-the-box. It is recommended to always use TypeScript
+when using
 this package.
 
 ## Icons
 
 ⚠️ The icon pack will likely be split into its own NPM package due to its install size.
 
-All of the icons are from [Tabler Icons](https://github.com/tabler/tabler-icons), a project which provides free and open source
+All the icons are from [Tabler Icons](https://github.com/tabler/tabler-icons), a project which provides free and open
+source
 icons created by [Paweł Kuna](https://github.com/codecalm).
 
 The icons have already been optimized using svgo so you don't have to.
@@ -63,24 +66,27 @@ import { Button } from '@enumiton/renum';
 import { Menu } from '@enumiton/renum/icons';
 
 function App() {
-  return (
-    <Button
-      icon={ <Menu /> }
-      type="invisible"
-      shape="circle"
-      aria-label="Open menu"
-    />
-  );
+	return (
+		<Button
+			icon={ <Menu /> }
+			type="invisible"
+			shape="circle"
+			aria-label="Open menu"
+		/>
+	);
 }
 ```
 
 ## Accessibility
 
-As someone who cares about accessibility, I've made sure that the components of Renum are as accessible as possible. However, this
-doesn't mean your website will automatically be accessibile by just using this library.
+As someone who cares about accessibility, I've made sure that the components of Renum are as accessible as possible.
+However, this
+doesn't mean your website will automatically be accessible by just using this library.
 
-When making your website you'll still have to consider accessibility, like giving an input a label. If you're struggling to make
-something accessible feel free to open an issue in this repository asking for help, if I have time I could give it a look.
+When making your website you'll still have to consider accessibility, like giving an input a label. If you're struggling
+to make
+something accessible feel free to open an issue in this repository asking for help, if I have time I could give it a
+look.
 
 ## Contributing
 
@@ -91,27 +97,27 @@ Todo
 - [ ] Better color scheme generation.
 - [ ] Publish & release a beta version.
 - Components:
-    - [x] Button
-    - [x] Button Group
-    - [x] Input
-    - [x] Select
-    - [x] Checkbox
-    - [x] Radio
-    - [ ] Segmented Control
-    - [ ] Alert
-    - [ ] Breadcrumbs
-    - [ ] Badge
-    - [ ] Paper
-    - [ ] Menu
-    - [ ] Popover
-    - [ ] Modal
-    - [ ] Drawer
-    - [ ] Rate
-    - [ ] Slider
-    - [ ] Switch
-    - [ ] Tag
-    - [ ] Chip
-    - ...
+  - [x] Button
+  - [x] Button Group
+  - [x] Input
+  - [x] Select
+  - [x] Checkbox
+  - [x] Radio
+  - [ ] Segmented Control
+  - [ ] Alert
+  - [ ] Breadcrumbs
+  - [ ] Badge
+  - [ ] Paper
+  - [ ] Menu
+  - [ ] Popover
+  - [ ] Modal
+  - [ ] Drawer
+  - [ ] Rate
+  - [ ] Slider
+  - [ ] Switch
+  - [ ] Tag
+  - [ ] Chip
+  - ...
 
 ## Development
 
