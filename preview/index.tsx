@@ -106,7 +106,7 @@ function App() {
 				</main>
 			</div>
 			<footer className={ styles.footer }>
-				RENUM © { new Date().getFullYear() }
+				enumiton © { new Date().getFullYear() }
 			</footer>
 		</>
 	);

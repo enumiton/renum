@@ -2,6 +2,7 @@
 const enum Key {
 	None,
 	Space,
+	Tab,
 	Enter,
 	Escape,
 	Backspace,
@@ -24,6 +25,9 @@ function getKey(input: string): Key {
 		case 'space':
 		case 'spacebar':
 			return Key.Space;
+
+		case 'tab':
+			return Key.Tab;
 
 		case 'enter':
 		case 'return':

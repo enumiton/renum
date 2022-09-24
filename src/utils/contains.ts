@@ -1,8 +1,8 @@
 import { isHTMLElement, isNode } from './is';
 
-type El = HTMLElement | Node | Element | EventTarget | undefined | null;
+type Elementish = HTMLElement | Node | Element | EventTarget | undefined | null;
 
-function contains(target: El, containers: El | El[]): boolean {
+function contains(target: Elementish, containers: Elementish | Elementish[]): boolean {
 	if (!isNode(target)) {
 		return false;
 	}
