@@ -6,6 +6,7 @@ import { classNames, getKey, isHTMLElement, Key } from '../../utils';
 import { Button } from '../button';
 import { default as CloseIcon } from '../../icons/X';
 import { handleFocus, TabDirection } from './helpers';
+import { useMounted } from '../../hooks';
 
 const CLOSE_ICON = <CloseIcon />;
 
@@ -27,6 +28,8 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 
 	const { getPrefixCls } = useConfigProvider();
 	const prefixCls = getPrefixCls('dialog');
+
+	const mounted = useMounted();
 
 	const originRef = useRef<HTMLElement | null>(null);
 	const portalRef = useRef<HTMLDivElement | null>(null);
@@ -90,11 +93,15 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 
 			window.addEventListener('keydown', handleKeyDown, { passive: false });
 		} else {
-			close();
+			if (mounted) {
+				close();
+			}
 		}
 
 		return function () {
-			window.removeEventListener('keydown', handleKeyDown);
+			if (mounted) {
+				window.removeEventListener('keydown', handleKeyDown);
+			}
 		};
 	}, [open]);
 
