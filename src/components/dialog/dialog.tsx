@@ -38,6 +38,10 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 	const titleId = `${ id }-title`;
 
 	function close() {
+		if (!closeable) {
+			return;
+		}
+
 		if (originRef.current) {
 			originRef.current?.focus();
 		}
@@ -63,9 +67,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 				break;
 			}
 			case Key.Escape: {
-				if (closeable) {
-					close();
-				}
+				close();
 
 				break;
 			}
@@ -73,7 +75,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 	}
 
 	function handleBackdropClick() {
-		if (!closeable || !backdropCloseable) {
+		if (!backdropCloseable) {
 			return;
 		}
 
