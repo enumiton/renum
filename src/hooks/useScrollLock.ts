@@ -18,7 +18,6 @@ function useScrollLock() {
 		let scrollbar = (window.innerWidth - body.clientWidth);
 
 		html.style.minHeight = `calc(${ window.innerHeight }px)`;
-		html.style.paddingRight = `${ scrollbar }px`;
 
 		body.style.position = 'fixed';
 		body.style.overflow = 'hidden';
@@ -28,6 +27,8 @@ function useScrollLock() {
 
 		body.style.width = '100%';
 		body.style.height = '100%';
+
+		body.style.paddingRight = `${ scrollbar }px`;
 	}
 
 	function unlock() {
@@ -38,7 +39,6 @@ function useScrollLock() {
 		locked.current = false;
 
 		html.style.minHeight = '';
-		html.style.paddingRight = '';
 
 		body.style.position = '';
 		body.style.overflow = '';
@@ -48,6 +48,8 @@ function useScrollLock() {
 
 		body.style.width = '';
 		body.style.height = '';
+
+		body.style.paddingRight = '';
 
 		window.scrollTo({
 			top: scroll.current,
