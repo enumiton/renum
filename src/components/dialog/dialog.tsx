@@ -3,12 +3,11 @@ import type { DialogProps } from './interface';
 import { Portal } from '../portal';
 import { useConfigProvider } from '../renum-provider';
 import { classNames, getKey, isHTMLElement, Key } from '../../utils';
-import { Button } from '../button';
-import { default as CloseIcon } from '../../icons/X';
 import { handleFocus, TabDirection } from './helpers';
-import { useMounted } from '../../hooks';
+import { useMounted, useScrollLock } from '../../hooks';
+import { DialogHeader } from './header';
+import { DialogFooter } from './footer';
 
-const CLOSE_ICON = <CloseIcon />;
 
 const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 	const {
@@ -127,52 +126,22 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 				tabIndex={ -1 }
 				ref={ ref }
 			>
-				<div className={ `${ prefixCls }-header` }>
-					<h2 id={ titleId } className={ `${ prefixCls }-title` }>
-						{ title }
-					</h2>
-					{ closeable ? (
-						<Button
-							type="invisible"
-							shape="circle"
-							aria-label="Close dialog"
-							icon={ CLOSE_ICON }
-							onClick={ close }
-							className={ `${ prefixCls }-close` }
-						/>
-					) : null }
-				</div>
+				<DialogHeader
+					title={ title }
+					titleId={ titleId }
+					prefixCls={ prefixCls }
+					closeable={ closeable }
+					close={ close }
+				/>
 				<div role="document" className={ `${ prefixCls }-body` }>
 					{ children }
 				</div>
-				{ footer ? (
-					<div className={ `${ prefixCls }-footer` }>
-						<ul>
-							{ Array.isArray(footer) ? (
-								footer.map(function (btn, i) {
-									return (
-										<li key={ i }>
-											{ btn }
-										</li>
-									);
-								})
-							) : (
-								<>
-									<li>
-										<Button type="invisible" onClick={ close }>
-											Cancel
-										</Button>
-									</li>
-									<li>
-										<Button type="primary" onClick={ onConfirm }>
-											Ok
-										</Button>
-									</li>
-								</>
-							) }
-						</ul>
-					</div>
-				) : null }
+				<DialogFooter
+					footer={ footer }
+					prefixCls={ prefixCls }
+					close={ close }
+					onConfirm={ onConfirm }
+				/>
 			</div>
 			{ modal ? (
 				<div className={ `${ prefixCls }-backdrop` } onClick={ handleBackdropClick } />

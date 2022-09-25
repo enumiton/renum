@@ -1,6 +1,10 @@
 import { Button } from '../button';
 import { Dialog } from './dialog';
-import { useState } from 'react';
+import { FormEvent, useId, useRef, useState } from 'react';
+import { Input } from '../input';
+import { default as EmailIcon } from '../../icons/Mail';
+
+const EMAIL_ICON = <EmailIcon />;
 
 const config = {
 	title: 'dialog',
@@ -15,6 +19,8 @@ enum Open {
 
 function Simple() {
 	const [open, setOpen] = useState<Open>(Open.None);
+	const email = useRef('');
+	const id = useId();
 
 	function handleButtonClick(v: Open) {
 		return function () {
@@ -24,6 +30,12 @@ function Simple() {
 
 	function onClose() {
 		setOpen(Open.None);
+	}
+
+	function onSubmit(e: FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+
+		onClose();
 	}
 
 	return (
@@ -57,11 +69,29 @@ function Simple() {
 
 			<Dialog
 				alert
-				title="An alert with text"
+				id={ id }
+				title="Subscribe to our newsletter"
 				open={ open === Open.Alert }
 				onClose={ onClose }
+				footer={ [
+					<Button type="invisible" onClick={ onClose }>
+						Cancel
+					</Button>,
+					<Button htmlType="submit" type="primary" form={ `${ id }-form` }>
+						Subscribe
+					</Button>,
+				] }
 			>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus dignissimos nihil.</p>
+				<form id={ `${ id }-form` } onSubmit={ onSubmit }>
+					<Input
+						aria-label="E-mail"
+						icon={ EMAIL_ICON }
+						onChange={ (v) => email.current = v.target.value }
+						type="email"
+						name="email"
+						wrapperStyle={ { display: 'block', width: '100%' } }
+					/>
+				</form>
 			</Dialog>
 		</div>
 	);

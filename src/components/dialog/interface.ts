@@ -30,9 +30,22 @@ interface DialogProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'ari
 	readonly closeable?: boolean | undefined;
 	/** @default true */
 	readonly footer?: boolean | ReactElement | ReactElement[] | undefined;
-	readonly onClose?: (() => void) | undefined;
-	readonly onConfirm?: (() => void) | undefined;
-	readonly onCancel?: (() => void) | undefined;
+	readonly onClose?: (() => any) | undefined;
+	readonly onConfirm?: (() => any) | undefined;
+	readonly onCancel?: (() => any) | undefined;
 }
 
-export type { DialogProps };
+/** @internal */
+interface DialogHeaderProps extends Pick<DialogProps, 'closeable' | 'title'> {
+	readonly prefixCls: string;
+	readonly titleId: string;
+	readonly close?: (() => any) | undefined;
+}
+
+/** @internal */
+interface DialogFooterProps extends Pick<DialogProps, 'footer' | 'onConfirm'> {
+	readonly prefixCls: string;
+	readonly close?: (() => any) | undefined;
+}
+
+export type { DialogProps, DialogHeaderProps, DialogFooterProps };

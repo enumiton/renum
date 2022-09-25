@@ -5,6 +5,17 @@ const enum TabDirection {
 	Backward = -1,
 }
 
+const FOCUSABLE_SELECTORS = [
+	'button',
+	'a',
+	'area',
+	'input',
+	'textarea',
+	'select',
+	'[tabindex]:not([tabindex="-1"])',
+	'[contenteditable]',
+].join(':not([disabled], :disabled), ');
+
 function handleFocus(direction: TabDirection, e: KeyboardEvent, portal: HTMLDivElement | null) {
 	const dialog = portal?.firstElementChild;
 
@@ -14,7 +25,7 @@ function handleFocus(direction: TabDirection, e: KeyboardEvent, portal: HTMLDivE
 
 	e.preventDefault();
 
-	const elements = [...dialog.querySelectorAll('button, a, area, input, textarea, select, [tabindex], [contenteditable]')] as HTMLElement[];
+	const elements = [...dialog.querySelectorAll(FOCUSABLE_SELECTORS)] as HTMLElement[];
 	const active = window.document.activeElement;
 
 	if (elements.length === 0) {

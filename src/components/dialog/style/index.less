@@ -1,17 +1,16 @@
 @import (reference) "./variables.less";
+@import (reference) "../../portal/style/index.less";
 
 .@{dialog-prefix} {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	margin: @dialog-margin-y auto 0;
-	padding: 0;
 	width: 100vw;
-	max-width: @screen-tablet;
-	height: fit-content;
-	max-height: (100vh - (@dialog-margin-y * 2));
+	height: 100%;
+	margin: 0;
+	padding: 0;
 	background-color: var(--bg-default);
-	border-radius: @border-radius-large;
+	border-radius: 0;
 	box-shadow: @shadow-extra;
 	transform-origin: bottom center;
 	animation: dialog-open @transition-speed-medium @transition-easing forwards;
@@ -22,7 +21,7 @@
 		max-width: @screen-mobile-medium;
 
 		.@{dialog-prefix}-header {
-			padding-bottom: 0;
+			height: auto;
 			border-bottom: 0;
 		}
 
@@ -49,7 +48,6 @@
 		font-weight: @font-weight-bold;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		line-height: 1;
 		overflow: hidden;
 	}
 
@@ -79,11 +77,11 @@
 	&-footer {
 		flex-shrink: 0;
 		display: block;
-		padding: @dialog-padding-y @dialog-padding-x;
+		padding: @dialog-padding-y @dialog-padding-x calc(@dialog-padding-y + env(safe-area-inset-bottom, 0px));
 		text-align: right;
 		border-top: @border-width-medium @border-style var(--border-subtle);
 
-		& > ul {
+		&-actions {
 			display: inline-block;
 			list-style: none;
 
@@ -97,7 +95,7 @@
 		}
 	}
 
-	&-portal {
+	.@{portal-prefix}&-portal {
 		position: fixed;
 		top: 0;
 		right: 0;
@@ -118,6 +116,18 @@
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.75);
 		z-index: @z-index-modal-backdrop;
+	}
+
+	@media (min-width: (@dialog-max-width * 1.125)) {
+		max-width: @dialog-max-width;
+		height: fit-content;
+		max-height: (100vh - (@dialog-margin-y * 2));
+		margin: @dialog-margin-y auto 0;
+		border-radius: @border-radius-large;
+
+		&-footer {
+			padding-bottom: @dialog-padding-y;
+		}
 	}
 }
 
