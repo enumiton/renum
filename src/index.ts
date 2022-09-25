@@ -31,7 +31,10 @@ export type { RadioProps } from './components/radio';
 export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
 
-export { useMounted } from './hooks';
+export {
+	useMounted,
+	useScrollLock,
+} from './hooks';
 
 export {
 	classNames,

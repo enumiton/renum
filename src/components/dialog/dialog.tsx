@@ -30,6 +30,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 	const prefixCls = getPrefixCls('dialog');
 
 	const mounted = useMounted();
+	const { lock, unlock } = useScrollLock();
 
 	const originRef = useRef<HTMLElement | null>(null);
 	const portalRef = useRef<HTMLDivElement | null>(null);
@@ -47,6 +48,8 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 		if (onClose) {
 			onClose();
 		}
+
+		unlock();
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
@@ -90,6 +93,8 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 			if (isHTMLElement(dialog)) {
 				dialog.focus();
 			}
+
+			lock();
 
 			window.addEventListener('keydown', handleKeyDown, { passive: false });
 		} else {
