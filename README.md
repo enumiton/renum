@@ -110,7 +110,7 @@ Todo
   - [ ] Paper
   - [ ] Menu
   - [ ] Popover
-  - [ ] Modal
+  - [x] Dialog
   - [ ] Drawer
   - [ ] Rate
   - [ ] Slider
