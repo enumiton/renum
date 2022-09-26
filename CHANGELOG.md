@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.0
+
+- Added Dialog component
+- Added `useMount` hook
+- Added `useScrollLock` hook
+- Fix input not taking up full width
+
 ## v0.3.0
 
 - Added Alert component
