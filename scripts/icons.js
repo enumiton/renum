@@ -22,6 +22,8 @@ const NUM2WORD = {
 	'9': 'Nine',
 };
 
+const TABLER_PLS_FIX = 'hexagon';
+
 /**
  * @param {string} name
  * @return {string}
@@ -32,6 +34,10 @@ function stringToPascalCase(name) {
 		.map(function (word) {
 			if (word.length <= 0) {
 				return '';
+			}
+
+			if (name.startsWith(TABLER_PLS_FIX) && word.match(/^[A-Za-z]$/g)) {
+				return 'Letter' + word.toUpperCase();
 			}
 
 			return word[0].toUpperCase() + word.substring(1);
@@ -78,7 +84,8 @@ function ${ name }() {
 	);
 }
 
-export default ${ name };`;
+export default ${ name };
+`;
 
 		await writeFile(`${ OUTPUT }/${ name }.tsx`, component, 'utf-8');
 
