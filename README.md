@@ -49,7 +49,7 @@ this package.
 
 ## Icons
 
-⚠️ The icon pack will likely be split into its own NPM package due to its install size.
+> ⚠️ The icon pack will likely be split into its own NPM package due to its install size.
 
 All the icons are from [Tabler Icons](https://github.com/tabler/tabler-icons), a project which provides free and open
 source
