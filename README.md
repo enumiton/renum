@@ -1,7 +1,8 @@
 # Renum
 
-[![npm](https://img.shields.io/npm/v/@enumiton/renum?color=0c72cc)](https://www.npmjs.com/package/@enumiton/renum)
-![Package License](https://img.shields.io/github/license/enumiton/renum)
+[![npm webpage](https://img.shields.io/npm/v/@enumiton/renum?color=0c72cc)](https://www.npmjs.com/package/@enumiton/renum)
+[![package license](https://img.shields.io/github/license/enumiton/renum)](https://github.com/enumiton/renum/blob/master/LICENSE)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/@enumiton/renum)](https://bundlephobia.com/package/@enumiton/renum)
 
 ## Description
 
