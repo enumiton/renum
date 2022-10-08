@@ -4,7 +4,16 @@ description: Use this template to request a new feature/component/etc.
 labels:
   - "💡 suggestion"
 body:
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggestion
+      placeholder: e.g Write actual documentation...
+    validations:
+      required: true
   - type: markdown
     attributes:
       value: |
-        Go wild.
+        <!--
+          Note: Please search to see if an issue already exists for the bug you encountered.
+        -->
