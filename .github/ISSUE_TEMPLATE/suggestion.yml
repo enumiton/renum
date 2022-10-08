@@ -3,3 +3,7 @@ title: "[Suggestion] --"
 description: Use this template to request a new feature/component/etc.
 labels:
   - "💡 suggestion"
+body:
+  - type: markdown
+  attributes:
+    value: "Go wild."
