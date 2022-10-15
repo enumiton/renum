@@ -4,11 +4,11 @@ import { FormEvent, useId, useRef, useState } from 'react';
 import { Input } from '../input';
 import { default as EmailIcon } from '../../icons/Mail';
 
-const EMAIL_ICON = <EmailIcon />;
-
 const config = {
 	title: 'dialog',
 };
+
+const EMAIL_ICON = <EmailIcon />;
 
 enum Open {
 	None,

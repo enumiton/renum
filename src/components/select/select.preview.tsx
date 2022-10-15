@@ -2,11 +2,11 @@ import { default as UserIcon } from '../../icons/User';
 import type { SelectOptions } from './interface';
 import { Select } from './select';
 
-const ICON = <UserIcon />;
-
 const config = {
 	title: 'select',
 };
+
+const ICON = <UserIcon />;
 
 const options: SelectOptions = Array(25).fill(null).map(function () {
 	const str = (Math.random() + 1).toString(36).substring(7);

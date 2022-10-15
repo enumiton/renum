@@ -1,6 +1,6 @@
 @import (reference) "./src/styles/index.less";
 
-@nav-height: 3rem;
+@nav-height: 3em;
 
 body {
 	--container-max: @screen-monitor-medium;
@@ -70,11 +70,14 @@ html[data-theme="dark"] {
 	display: block;
 	width: 100vw;
 	max-width: @width;
+	padding-bottom: calc(@padding-medium + env(safe-area-inset-bottom));
 	margin-left: -@width;
-	height: 100vh;
+	height: calc(100vh - @nav-height);
 	background-color: var(--bg-default);
 	box-shadow: @shadow-small;
 	transition: margin @transition-speed-medium @transition-easing;
+	overflow: auto;
+	overscroll-behavior: contain;
 	z-index: @z-index-sticky;
 
 	&.open,
@@ -90,9 +93,9 @@ html[data-theme="dark"] {
 
 	& ul {
 		display: block;
+		list-style: none;
 
 		& li {
-			list-style: none;
 			width: 100%;
 
 			& a {
@@ -109,7 +112,6 @@ html[data-theme="dark"] {
 
 .main {
 	display: block;
-	min-height: calc(100vh - @nav-height);
 	padding: (@padding-medium + @nav-height) @padding-medium @padding-medium;
 
 	& > h1 {
@@ -117,11 +119,4 @@ html[data-theme="dark"] {
 		line-height: 1;
 		margin-bottom: 1.5rem;
 	}
-}
-
-.footer {
-	padding: @padding-large;
-	background-color: var(--gray-2);
-	text-align: center;
-	font-size: @font-size-large;
 }

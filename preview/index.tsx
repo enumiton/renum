@@ -64,7 +64,7 @@ function App() {
 		let title = (pathname === '/') ? 'Overview' : pathname.split('/').pop()!.replaceAll('-', ' ');
 		title = capitalize(title);
 
-		window.document.title = title + ' — Renum';
+		window.document.title = title + ' \u2022 Renum';
 		setTitle(title);
 	}
 
@@ -77,7 +77,7 @@ function App() {
 				<aside className={ `${ styles.aside } ${ open ? styles.open : '' }` }>
 					<h2>Components</h2>
 					<nav>
-						<ul>
+						<ul role="list">
 							<li>
 								<Link to="/">
 									Overview
@@ -105,9 +105,6 @@ function App() {
 					{ routes }
 				</main>
 			</div>
-			<footer className={ styles.footer }>
-				enumiton © { new Date().getFullYear() }
-			</footer>
 		</>
 	);
 }

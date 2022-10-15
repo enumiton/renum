@@ -8,7 +8,6 @@ import { useMounted, useScrollLock } from '../../hooks';
 import { DialogHeader } from './header';
 import { DialogFooter } from './footer';
 
-
 const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 	const {
 		id: _id,
@@ -84,11 +83,11 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 
 	useEffect(function () {
 		if (open) {
-			const activeElement = window.document.activeElement;
+			const originElement = window.document.activeElement;
 			const dialog = portalRef.current?.firstElementChild;
 
-			if (isHTMLElement(activeElement)) {
-				originRef.current = activeElement;
+			if (isHTMLElement(originElement)) {
+				originRef.current = originElement;
 			}
 
 			if (isHTMLElement(dialog)) {
@@ -98,10 +97,8 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 			lock();
 
 			window.addEventListener('keydown', handleKeyDown, { passive: false });
-		} else {
-			if (mounted) {
-				close();
-			}
+		} else if (mounted) {
+			close();
 		}
 
 		return function () {
