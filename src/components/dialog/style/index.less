@@ -18,7 +18,11 @@
 	z-index: @z-index-modal;
 
 	&[role="alertdialog"] {
+		width: 90vw;
 		max-width: @screen-mobile-medium;
+		height: fit-content;
+		margin: @dialog-margin-y auto 0;
+		border-radius: @border-radius-large;
 
 		.@{dialog-prefix}-header {
 			height: auto;
@@ -52,6 +56,7 @@
 	}
 
 	button&-close {
+		flex-shrink: 0;
 		margin: 0 -@dialog-padding-y 0 auto;
 		color: var(--text-muted);
 
