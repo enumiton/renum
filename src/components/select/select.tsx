@@ -366,6 +366,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 
 	return (
 		<Overlay
+			portalClassName={ `${ prefixCls }-portal` }
 			className={ prefixCls + '-wrapper' }
 			content={ renderList() }
 			hidden={ !expanded }

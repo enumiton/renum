@@ -1,8 +1,9 @@
 import { Button } from '../button';
 import { Dialog } from './dialog';
-import { FormEvent, useId, useRef, useState } from 'react';
+import { FormEvent, useEffect, useId, useRef, useState } from 'react';
 import { Input } from '../input';
 import { default as EmailIcon } from '../../icons/Mail';
+import { useScrollLock } from '../../hooks';
 
 const config = {
 	title: 'dialog',
@@ -19,6 +20,7 @@ enum Open {
 
 function Simple() {
 	const [open, setOpen] = useState<Open>(Open.None);
+	const { unlock } = useScrollLock();
 	const email = useRef('');
 	const id = useId();
 
@@ -37,6 +39,10 @@ function Simple() {
 
 		onClose();
 	}
+
+	useEffect(function () {
+		return unlock;
+	}, []);
 
 	return (
 		<div style={ { display: 'flex', flexFlow: 'row wrap', gap: '0.5em' } }>

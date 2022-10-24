@@ -11,10 +11,11 @@
 	padding: 0;
 	background-color: var(--bg-default);
 	border-radius: 0;
-	box-shadow: @shadow-extra;
+	box-shadow: @shadow-large, @shadow-extra;
 	transform-origin: bottom center;
-	animation: dialog-open @transition-speed-medium @transition-easing forwards;
+	animation: @dialog-animation @transition-speed-slow @transition-easing forwards;
 	outline: 0;
+	pointer-events: auto;
 	z-index: @z-index-modal;
 
 	&[role="alertdialog"] {
@@ -112,6 +113,7 @@
 		margin: 0;
 		overflow: hidden;
 		z-index: @z-index-modal;
+		pointer-events: none;
 	}
 
 	&-backdrop {
@@ -121,6 +123,7 @@
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.75);
 		z-index: @z-index-modal-backdrop;
+		pointer-events: auto;
 	}
 
 	@media (min-width: (@dialog-max-width * 1.125)) {
@@ -136,7 +139,7 @@
 	}
 }
 
-@keyframes dialog-open {
+@keyframes @dialog-animation {
 	0% {
 		transform: translateZ(0) translateY(0.25rem) scale(0.99);
 		opacity: 0.75;

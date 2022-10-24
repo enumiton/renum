@@ -1,3 +1,5 @@
+@primary-color: #0c72cc;
+
 @white: #ffffff;
 @black: #000000;
 
@@ -11,7 +13,7 @@
 		@v: (@value / @max) * 100%;
 		@percentage: if(@is-dark, (100% - @v), @v);
 
-		--gray-@{value}: mix(@primary-color, hsl(0, 0%, @percentage), 2%);
+		--gray-@{value}: mix(@primary-color, hsl(0, 0%, @percentage), 1%);
 	})
 }
 

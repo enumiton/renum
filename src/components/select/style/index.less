@@ -46,6 +46,10 @@
 		}
 	}
 
+	&-portal {
+		z-index: @z-index-dropdown;
+	}
+
 	&-wrapper {
 		position: relative;
 		display: inline-block;
@@ -62,7 +66,7 @@
 		background-color: var(--select-bg-list);
 		border-radius: @select-list-border-radius;
 		font-size: 1em;
-		box-shadow: @shadow-medium;
+		box-shadow: @shadow-extra;
 		overflow-y: auto;
 		overflow-x: hidden;
 		overscroll-behavior-y: contain;

@@ -1,18 +1,19 @@
 import { useRef } from 'react';
 
+let locked = false;
+
 function useScrollLock() {
-	const locked = useRef(false);
 	const scroll = useRef(0);
 
 	const html = window.document.documentElement;
 	const body = window.document.body;
 
 	function lock() {
-		if (locked.current) {
+		if (locked) {
 			return;
 		}
 
-		locked.current = true;
+		locked = true;
 		scroll.current = window.scrollY;
 
 		let scrollbar = (window.innerWidth - body.clientWidth);
@@ -32,11 +33,11 @@ function useScrollLock() {
 	}
 
 	function unlock() {
-		if (!locked.current) {
+		if (!locked) {
 			return;
 		}
 
-		locked.current = false;
+		locked = false;
 
 		html.style.minHeight = '';
 
