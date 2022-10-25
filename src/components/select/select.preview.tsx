@@ -8,7 +8,7 @@ const config = {
 
 const ICON = <UserIcon />;
 
-const options: SelectOptions = Array(25).fill(null).map(function () {
+const options: SelectOptions = Array(12).fill(null).map(function () {
 	const str = (Math.random() + 1).toString(36).substring(7);
 
 	return {

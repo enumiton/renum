@@ -1,36 +1,14 @@
 import type { KeyboardEvent, MouseEvent, MutableRefObject } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
-import { default as Selector } from '../../icons/Selector'; // Unsafe?
+import { default as Selector } from '../../icons/Selector';
 import { clamp, classNames, contains, getKey, isHTMLElement, isNullable, Key } from '../../utils';
 import { Overlay } from '../overlay';
 import { useConfigProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
 import { Clear } from '../clear';
+import { ARIA_DISABLED, ARIA_SELECTED, Direction, NOT, OptionState } from './helpers';
 
 const SELECTOR_ICON = <Selector />;
-
-const ARIA_SELECTED = '[aria-selected="true"]';
-const ARIA_DISABLED = '[aria-disabled="true"]';
-
-function NOT(selector: string): string {
-	return ':not(' + selector + ')';
-}
-
-const enum Direction {
-	Next = +1,
-	Next10 = +10,
-	Prev = -1,
-	Prev10 = -10,
-	Start = 2,
-	End = 3,
-}
-
-const enum OptionState {
-	None,
-	Hovered,
-	Selected,
-	Disabled,
-}
 
 const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) {
 	const {
@@ -374,6 +352,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			<input type="hidden" name={ name } value={ selected ? options.at(selected)?.value : undefined } hidden />
 			<button
 				{ ...rest }
+				// @todo scuffed
 				ref={ function (node) {
 					(buttonRef as MutableRefObject<HTMLButtonElement | null>).current = node;
 
