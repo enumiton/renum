@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.1
+
+- All `rem` units have been converted (wololo) to `em` for consistency & accessibility
+- Increased the size of the `outline-width` to `0.25em` for better visibility
+- Fixed alert dialog styles
+- Redid the box shadows
+
 ## v0.4.0
 
 - Added Dialog component
