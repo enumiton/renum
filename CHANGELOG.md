@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.2
+
+- Refactored the `font-weight` variables to be consistent with OpenType
+- Input
+  - Fixed pixel gap between prefixes and suffixes
+  - Fixed input not taking up full width of wrapper parent
+
 ## v0.4.1
 
 - All `rem` units have been converted (wololo) to `em` for consistency & accessibility
