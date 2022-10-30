@@ -5,13 +5,16 @@
 
 @line-height: 1.5;
 
-@font-weight-lightest: 200;
-@font-weight-lighter: 300;
-@font-weight-light: 400;
-@font-weight-normal: 500;
-@font-weight-bold: 600;
-@font-weight-bolder: 700;
-@font-weight-boldest: 800;
+@font-weight-thin: 100;
+@font-weight-extraLight: 200;
+@font-weight-light: 300;
+@font-weight-normal: 400;
+@font-weight-medium: 500;
+@font-weight-semiBold: 600;
+@font-weight-bold: 700;
+@font-weight-extraBold: 800;
+@font-weight-heavy: 900;
+@font-weight-extraHeavy: 950;
 
 @font-size-small: 0.875em; // 14px
 @font-size-medium: 1em; // 16px
@@ -26,4 +29,4 @@
 @font-size-h5: @font-size-large; // 18px
 @font-size-h6: @font-size-medium; // 16px
 
-@font: normal @font-size-base/@line-height @font-family;
+@font: normal @font-weight-normal @font-size-base/@line-height @font-family;

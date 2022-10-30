@@ -25,7 +25,7 @@
 	font-feature-settings: inherit;
 	font-size: @font-size-medium;
 	color: var(--btn-color);
-	font-weight: normal;
+	font-weight: @font-weight-medium;
 	text-align: left;
 	line-height: 1;
 	white-space: nowrap;
@@ -129,11 +129,13 @@
 		}
 	}
 
-	&-ghost,
-	&-ghost:hover,
-	&-ghost:focus,
-	&-ghost:active {
-		background-color: transparent;
+	&-ghost {
+		&,
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: transparent;
+		}
 	}
 
 	&-round {
@@ -150,12 +152,6 @@
 
 	&-loading {
 		cursor: wait;
-
-		&:hover,
-		&:focus {
-			background-color: var(--btn-bg);
-			border-color: var(--btn-border);
-		}
 	}
 
 	&-dashed {
