@@ -10,7 +10,6 @@ import { capitalize } from './utils';
 import { RenumProvider } from '../src';
 import '../src/styles/reset.less';
 import { Header } from './components/header';
-import { Icons } from './components/icons';
 import { Example } from './components/example';
 
 import.meta.glob('../src/components/*/style/index.less', { eager: true });
@@ -28,10 +27,6 @@ function generateRoutes(): RouteObject[] {
 		{
 			path: '/',
 			element: <Overview />,
-		},
-		{
-			path: '/icons',
-			element: <Icons />,
 		},
 		{
 			path: '/components',
@@ -84,9 +79,9 @@ function App() {
 								</Link>
 							</li>
 							<li>
-								<Link to="/icons">
+								<a href="https://tabler-icons.io" target="_blank" rel="nofollow noreferrer">
 									Icons
-								</Link>
+								</a>
 							</li>
 							{ imports.map(function ([key], i) {
 								return (
