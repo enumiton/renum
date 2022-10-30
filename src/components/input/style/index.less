@@ -48,13 +48,11 @@
 		&-prefix .@{input-prefix} {
 			.remove-border-radius("top", "left");
 			.remove-border-radius("bottom", "left");
-			margin-left: -@border-width-medium;
 		}
 
 		&-suffix .@{input-prefix} {
 			.remove-border-radius("top", "right");
 			.remove-border-radius("bottom", "right");
-			margin-right: -@border-width-medium;
 		}
 	}
 
@@ -64,6 +62,7 @@
 
 	&-inner {
 		position: relative;
+		width: 100%;
 		z-index: 2;
 
 		& > .@{icon-prefix} {
@@ -129,10 +128,12 @@
 	}
 
 	&-prefix {
+		margin-right: -@border-width-medium;
 		border-radius: @input-border-radius-fix 0 0 @input-border-radius-fix;
 	}
 
 	&-suffix {
+		margin-left: -@border-width-medium;
 		border-radius: 0 @input-border-radius-fix @input-border-radius-fix 0;
 	}
 
