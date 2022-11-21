@@ -82,23 +82,12 @@
 
 	&-footer {
 		flex-shrink: 0;
-		display: block;
+		display: flex;
+		flex-flow: row-reverse wrap;
+		gap: @padding-tiny;
 		padding: @dialog-padding-y @dialog-padding-x calc(@dialog-padding-y + env(safe-area-inset-bottom, 0px));
-		text-align: right;
 		border-top: @border-width-medium @border-style var(--border-subtle);
-
-		&-actions {
-			display: inline-block;
-			list-style: none;
-
-			& li {
-				display: inline-block;
-
-				& + li {
-					margin-left: 0.5em;
-				}
-			}
-		}
+		text-align: right;
 	}
 
 	.@{portal-prefix}&-portal {

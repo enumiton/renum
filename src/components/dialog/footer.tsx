@@ -1,16 +1,7 @@
 import type { DialogFooterProps } from './interface';
-import type { ReactNode } from 'react';
 import { isValidElement } from 'react';
 import { isHTMLElement } from '../../utils';
 import { Button } from '../button';
-
-function renderList(prefixCls: string, child: ReactNode) {
-	return (
-		<ul className={ `${ prefixCls }-footer-actions` } role="list">
-			{ child }
-		</ul>
-	);
-}
 
 function DialogFooter(props: DialogFooterProps) {
 	const {
@@ -26,32 +17,19 @@ function DialogFooter(props: DialogFooterProps) {
 		}
 
 		if (Array.isArray(footer)) {
-			return renderList(
-				prefixCls,
-				footer.map(function (btn, i) {
-					return (
-						<li key={ i }>
-							{ btn }
-						</li>
-					);
-				}),
-			);
+			return footer;
 		}
 
-		return renderList(prefixCls, (
+		return (
 			<>
-				<li>
-					<Button type="invisible" onClick={ close }>
-						Cancel
-					</Button>
-				</li>
-				<li>
-					<Button type="primary" onClick={ onConfirm }>
-						Ok
-					</Button>
-				</li>
+				<Button type="primary" onClick={ onConfirm }>
+					Ok
+				</Button>
+				<Button type="invisible" onClick={ close }>
+					Cancel
+				</Button>
 			</>
-		));
+		);
 	}
 
 	// User explicitly removed the footer.

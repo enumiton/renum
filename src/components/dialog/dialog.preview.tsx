@@ -80,11 +80,11 @@ function Simple() {
 				open={ open === Open.Alert }
 				onClose={ onClose }
 				footer={ [
-					<Button type="invisible" onClick={ onClose }>
-						Cancel
-					</Button>,
 					<Button htmlType="submit" type="primary" form={ `${ id }-form` }>
 						Subscribe
+					</Button>,
+					<Button type="invisible" onClick={ onClose }>
+						Cancel
 					</Button>,
 				] }
 			>
