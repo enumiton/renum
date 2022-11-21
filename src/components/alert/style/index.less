@@ -66,9 +66,11 @@
 	}
 
 	&-actions {
-		display: flex;
-		flex-direction: column;
-		gap: @alert-actions-gap;
+		margin-top: @alert-actions-gap;
+
+		& > .@{btn-prefix} + .@{btn-prefix} {
+			margin-left: @padding-tiny;
+		}
 	}
 
 	.@{btn-prefix}&-close {

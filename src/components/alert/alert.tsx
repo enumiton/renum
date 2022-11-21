@@ -7,7 +7,7 @@ import { default as CircleCheckIcon } from '../../icons/CircleCheck';
 import { default as AlertTriangleIcon } from '../../icons/AlertTriangle';
 import { default as AlertCirceIcon } from '../../icons/AlertCircle';
 import { default as CloseIcon } from '../../icons/X';
-import { classNames } from '../../utils';
+import { classNames, isString } from '../../utils';
 
 const INFO_ICON = <InfoIcon />;
 const SUCCESS_ICON = <CircleCheckIcon />;
@@ -85,7 +85,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function (props, ref) {
 
 		return (
 			<Button
-				aria-label="Close alert"
+				aria-label="Close alert" // @todo localize
 				className={ `${ prefixCls }-close` }
 				icon={ CLOSE_ICON }
 				onClick={ handleClose }
@@ -113,9 +113,11 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function (props, ref) {
 				{ title ? (
 					<div className={ `${ prefixCls }-title` }>{ title }</div>
 				) : null }
-				{ children }
+				{ isString(children) && title ? (
+					<p>{ children }</p>
+				) : children }
+				{ renderActions() }
 			</div>
-			{ renderActions() }
 			{ renderCloseBtn() }
 		</div>
 	);
