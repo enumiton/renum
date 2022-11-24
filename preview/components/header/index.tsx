@@ -1,4 +1,4 @@
-import { Button } from '../../../src/components/button';
+import { Button } from '../../../src';
 import { default as Menu } from '../../../src/icons/Menu2';
 import { default as Moon } from '../../../src/icons/Moon';
 import { default as TextDirectionRtl } from '../../../src/icons/TextDirectionRtl';

@@ -77,7 +77,7 @@ function stringToPascalCase(name) {
 		const component = `import { Icon } from '../components/icon';
 import type { IconProps } from '../components/icon';
 
-function ${ name }(props: IconProps) {
+function ${ name }(props: Omit<IconProps, 'children'>) {
 	return (
 		<Icon { ...props }>
 			${ svg }
