@@ -22,7 +22,8 @@
 		width: 90vw;
 		max-width: @screen-mobile-medium;
 		height: fit-content;
-		margin: @dialog-margin-y auto 0;
+		margin-block: @dialog-margin-y 0;
+		margin-inline: auto;
 		border-radius: @border-radius-large;
 
 		.@{dialog-prefix}-header {
@@ -31,8 +32,8 @@
 		}
 
 		.@{dialog-prefix}-footer {
-			padding-top: 0;
-			border-top: 0;
+			padding-block-start: 0;
+			border-block-start: 0;
 		}
 	}
 
@@ -42,8 +43,9 @@
 		align-items: center;
 		width: 100%;
 		height: (unit(@line-height, em) * 2);
-		padding: 0 @dialog-padding-x;
-		border-bottom: @border-width-medium @border-style var(--border-subtle);
+		padding-block: 0;
+		padding-inline: @dialog-padding-x;
+		border-block-end: @border-width-medium @border-style var(--border-subtle);
 	}
 
 	&-title {
@@ -58,16 +60,17 @@
 
 	button&-close {
 		flex-shrink: 0;
-		margin: 0 -@dialog-padding-y 0 auto;
+		margin-block: 0;
+		margin-inline: auto -@dialog-padding-y;
 		color: var(--text-muted);
 
 		&::after {
 			content: "";
 			position: absolute;
-			top: -0.25em;
-			right: 0;
-			bottom: 0;
-			left: -0.25em;
+			inset-block-start: -0.25em;
+			inset-block-end: 0;
+			inset-inline-start: -0.25em;
+			inset-inline-end: 0;
 			width: calc(100% + 0.5em);
 			height: calc(100% + 0.5em);
 		}
@@ -76,7 +79,8 @@
 	&-body {
 		flex: 1;
 		display: block;
-		padding: @dialog-padding-y @dialog-padding-x;
+		padding-block: @dialog-padding-y;
+		padding-inline: @dialog-padding-x;
 		overflow-y: auto;
 	}
 
@@ -85,17 +89,15 @@
 		display: flex;
 		flex-flow: row-reverse wrap;
 		gap: @padding-tiny;
-		padding: @dialog-padding-y @dialog-padding-x calc(@dialog-padding-y + env(safe-area-inset-bottom, 0px));
-		border-top: @border-width-medium @border-style var(--border-subtle);
+		padding-block: @dialog-padding-y calc(@dialog-padding-y + env(safe-area-inset-bottom, 0px));
+		padding-inline: @dialog-padding-x;
+		border-block-start: @border-width-medium @border-style var(--border-subtle);
 		text-align: right;
 	}
 
 	.@{portal-prefix}&-portal {
 		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		padding: 0;
@@ -119,11 +121,12 @@
 		max-width: @dialog-max-width;
 		height: fit-content;
 		max-height: (100vh - (@dialog-margin-y * 2));
-		margin: @dialog-margin-y auto 0;
+		margin-block: @dialog-margin-y 0;
+		margin-inline: auto;
 		border-radius: @border-radius-large;
 
 		&-footer {
-			padding-bottom: @dialog-padding-y;
+			padding-block-end: @dialog-padding-y;
 		}
 	}
 }

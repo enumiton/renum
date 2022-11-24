@@ -5,19 +5,19 @@
 body {
 	--container-max: @screen-monitor-medium;
 
-	padding-top: @nav-height;
+	margin: 0;
 }
 
 .header {
 	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
+	inset-block-start: 0;
+	inset-inline: 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 100vw;
-	padding: 0 @padding-extra;
+	padding-block: 0;
+	padding-inline: @padding-extra;
 	height: @nav-height;
 	background-color: var(--gray-0);
 	color: var(--text-emphasis);
@@ -28,16 +28,16 @@ body {
 		.outline();
 
 		position: absolute;
-		top: -999px;
-		left: -999px;
+		inset-block-start: -999px;
+		inset-inline-start: -999px;
 		padding: 1em;
 		background-color: var(--bg-overlay);
 		box-shadow: @shadow-extra;
 		border-radius: @border-radius-medium;
 
 		&:focus {
-			top: 1em;
-			left: 1em;
+			inset-block-start: 1em;
+			inset-inline-start: 1em;
 			z-index: 100;
 		}
 	}
@@ -46,6 +46,13 @@ body {
 		font-size: @font-size-large;
 		font-weight: @font-weight-bold;
 		text-transform: capitalize;
+	}
+
+	& .rhs {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		gap: @margin-tiny;
 	}
 }
 
@@ -61,17 +68,16 @@ html[data-theme="dark"] {
 }
 
 .aside {
-	@width: 280px;
+	@width: unit((280 / 16), em);
 
 	position: fixed;
-	top: @nav-height;
-	left: 0;
-	bottom: 0;
+	inset-block: @nav-height 0;
+	inset-inline-start: 0;
 	display: block;
 	width: 100vw;
 	max-width: @width;
-	padding-bottom: calc(@padding-medium + env(safe-area-inset-bottom));
-	margin-left: -@width;
+	padding-block-end: calc(@padding-medium + env(safe-area-inset-bottom));
+	margin-inline-start: -@width;
 	height: calc(100vh - @nav-height);
 	background-color: var(--bg-default);
 	box-shadow: @shadow-medium;
@@ -89,9 +95,12 @@ html[data-theme="dark"] {
 		display: block;
 		padding: @padding-small;
 		font-size: @font-size-extraLarge;
+		margin: 0;
 	}
 
 	& ul {
+		margin: 0;
+		padding: 0;
 		display: block;
 		list-style: none;
 
@@ -112,11 +121,13 @@ html[data-theme="dark"] {
 
 .main {
 	display: block;
-	padding: (@padding-medium + @nav-height) @padding-medium @padding-medium;
+	width: 100%;
+	padding-block: (@padding-medium + @nav-height) @padding-medium;
+	padding-inline: @padding-medium;
 
 	& > h1 {
 		font-size: @font-size-h3;
 		line-height: 1;
-		margin-bottom: 1.5em;
+		margin-block-end: 1.5em;
 	}
 }

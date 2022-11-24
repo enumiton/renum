@@ -1,6 +1,7 @@
 import { Button } from '../../../src/components/button';
 import { default as Menu } from '../../../src/icons/Menu2';
 import { default as Moon } from '../../../src/icons/Moon';
+import { default as TextDirectionRtl } from '../../../src/icons/TextDirectionRtl';
 import styles from '../../preview.module.less';
 import { useEffect } from 'react';
 
@@ -12,6 +13,7 @@ type Props = {
 const html = window.document.documentElement;
 
 let theme = window.localStorage.getItem('theme') || 'dark';
+let td = window.localStorage.getItem('td') || 'ltr';
 
 function toggleTheme() {
 	theme = (theme === 'light') ? 'dark' : 'light';
@@ -20,9 +22,17 @@ function toggleTheme() {
 	html.dataset.theme = theme;
 }
 
+function toggleTextDirection() {
+	td = (td === 'ltr') ? 'rtl' : 'ltr';
+
+	window.localStorage.setItem('td', td);
+	html.dir = td;
+}
+
 function Header(props: Props) {
 	useEffect(function () {
-		html.dataset.theme = theme;
+		html.dataset.theme = (theme === 'light') ? 'light' : 'dark';
+		html.dir = (td === 'rtl') ? 'rtl' : 'ltr';
 	}, []);
 
 	return (
@@ -39,7 +49,13 @@ function Header(props: Props) {
 				/>
 				<span className={ styles.logo }>Renum</span>
 			</div>
-			<div>
+			<div className={ styles.rhs }>
+				<Button
+					type="invisible"
+					icon={ <TextDirectionRtl /> }
+					onClick={ toggleTextDirection }
+					aria-label="Change color theme"
+				/>
 				<Button
 					type="invisible"
 					icon={ <Moon /> }

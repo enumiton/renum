@@ -1,0 +1,18 @@
+@import (reference) "../src/styles/index.less";
+
+.reset {
+
+	& > section {
+		background-color: var(--bg-default);
+		border-radius: @border-radius-large;
+		padding: @padding-medium;
+	}
+
+	& > section + section {
+		margin-block-start: @margin-large;
+	}
+
+	& label input:not([type="checkbox"], [type="radio"]) {
+		display: block;
+	}
+}

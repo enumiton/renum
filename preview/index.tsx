@@ -5,12 +5,13 @@ import { createRoot } from 'react-dom/client';
 import type { RouteObject } from 'react-router-dom';
 import { BrowserRouter, Link, useLocation, useRoutes } from 'react-router-dom';
 import { Overview } from './components/overview';
+import { Reset } from './components/reset';
 import styles from './preview.module.less';
 import { capitalize } from './utils';
 import { RenumProvider } from '../src';
-import '../src/styles/reset.less';
 import { Header } from './components/header';
 import { Example } from './components/example';
+import '../src/styles/reset.less';
 
 import.meta.glob('../src/components/*/style/index.less', { eager: true });
 
@@ -27,6 +28,10 @@ function generateRoutes(): RouteObject[] {
 		{
 			path: '/',
 			element: <Overview />,
+		},
+		{
+			path: '/reset',
+			element: <Reset />,
 		},
 		{
 			path: '/components',
@@ -76,6 +81,11 @@ function App() {
 							<li>
 								<Link to="/">
 									Overview
+								</Link>
+							</li>
+							<li>
+								<Link to="/reset">
+									Reset styles
 								</Link>
 							</li>
 							<li>

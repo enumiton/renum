@@ -6,7 +6,8 @@
 	display: flex;
 	flex-flow: row nowrap;
 	gap: @alert-gap;
-	padding: @alert-padding-y @alert-padding-x;
+	padding-block: @alert-padding-y;
+	padding-inline: @alert-padding-x;
 	margin: 0;
 	background-color: var(--alert-bg);
 	border: @alert-border-width @alert-border-style var(--alert-border);
@@ -52,7 +53,7 @@
 
 	& > .@{renum-prefix}-icon {
 		height: fit-content;
-		margin-top: 0.25em;
+		margin-block-start: 0.25em;
 		transform: translateZ(0) scale(@line-height);
 	}
 
@@ -62,21 +63,23 @@
 
 	&-title {
 		font-weight: @font-weight-bold;
-		margin-bottom: @alert-actions-gap;
+		margin-block-end: @alert-actions-gap;
 	}
 
 	&-actions {
-		margin-top: @alert-actions-gap;
+		margin-block-start: @alert-actions-gap;
 
 		& > .@{btn-prefix} + .@{btn-prefix} {
-			margin-left: @padding-tiny;
+			margin-inline-start: @padding-tiny;
 		}
 	}
 
 	.@{btn-prefix}&-close {
 		width: auto;
 		height: fit-content;
-		margin: -(0.625em * 0.5) calc(@btn-padding-icon * -1) calc(@btn-padding-icon * -1);
+		margin-block-start: -(0.625em * 0.5);
+		margin-block-end: calc(@btn-padding-icon * -1);
+		margin-inline: calc(@btn-padding-icon * -1);
 		color: var(--text-muted);
 	}
 }

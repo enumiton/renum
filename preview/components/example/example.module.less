@@ -4,7 +4,7 @@
 	display: flex;
 	flex-flow: row wrap;
 	gap: (@margin-medium * 4) (@margin-medium * 2);
-	margin-top: 3.5em;
+	margin-block-start: 3.5em;
 }
 
 .section {
@@ -15,8 +15,9 @@
 	box-shadow: @shadow-small;
 
 	& h2 {
-		padding-bottom: calc(@font-size-large + (@border-width-medium * 2));
-		margin: -(@font-size-large * 2) 0 0;
+		padding-block-end: calc(@font-size-large + (@border-width-medium * 2));
+		margin-block: -(@font-size-large * 2) 0;
+		margin-inline: 0;
 		font-size: @font-size-large;
 		line-height: 1;
 	}

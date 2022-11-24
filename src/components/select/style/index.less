@@ -35,8 +35,8 @@
 
 	& + &-clear {
 		position: absolute;
-		top: (@input-padding-y + 0.25em);
-		right: calc(@input-padding-x + @border-width-medium);
+		inset-block-start: (@input-padding-y + 0.25em);
+		inset-inline-end: calc(@input-padding-x + @border-width-medium);
 		z-index: 2;
 	}
 
@@ -61,7 +61,7 @@
 		min-width: inherit;
 		max-height: (@select-option-height * 4.5 + @input-padding-y);
 		padding: @input-padding-y;
-		margin-top: @outline-width;
+		margin-block-start: @outline-width;
 		background-color: var(--select-bg-list);
 		border-radius: @select-list-border-radius;
 		font-size: 1em;
@@ -78,7 +78,8 @@
 
 		display: block;
 		height: @select-option-height;
-		padding: @input-padding-y @input-padding-x;
+		padding-block: @input-padding-y;
+		padding-inline: @input-padding-x;
 		background-color: transparent;
 		border-radius: @select-list-border-radius;
 		color: var(--select-color);
@@ -102,11 +103,11 @@
 		}
 
 		& + .@{select-prefix}-option {
-			margin-top: @select-option-spacing;
+			margin-block-start: @select-option-spacing;
 		}
 
 		& .@{icon-prefix} {
-			margin-right: @input-padding-y;
+			margin-inline-end: @input-padding-y;
 			transform: translateZ(0) scale(unit(@font-size-large));
 		}
 

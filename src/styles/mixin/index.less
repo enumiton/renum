@@ -24,15 +24,6 @@
 	touch-action: @value;
 }
 
-.remove-border-radius(@lhs, @rhs) {
-	@firefox: ~'@{lhs}@{rhs}';
-	@other: ~'@{lhs}-@{rhs}';
-
-	-moz-border-radius-@{firefox}: 0;
-	-webkit-border-@{other}-radius: 0;
-	border-@{other}-radius: 0;
-}
-
 @outline-color: var(--primary);
 @outline-width: 0.25em;
 

@@ -15,16 +15,16 @@
 
 @input-shadow-focus: 0 0 0 @outline-width var(--primary-muted);
 
-.input(@display: inline-block) {
+.input(@display: inline-block, @insert-width: true) {
 	position: relative;
 	display: @display;
-	padding: @input-padding-y @input-padding-x;
-	width: 100%;
+	padding-block: @input-padding-y;
+	padding-inline: @input-padding-x;
+	if(@insert-width, ~'width: 100%;')
 	height: @input-height;
 	background-color: var(--input-bg);
 	border: @border-width-medium @border-style var(--input-border);
 	border-radius: @input-border-radius;
-	font: inherit;
 	letter-spacing: inherit;
 	font-feature-settings: inherit;
 	color: var(--input-color);

@@ -16,7 +16,8 @@
 	min-width: 76px;
 	height: @btn-height;
 	margin: 0;
-	padding: @btn-padding-y @btn-padding-x;
+	padding-block: @btn-padding-y;
+	padding-inline: @btn-padding-x;
 	background-color: var(--btn-bg);
 	border: @btn-border-width @btn-border-style var(--btn-border);
 	border-radius: @btn-border-radius;
@@ -174,16 +175,16 @@
 			}
 
 			&:first-child {
-				.remove-border-radius("top", "right");
-				.remove-border-radius("bottom", "right");
+				border-start-end-radius: 0;
+				border-end-end-radius: 0;
 			}
 
 			& + .@{btn-prefix} {
-				margin-left: -@btn-border-width;
+				margin-inline-start: -@btn-border-width;
 
 				&:last-child {
-					.remove-border-radius("top", "left");
-					.remove-border-radius("bottom", "left");
+					border-start-start-radius: 0;
+					border-end-start-radius: 0;
 				}
 
 				&:not(:last-child) {
