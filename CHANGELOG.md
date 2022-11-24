@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.5.0
+
+- Added rtl ("right to left") text direction support
+- Icons can now receive props
+- The reset styles now standardize styles rather than removing them
+- Moved the actions of an alert to the bottom
+- The light mode `--border-subtle` color was made slightly lighter
+- Removed the `ul` used in the dialog footer
+- Actions within the dialog footer are shown rendered to make the primary action more accessible to non-mouse users
+
 ## v0.4.2
 
 - Refactored the `font-weight` variables to be consistent with OpenType
