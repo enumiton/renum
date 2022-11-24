@@ -1,28 +1,28 @@
-'use strict';
-import { appendFile, mkdir, readdir, readFile, rm, writeFile } from 'fs/promises';
+"use strict";
+import { appendFile, mkdir, readdir, readFile, rm, writeFile } from "fs/promises";
 
-const INPUT = './node_modules/@tabler/icons/icons';
-const OUTPUT = './src/icons';
-const ICON_INDEX = './src/icons/index.ts';
-const ROOT_INDEX = './icons.js';
-const TYPE = './icons.d.ts';
+const INPUT = "./node_modules/@tabler/icons/icons";
+const OUTPUT = "./src/icons";
+const ICON_INDEX = "./src/icons/index.ts";
+const ROOT_INDEX = "./icons.js";
+const TYPE = "./icons.d.ts";
 
-const SVG_TAG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">';
+const SVG_TAG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"1em\" height=\"1em\" strokeWidth=\"2\" stroke=\"currentColor\" fill=\"none\" strokeLinecap=\"round\" strokeLinejoin=\"round\" aria-hidden=\"true\">";
 
 const NUM2WORD = {
-	'0': 'Zero',
-	'1': 'One',
-	'2': 'Two',
-	'3': 'Three',
-	'4': 'Four',
-	'5': 'Five',
-	'6': 'Six',
-	'7': 'Seven',
-	'8': 'Eight',
-	'9': 'Nine',
+	"0": "Zero",
+	"1": "One",
+	"2": "Two",
+	"3": "Three",
+	"4": "Four",
+	"5": "Five",
+	"6": "Six",
+	"7": "Seven",
+	"8": "Eight",
+	"9": "Nine",
 };
 
-const TABLER_PLS_FIX = 'hexagon';
+const TABLER_PLS_FIX = "hexagon";
 
 /**
  * @param {string} name
@@ -33,38 +33,38 @@ function stringToPascalCase(name) {
 		.split(/[\W\-]+/g)
 		.map(function (word) {
 			if (word.length <= 0) {
-				return '';
+				return "";
 			}
 
 			if (name.startsWith(TABLER_PLS_FIX) && word.match(/^[A-Za-z]$/g)) {
-				return 'Letter' + word.toUpperCase();
+				return "Letter" + word.toUpperCase();
 			}
 
 			return word[0].toUpperCase() + word.substring(1);
 		})
-		.join('');
+		.join("");
 }
 
 (async function generate() {
-	console.log('Generating icons');
+	console.log("Generating icons");
 
 	await rm(OUTPUT, { recursive: true, force: true });
 
 	await mkdir(OUTPUT);
 
-	const svgs = await readdir(INPUT, 'utf-8');
+	const svgs = await readdir(INPUT, "utf-8");
 
 	for (const file of svgs) {
 		if (!file.match(/^(.*).svg$/)) {
 			continue;
 		}
 
-		let name = stringToPascalCase(file.substring(0, file.lastIndexOf('.')));
+		let name = stringToPascalCase(file.substring(0, file.lastIndexOf(".")));
 
-		const content = await readFile(`${ INPUT }/${ file }`, 'utf-8');
+		const content = await readFile(`${ INPUT }/${ file }`, "utf-8");
 		const svg = content
 			.replace(/<svg .*>/, SVG_TAG)
-			.replace(/([\n\r\t])+/g, '');
+			.replace(/([\n\r\t])+/g, "");
 
 		// @todo implement svgo
 
@@ -75,10 +75,11 @@ function stringToPascalCase(name) {
 		}
 
 		const component = `import { Icon } from '../components/icon';
+import type { IconProps } from '../components/icon';
 
-function ${ name }() {
+function ${ name }(props: IconProps) {
 	return (
-		<Icon>
+		<Icon { ...props }>
 			${ svg }
 		</Icon>
 	);
@@ -87,13 +88,13 @@ function ${ name }() {
 export default ${ name };
 `;
 
-		await writeFile(`${ OUTPUT }/${ name }.tsx`, component, 'utf-8');
+		await writeFile(`${ OUTPUT }/${ name }.tsx`, component, "utf-8");
 
-		await appendFile(ICON_INDEX, `export { default as ${ name } } from './${ name }';\n`, 'utf-8');
+		await appendFile(ICON_INDEX, `export { default as ${ name } } from './${ name }';\n`, "utf-8");
 	}
 
-	await writeFile(ROOT_INDEX, 'export * from \'./es/icons/index\';\n', 'utf-8');
-	await writeFile(TYPE, 'export * from \'./es/icons/index\';\n', 'utf-8');
+	await writeFile(ROOT_INDEX, "export * from './es/icons/index';\n", "utf-8");
+	await writeFile(TYPE, "export * from './es/icons/index';\n", "utf-8");
 
-	console.log('Icons generated');
+	console.log("Icons generated");
 })();
