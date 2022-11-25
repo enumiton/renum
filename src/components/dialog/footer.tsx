@@ -2,6 +2,7 @@ import type { DialogFooterProps } from './interface';
 import { isValidElement } from 'react';
 import { isHTMLElement } from '../../utils';
 import { Button } from '../button';
+import { useRenumProvider } from '../renum-provider';
 
 function DialogFooter(props: DialogFooterProps) {
 	const {
@@ -10,6 +11,8 @@ function DialogFooter(props: DialogFooterProps) {
 		close,
 		onConfirm,
 	} = props;
+
+	const { locale } = useRenumProvider();
 
 	function renderFooter() {
 		if (isValidElement(footer) || isHTMLElement(footer)) {
@@ -23,10 +26,10 @@ function DialogFooter(props: DialogFooterProps) {
 		return (
 			<>
 				<Button type="primary" onClick={ onConfirm }>
-					Ok
+					{ locale.dialog.primaryButtonText }
 				</Button>
 				<Button type="invisible" onClick={ close }>
-					Cancel
+					{ locale.dialog.cancelButtonText }
 				</Button>
 			</>
 		);

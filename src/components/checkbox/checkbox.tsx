@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { CheckboxProps } from './interface';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import { classNames } from '../../utils';
 
 // @todo intermediate state
@@ -14,7 +14,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function (props, re
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('checkbox');
 
 	return (

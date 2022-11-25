@@ -1,7 +1,7 @@
 import type { FormEvent } from 'react';
 import { forwardRef, isValidElement, useEffect, useState } from 'react';
 import { classNames, isHTMLInputElement, isNullable } from '../../utils';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import type { InputProps } from './interface';
 import { Clear } from '../clear';
 
@@ -22,7 +22,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('input');
 
 	const [value, setValue] = useState<string | number>(defaultValue ?? _value ?? '');

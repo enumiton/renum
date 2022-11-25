@@ -2,7 +2,7 @@ import type { ReactPortal } from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { classNames } from '../../utils';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import type { PortalProps } from './interface';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(function (props, ref): ReactPortal {
@@ -13,7 +13,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function (props, ref): Re
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('portal');
 	const [position, setPosition] = useState({ left: 0, top: 0, width: 0, height: 0 });
 

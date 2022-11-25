@@ -3,7 +3,7 @@ import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { default as Selector } from '../../icons/Selector';
 import { clamp, classNames, contains, getKey, isHTMLElement, isNullable, Key } from '../../utils';
 import { Overlay } from '../overlay';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
 import { Clear } from '../clear';
 import { ARIA_DISABLED, ARIA_SELECTED, Direction, NOT, OptionState } from './helpers';
@@ -32,7 +32,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const listboxRef = useRef<HTMLUListElement>(null);
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('select');
 
 	function close() {

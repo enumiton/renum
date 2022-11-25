@@ -1,30 +1,28 @@
-import { PropsWithChildren, useCallback, useMemo } from 'react';
-import { ConfigConsumer as RenumConsumer, ConfigContext, defaultConfig, defaultPrefixCls, useConfigProvider } from './context';
-import type { RenumConfig } from './interface';
+import type { PropsWithChildren } from 'react';
+import { useMemo } from 'react';
+import { RenumContext, useRenumProvider } from './context';
+import type { RenumConfig, RenumProviderProps } from './interface';
 
-let prefixCls = defaultPrefixCls;
+const PREFIX_CLS = 're';
 
-function RenumProvider({ children, ...rest }: PropsWithChildren<Partial<Omit<RenumConfig, 'getPrefixCls'>>>) {
-	const getPrefixCls = useCallback(function (suffix?: string) {
-		return suffix ? prefixCls + '-' + suffix : prefixCls;
-	}, [prefixCls]);
+function getPrefixCls(suffix?: string): string {
+	return suffix ? PREFIX_CLS + '-' + suffix : PREFIX_CLS;
+}
 
-	const config = useMemo(function () {
-		prefixCls = rest.prefixCls || defaultPrefixCls;
-
+function RenumProvider({ children, locale }: PropsWithChildren<RenumProviderProps>) {
+	let value: RenumConfig = useMemo(function () {
 		return {
-			...defaultConfig,
-			...rest,
 			getPrefixCls,
+			locale,
 		};
-	}, [JSON.stringify(rest)]);
+	}, [locale.locale]);
 
 	return (
-		<ConfigContext.Provider value={ config }>
+		<RenumContext.Provider value={ value }>
 			{ children }
-		</ConfigContext.Provider>
+		</RenumContext.Provider>
 	);
 }
 
-export { RenumProvider, RenumConsumer, useConfigProvider };
+export { RenumProvider, useRenumProvider };
 export type { RenumConfig };

@@ -19,7 +19,7 @@ export type { InputProps } from './components/input';
 export { Loading } from './components/loading';
 export type { LoadingProps } from './components/loading';
 
-export { RenumProvider, RenumConsumer, useConfigProvider } from './components/renum-provider';
+export { RenumProvider, useRenumProvider } from './components/renum-provider';
 export type { RenumConfig } from './components/renum-provider';
 
 export { Portal } from './components/portal';
@@ -30,6 +30,8 @@ export type { RadioProps } from './components/radio';
 
 export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
+
+export type { Locale } from './locale/interface';
 
 export {
 	useMounted,

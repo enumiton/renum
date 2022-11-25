@@ -11,6 +11,7 @@ import { capitalize } from './utils';
 import { RenumProvider } from '../src';
 import { Header } from './components/header';
 import { Example } from './components/example';
+import locale from '../src/locale/nl-nl';
 import '../src/styles/reset.less';
 
 import.meta.glob('../src/components/*/style/index.less', { eager: true });
@@ -43,7 +44,6 @@ function generateRoutes(): RouteObject[] {
 				...(imports.map(function ([key]) {
 					return {
 						path: key,
-						// 🫠
 						element: Example({ component: key }),
 					};
 				})),
@@ -117,7 +117,7 @@ function App() {
 function Providers() {
 	return (
 		<StrictMode>
-			<RenumProvider>
+			<RenumProvider locale={ locale }>
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>

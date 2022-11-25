@@ -16,15 +16,10 @@ Another React component library with two unique traits: no unnecessary depenenci
 yarn add @enumiton/renum
 ```
 
-```sh
-npm install @enumiton/renum
-```
-
 ### Usage
 
 All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by
-changing
-the `font-size` of the component or its parent.
+changing the `font-size` of the component or its parent.
 
 You can either import all styles from `@enumiton/renum/es/styles/renum.css|less` or import them dynamically using a
 library like [vite-plugin-style-import](https://npmjs.com/package/vite-plugin-style-import).
@@ -42,19 +37,36 @@ function App() {
 }
 ```
 
+Also don't forget to use the `RenumProvider` component and its localization. You can import different locales
+from `@enumiton/renum/es/locale/` or make your own by using the `Locale` type and passing it to the locale prop.
+
+```tsx
+import { RenumProvider } from '@enumiton/renum';
+import locale from '@enumiton/renum/es/locale/en-us';
+
+function App() {
+	return (
+		<RenumProvider locale={ locale }>
+			{/* … */ }
+		</RenumProvider>
+	);
+}
+```
+
 ## Types
 
-Since `renum` is written entirely in TypeScript it has types out-of-the-box. It is recommended to always use TypeScript
-when using
-this package.
+Since `renum` is written entirely in TypeScript it has types out-of-the-box.
+
+Though I don't recommend it, you could still use this library with JavaScript. Since props/values are only validated
+using TypeScript you *will* run into issues with JavaScript. I will **not** fix any issues related to wrong props/values
+being passed through components in JavaScript.
 
 ## Icons
 
 > ⚠️ The icon pack will likely be split into its own NPM package due to its install size.
 
 All the icons are from [Tabler Icons](https://github.com/tabler/tabler-icons), a project which provides free and open
-source
-icons created by [Paweł Kuna](https://github.com/codecalm).
+source icons created by [Paweł Kuna](https://github.com/codecalm).
 
 The icons have already been optimized using svgo so you don't have to.
 
@@ -81,13 +93,11 @@ function App() {
 ## Accessibility
 
 As someone who cares about accessibility, I've made sure that the components of Renum are as accessible as possible.
-However, this
-doesn't mean your website will automatically be accessible by just using this library.
+However, this doesn't mean your website will automatically be accessible by just using this library.
 
 When making your website you'll still have to consider accessibility, like giving an input a label. If you're struggling
-to make
-something accessible feel free to open an issue in this repository asking for help, if I have time I could give it a
-look.
+to make something accessible feel free to open an issue in this repository asking for help, if I have time I could give
+it a look.
 
 ## Contributing
 

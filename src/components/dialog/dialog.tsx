@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useId, useRef } from 'react';
 import type { DialogProps } from './interface';
 import { Portal } from '../portal';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import { classNames, getKey, isHTMLElement, Key } from '../../utils';
 import { handleFocus, TabDirection } from './helpers';
 import { useMounted, useScrollLock } from '../../hooks';
@@ -24,7 +24,7 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('dialog');
 
 	const mounted = useMounted();

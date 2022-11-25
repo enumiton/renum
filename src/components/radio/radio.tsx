@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { RadioProps } from './interface';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import { classNames } from '../../utils';
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
@@ -10,7 +10,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('radio');
 
 	return (

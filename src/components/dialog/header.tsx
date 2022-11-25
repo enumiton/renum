@@ -1,6 +1,7 @@
 import { Button } from '../button';
 import { default as CloseIcon } from '../../icons/X';
 import type { DialogHeaderProps } from './interface';
+import { useRenumProvider } from '../renum-provider';
 
 const CLOSE_ICON = <CloseIcon />;
 
@@ -14,6 +15,8 @@ function DialogHeader(props: DialogHeaderProps) {
 		close,
 	} = props;
 
+	const { locale } = useRenumProvider();
+
 	return (
 		<div className={ `${ prefixCls }-header` }>
 			<h2 id={ titleId } className={ `${ prefixCls }-title` }>
@@ -23,7 +26,7 @@ function DialogHeader(props: DialogHeaderProps) {
 				<Button
 					type="invisible"
 					shape="circle"
-					aria-label="Close dialog"
+					aria-label={ locale.close }
 					icon={ CLOSE_ICON }
 					onClick={ close }
 					className={ `${ prefixCls }-close` }

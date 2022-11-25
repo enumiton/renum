@@ -2,7 +2,7 @@ import type { ForwardRefExoticComponent, MouseEvent, RefAttributes } from 'react
 import { forwardRef } from 'react';
 import type { ButtonProps } from './interface';
 import { classNames } from '../../utils';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import { Loading } from '../loading';
 import { Group } from './group';
 
@@ -23,7 +23,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function (prop
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 
 	const prefixCls = getPrefixCls('btn');
 

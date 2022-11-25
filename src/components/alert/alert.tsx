@@ -1,6 +1,6 @@
 import { forwardRef, isValidElement, useState } from 'react';
 import type { AlertProps } from './interface';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import { Button } from '../button';
 import { default as InfoIcon } from '../../icons/InfoCircle';
 import { default as CircleCheckIcon } from '../../icons/CircleCheck';
@@ -28,7 +28,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function (props, ref) {
 		...rest
 	} = props;
 
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls, locale } = useRenumProvider();
 	const prefixCls = getPrefixCls('alert');
 
 	const [closed, setClosed] = useState<boolean>(false);
@@ -85,7 +85,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function (props, ref) {
 
 		return (
 			<Button
-				aria-label="Close alert" // @todo localize
+				aria-label={ locale.close }
 				className={ `${ prefixCls }-close` }
 				icon={ CLOSE_ICON }
 				onClick={ handleClose }

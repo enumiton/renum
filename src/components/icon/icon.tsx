@@ -1,6 +1,6 @@
 import { cloneElement, forwardRef } from 'react';
 import { classNames } from '../../utils';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import type { IconProps } from './interface';
 
 const Icon = forwardRef<HTMLSpanElement, IconProps>(function (props, ref) {
@@ -10,12 +10,13 @@ const Icon = forwardRef<HTMLSpanElement, IconProps>(function (props, ref) {
 		...rest
 	} = props;
 
-	const { prefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
+	const prefixCls = getPrefixCls('icon');
 
 	return (
 		<span
 			ref={ ref }
-			className={ classNames(prefixCls + '-icon', className) }
+			className={ classNames(prefixCls, className) }
 		>
 			{ cloneElement(children, rest) }
 		</span>

@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import type { ClearProps } from './interface';
 import { default as ClearIcon } from '../../icons/X';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import { classNames } from '../../utils';
 
 const Clear = forwardRef<HTMLSpanElement, ClearProps>(function (props, ref) {
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('clear');
 
 	return (

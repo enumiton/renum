@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import { classNames } from '../../utils';
-import { useConfigProvider } from '../renum-provider';
+import { useRenumProvider } from '../renum-provider';
 import type { ButtonGroupProps } from './interface';
 
 
 const Group = forwardRef<HTMLDivElement, ButtonGroupProps>(function (props, ref) {
-	const { getPrefixCls } = useConfigProvider();
+	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('btn-group');
 
 	return (

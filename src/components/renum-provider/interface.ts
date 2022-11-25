@@ -1,10 +1,12 @@
-// @todo Light theme.
-type RenumTheme = 'dark' | 'light';
+import type { Locale } from '../../locale/interface';
 
 interface RenumConfig {
-	readonly prefixCls: string;
 	readonly getPrefixCls: (suffix?: string) => string;
-	readonly theme?: RenumTheme;
+	readonly locale: Locale;
 }
 
-export type { RenumConfig };
+interface RenumProviderProps {
+	readonly locale: Locale;
+}
+
+export type { RenumConfig, RenumProviderProps };
