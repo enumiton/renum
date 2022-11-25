@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.1
+
+- Context
+  - Added localization
+  - Removed all props relating to `prefixCls`
+
 ## v0.5.0
 
 - Added rtl ("right to left") text direction support
