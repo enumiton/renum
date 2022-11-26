@@ -14,7 +14,7 @@ const Loading = forwardRef<HTMLSpanElement, LoadingProps>(function (props, ref) 
 		<Icon
 			{ ...rest }
 			className={ classNames(prefixCls, {
-				[`${ prefixCls }-loading-active`]: (!!active),
+				[`${ prefixCls }-active`]: (!!active),
 			}, props.className) }
 			ref={ ref }
 		>
