@@ -18,9 +18,9 @@
   integrity sha512-GRSOFhJzjGN+d4sKHTMSvNeUPoZiDHWmRnXfzaxrqe7dE/Nzlc8BiMSJdLDESZlndM7jIUrZ/F4yWqVYlI0rwQ==
 
 "@tabler/icons@^1.112.0":
-  version "1.113.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.113.0.tgz#aeee5f38284d9996abec1bda46c237ef53cde8d4"
-  integrity sha512-DjxsvR/0HFHD/utQlM+q3wpl1W2n+jgEZkyfkCkc295rCoAfeXHIBfz/9ROrSHkr205Kq/M8KpQR0Nd4kjwODQ==
+  version "1.115.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.115.0.tgz#6c4a9e6087fcdc33e5aae2e5785090147bed7ebe"
+  integrity sha512-Eo1xMuG/+QpUk6QrtiAsmTSjc+A9IIBDauwPT4hVD/XKmnvh0UCCOuK8Zo/jZDIShcJdEcBA4p0wKgt7dbd1GA==
 
 "@types/node@^18.11.9":
   version "18.11.9"
