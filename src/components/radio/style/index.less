@@ -23,7 +23,7 @@
 
 	&-wrapper {
 		position: relative;
-		display: inline-block;
+		display: block;
 		font-size: @font-size-medium;
 		line-height: 1;
 		vertical-align: middle;
@@ -38,6 +38,7 @@
 	}
 
 	&-label {
+		.user-select();
 		display: inline-block;
 		padding-inline-start: @radio-label-padding-x;
 		font-size: @font-size-medium;

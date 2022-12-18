@@ -1,8 +1,8 @@
-.user-select() {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+.user-select(@value: ~"none") {
+	-webkit-user-select: @value;
+	-moz-user-select: @value;
+	-ms-user-select: @value;
+	user-select: @value;
 }
 
 .appearance() {
@@ -48,4 +48,9 @@
 			outline-offset: 0;
 		}
 	}
+}
+
+.backdrop-filter-blur(@blur: 1rem, @saturate: true){
+	-webkit-backdrop-filter: if(@saturate, ~"saturate(180%)") blur(@blur);
+	backdrop-filter: if(@saturate, ~"saturate(180%)") blur(@blur);
 }

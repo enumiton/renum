@@ -19,7 +19,7 @@
 	vertical-align: middle;
 	cursor: pointer;
 	transition: @transition-speed-fast @transition-easing;
-	transition-property: background-color, border;
+	transition-property: background-color, border, box-shadow;
 	z-index: 1;
 
 	&::before {
@@ -32,7 +32,7 @@
 		aspect-ratio: 1 / 1;
 		background-color: var(--primary-contrast);
 		border-radius: inherit;
-		transition: transform @transition-speed-medium @transition-easing;
+		transition: transform @transition-speed-medium @transition-bounce;
 		clip-path: polygon(76.831% 24.747%, 77.811% 23.946%, 80.056% 23.031%, 82.444% 23.031%, 84.689% 23.946%, 85.669% 24.747%, 86.417% 25.648%, 87.327% 27.701%, 87.457% 29.904%, 86.807% 32.031%, 86.189% 32.997%, 85.669% 33.586%, 44.003% 75.253%, 43.102% 76%, 41.049% 76.91%, 38.846% 77.04%, 36.719% 76.39%, 35.753% 75.773%, 35.164% 75.253%, 14.331% 54.419%, 13.53% 53.439%, 12.614% 51.194%, 12.614% 48.806%, 13.53% 46.561%, 14.331% 45.581%, 15.231% 44.833%, 17.285% 43.923%, 19.487% 43.793%, 21.615% 44.443%, 22.581% 45.061%, 23.169% 45.581%, 39.579% 61.994%, 76.831% 24.747%, 76.831% 24.747%);
 		transform: scale(0);
 		transform-origin: center;
@@ -82,11 +82,13 @@
 		&:active {
 			& .@{checkbox-prefix}:not([disabled], :disabled) {
 				border-color: var(--input-border-active);
+				box-shadow: inset 0 0 0 @border-width-medium var(--input-border-active);
 			}
 
 			& .@{checkbox-prefix}:not([disabled], :disabled):is([checked], :checked) {
 				background-color: var(--primary-active);
 				border-color: var(--primary-active);
+				box-shadow: none;
 			}
 		}
 	}
