@@ -1,0 +1,33 @@
+@import "./variables.less";
+@import (reference) "../../icon/style/variables.less";
+
+.@{tooltip-prefix} {
+	max-width: 20em;
+	padding: @padding-tiny;
+	margin: @outline-width;
+	background-color: var(--tooltip-bg);
+	border-radius: @tooltip-border-radius;
+	box-shadow: @shadow-small;
+	color: var(--tooltip-color);
+	font-size: @font-size-medium;
+	transform-origin: top center;
+	animation: tooltip-show @transition-speed-medium @transition-easing forwards;
+	opacity: 0;
+	.backdrop-filter-blur(0.25em);
+
+	& > .@{icon-prefix} {
+		margin-inline-end: @padding-tiny;
+		transform: translateZ(0) scale(unit(@font-size-large));
+	}
+}
+
+@keyframes tooltip-show {
+	0% {
+		transform: translateZ(0) scale(0.95);
+		opacity: 0;
+	}
+	to {
+		transform: translateZ(0) scale(1);
+		opacity: 1;
+	}
+}

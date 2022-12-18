@@ -18,6 +18,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 		options,
 		onChange,
 		clearable = true,
+		placement,
 		...rest
 	} = props;
 
@@ -348,11 +349,24 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 			className={ prefixCls + '-wrapper' }
 			content={ renderList() }
 			hidden={ !expanded }
+			align={ placement }
 		>
-			<input type="hidden" name={ name } value={ selected ? options.at(selected)?.value : undefined } hidden />
+			<input
+				type="hidden"
+				name={ name }
+				value={ selected ? options.at(selected)?.value : '' }
+				hidden
+			/>
 			<button
 				{ ...rest }
-				// @todo scuffed
+				id={ buttonId }
+				type="button"
+				role="button"
+				aria-haspopup="listbox"
+				aria-expanded={ expanded }
+				onClick={ handleButtonClick }
+				onKeyDown={ handleButtonKeyDown }
+				className={ classNames(prefixCls, rest.className) }
 				ref={ function (node) {
 					(buttonRef as MutableRefObject<HTMLButtonElement | null>).current = node;
 
@@ -362,14 +376,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 						ref.current = node;
 					}
 				} }
-				id={ buttonId }
-				type="button"
-				role="button"
-				aria-haspopup="listbox"
-				aria-expanded={ expanded }
-				onClick={ handleButtonClick }
-				onKeyDown={ handleButtonKeyDown }
-				className={ classNames(prefixCls, rest.className) }
 			>
 				{ (selected === undefined) ? null : (
 					options.at(selected)?.icon

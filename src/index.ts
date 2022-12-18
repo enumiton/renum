@@ -23,13 +23,16 @@ export { RenumProvider, useRenumProvider } from './components/renum-provider';
 export type { RenumConfig } from './components/renum-provider';
 
 export { Portal } from './components/portal';
-export type { PortalProps } from './components/portal';
+export type { PortalProps, PortalPosition, PortalAlign, PortalAlignOffset } from './components/portal';
 
 export { Radio } from './components/radio';
 export type { RadioProps } from './components/radio';
 
 export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
+
+export { Tooltip } from './components/tooltip';
+export type { TooltipProps } from './components/tooltip';
 
 export type { Locale } from './locale/interface';
 

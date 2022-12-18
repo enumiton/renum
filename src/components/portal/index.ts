@@ -1,2 +1,2 @@
 export { Portal } from './portal';
-export type { PortalProps } from './interface';
+export type { PortalProps, PortalPosition, PortalAlign, PortalAlignOffset } from './interface';

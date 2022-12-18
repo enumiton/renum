@@ -1,8 +1,8 @@
-import type { CSSProperties, ReactElement } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { PortalProps } from '../portal';
 
 interface OverlayProps extends Omit<PortalProps, 'target'> {
-	readonly content: ReactElement;
+	readonly content: ReactNode;
 	readonly portalClassName?: string | undefined;
 	readonly portalStyle?: CSSProperties | undefined;
 }
