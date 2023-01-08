@@ -37,11 +37,6 @@ export type { TooltipProps } from './components/tooltip';
 export type { Locale } from './locale/interface';
 
 export {
-	useMounted,
-	useScrollLock,
-} from './hooks';
-
-export {
 	classNames,
 	clamp,
 	contains,
