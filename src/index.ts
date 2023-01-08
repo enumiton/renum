@@ -8,7 +8,15 @@ export { Checkbox } from './components/checkbox';
 export type { CheckboxProps } from './components/checkbox';
 
 export { Dialog } from './components/dialog';
-export type { DialogProps } from './components/dialog';
+export type {
+	DialogProps,
+	DialogConfirmProps,
+	DialogModalProps,
+	DialogHeaderProps,
+	DialogBodyProps,
+	DialogFooterProps,
+	DialogTitle,
+} from './components/dialog';
 
 export { Icon } from './components/icon';
 export type { IconProps } from './components/icon';

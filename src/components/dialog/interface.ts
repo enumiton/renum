@@ -1,15 +1,28 @@
-import type { HTMLAttributes, ReactElement } from 'react';
+import type { DialogHTMLAttributes, HTMLAttributes, ReactElement, ReactNode } from 'react';
 
-interface DialogProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'aria-modal'> {
-	/** @default false */
-	readonly open?: boolean | undefined;
-	readonly title: string;
+type Base = Omit<DialogHTMLAttributes<HTMLDialogElement>, 'role' | 'title'>;
+
+type DialogTitle = string | ((titleId: string) => ReactNode) | undefined;
+
+interface DialogTitleProp {
+	/** When providing no title use the `aria-label` attribute! */
+	readonly title: string | ((titleId: string) => ReactNode);
+}
+
+interface DialogProps extends Base {
 	/**
-	 * @default false
+	 * @default 'dialog'
 	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alertdialog_role
 	 * */
-	readonly alert?: boolean | undefined;
+	readonly role?: 'dialog' | 'alertdialog';
+	/**
+	 * Does not apply on non-modals nor when `closeable` is `false`.
+	 *
+	 * @default true
+	 * */
+	readonly backdropCloseable?: boolean | undefined;
+	readonly closeable?: boolean | undefined;
 	/**
 	 * @default true
 	 *
@@ -17,35 +30,43 @@ interface DialogProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'ari
 	 * */
 	readonly modal?: boolean | undefined;
 	/**
-	 * Does not apply when `modal` is `false` or `closeable` is `false`.
+	 * Enables fullscreen mode on smaller devices for a better experience.
 	 *
 	 * @default true
-	 * */
-	readonly backdropCloseable?: boolean | undefined;
-	/**
-	 * Disables closing by clicking the backdrop, close button or pressing escape. Forcing the user to make a choice.
-	 *
-	 * @default true
-	 * */
-	readonly closeable?: boolean | undefined;
-	/** @default true */
-	readonly footer?: boolean | ReactElement | ReactElement[] | undefined;
-	readonly onClose?: (() => any) | undefined;
+	 */
+	readonly fullscreen?: boolean | undefined;
+}
+
+interface DialogConfirmProps extends Base, DialogTitleProp {
+	readonly actions: ReactElement | ReactElement[];
+	/**	@default false */
+	readonly stacked?: boolean | undefined;
+}
+
+interface DialogModalProps extends Omit<DialogProps, 'role' | 'modal'>, DialogTitleProp {
+	readonly footer?: ReactNode | undefined;
 	readonly onConfirm?: (() => any) | undefined;
-	readonly onCancel?: (() => any) | undefined;
 }
 
-/** @internal */
-interface DialogHeaderProps extends Pick<DialogProps, 'closeable' | 'title'> {
-	readonly prefixCls: string;
+interface DialogHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, DialogTitleProp {
 	readonly titleId: string;
-	readonly close?: (() => any) | undefined;
+	readonly showClose?: boolean | undefined;
 }
 
-/** @internal */
-interface DialogFooterProps extends Pick<DialogProps, 'footer' | 'onConfirm'> {
-	readonly prefixCls: string;
-	readonly close?: (() => any) | undefined;
+interface DialogBodyProps extends HTMLAttributes<HTMLDivElement> {
 }
 
-export type { DialogProps, DialogHeaderProps, DialogFooterProps };
+interface DialogFooterProps extends HTMLAttributes<HTMLDivElement> {
+	readonly onCancel?: (() => any) | undefined;
+	readonly onConfirm?: (() => any) | undefined;
+}
+
+export type {
+	DialogProps,
+	DialogConfirmProps,
+	DialogModalProps,
+	DialogHeaderProps,
+	DialogBodyProps,
+	DialogFooterProps,
+	DialogTitle,
+};

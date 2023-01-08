@@ -1,28 +1,46 @@
+import type { FormEvent } from 'react';
+import { useId, useRef, useState } from 'react';
 import { Button } from '../button';
 import { Dialog } from './dialog';
-import { FormEvent, useEffect, useId, useRef, useState } from 'react';
 import { Input } from '../input';
-import { default as EmailIcon } from '../../icons/Mail';
-import { useScrollLock } from '../../hooks';
 
 const config = {
 	title: 'dialog',
 };
 
-const EMAIL_ICON = <EmailIcon />;
-
 enum Open {
 	None,
 	Modal,
-	NonModal,
-	Alert,
+	Confirm,
 }
 
+type Data = Record<string, FormDataEntryValue>;
+
 function Simple() {
-	const [open, setOpen] = useState<Open>(Open.None);
-	const { unlock } = useScrollLock();
-	const email = useRef('');
 	const id = useId();
+	const [open, setOpen] = useState<Open>(Open.None);
+	const [loading, setLoading] = useState(false);
+	const [data, setData] = useState<Data | null>(null);
+
+	const form = useRef<HTMLFormElement | null>(null);
+
+	function post(formData: FormData) {
+		return new Promise<Data>(function (resolve, reject) {
+			const result: Data = {};
+
+			for (const [k, v] of formData.entries()) {
+				result[k] = v;
+			}
+
+			if (Object.keys(result).length <= 0) {
+				return reject();
+			}
+
+			setTimeout(function () {
+				resolve(result);
+			}, 2000);
+		});
+	}
 
 	function handleButtonClick(v: Open) {
 		return function () {
@@ -30,75 +48,109 @@ function Simple() {
 		};
 	}
 
-	function onClose() {
+	function handleClose() {
 		setOpen(Open.None);
 	}
 
-	function onSubmit(e: FormEvent<HTMLFormElement>) {
+	async function handleSubmit(e: FormEvent<HTMLDialogElement>) {
 		e.preventDefault();
+		e.stopPropagation();
 
-		onClose();
+		if (!form.current) {
+			return;
+		}
+
+		setLoading(true);
+
+		const formData = new FormData(form.current);
+		const response = await post(formData);
+
+		form.current.reset();
+
+		setData(response);
+		setLoading(false);
+		setOpen(Open.None);
 	}
 
-	useEffect(function () {
-		return unlock;
-	}, []);
-
 	return (
-		<div style={ { display: 'flex', flexFlow: 'row wrap', gap: '0.5em' } }>
-			<Button type="primary" onClick={ handleButtonClick(Open.Modal) }>
-				Open dialog (modal)
-			</Button>
-			<Button onClick={ handleButtonClick(Open.NonModal) }>
-				Open dialog (non-modal)
-			</Button>
-			<Button onClick={ handleButtonClick(Open.Alert) }>
-				Open alert dialog
-			</Button>
+		<div>
+			<div style={ { display: 'flex', flexFlow: 'row wrap', gap: '0.5em', marginBottom: '1em' } }>
+				<Button onClick={ handleButtonClick(Open.Modal) }>
+					Open dialog (modal)
+				</Button>
+				<Button onClick={ handleButtonClick(Open.Confirm) }>
+					Open confirm dialog
+				</Button>
+			</div>
+			{ data ? (
+				<div>
+					<h3>Form data</h3>
+					<pre>
+						{ JSON.stringify(data, undefined, 2) }
+					</pre>
+				</div>
+			) : null }
 
-			<Dialog
-				title="A modal with text"
+			<Dialog.Modal
+				title="Create an account"
 				open={ open === Open.Modal }
-				onClose={ onClose }
-			>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus dignissimos nihil.</p>
-			</Dialog>
-
-			<Dialog
-				modal={ false }
-				title="A non-modal with text"
-				open={ open === Open.NonModal }
-				onClose={ onClose }
-			>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab delectus dignissimos nihil.</p>
-			</Dialog>
-
-			<Dialog
-				alert
-				id={ id }
-				title="Subscribe to our newsletter"
-				open={ open === Open.Alert }
-				onClose={ onClose }
+				onClose={ handleClose }
+				onConfirm={ handleClose }
+				onSubmit={ handleSubmit }
 				footer={ [
-					<Button htmlType="submit" type="primary" form={ `${ id }-form` }>
-						Subscribe
+					<Button
+						key="confirm"
+						type="primary"
+						htmlType="submit"
+						form={ id }
+						loading={ loading }
+						aria-live="polite"
+					>
+						{ loading ? 'Creating account\u2026' : 'Create account' }
 					</Button>,
-					<Button type="invisible" onClick={ onClose }>
+					<Button key="cancel" type="invisible" onClick={ handleClose }>
 						Cancel
 					</Button>,
 				] }
 			>
-				<form id={ `${ id }-form` } onSubmit={ onSubmit }>
-					<Input
-						aria-label="E-mail"
-						icon={ EMAIL_ICON }
-						onChange={ (v) => email.current = v.target.value }
-						type="email"
-						name="email"
-						wrapperStyle={ { display: 'block', width: '100%' } }
-					/>
+				<form
+					id={ id }
+					ref={ form }
+					method="dialog"
+					style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }
+				>
+					<label>
+						<p>Username</p>
+						<Input name="username" autoComplete="username" required />
+					</label>
+					<label>
+						<p>E-mail</p>
+						<Input name="email" type="email" autoComplete="email" required />
+					</label>
+					<label>
+						<p>Password</p>
+						<Input name="password" type="password" autoComplete="new-password" required />
+					</label>
+					<label>
+						<p>Confirm password</p>
+						<Input name="password-confirm" type="password" autoComplete="new-password" required />
+					</label>
 				</form>
-			</Dialog>
+			</Dialog.Modal>
+			<Dialog.Confirm
+				title="Remove album from library?"
+				open={ open === Open.Confirm }
+				actions={ [
+					<Button key="confirm" type="primary" onClick={ handleClose }>
+						Remove
+					</Button>,
+					<Button key="cancel" type="invisible" onClick={ handleClose }>
+						Cancel
+					</Button>,
+				] }
+			>
+				Removing the album will also remove all associated downloads.
+			</Dialog.Confirm>
 		</div>
 	);
 }

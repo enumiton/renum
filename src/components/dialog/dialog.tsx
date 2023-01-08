@@ -1,152 +1,152 @@
-import { forwardRef, useEffect, useId, useRef } from 'react';
+import type { FormEvent, ForwardRefExoticComponent, MouseEvent, RefAttributes, SyntheticEvent } from 'react';
+import { forwardRef, useEffect, useRef } from 'react';
 import type { DialogProps } from './interface';
-import { Portal } from '../portal';
 import { useRenumProvider } from '../renum-provider';
-import { classNames, getKey, isHTMLElement, Key } from '../../utils';
-import { handleFocus, TabDirection } from './helpers';
-import { useMounted, useScrollLock } from '../../hooks';
-import { DialogHeader } from './header';
-import { DialogFooter } from './footer';
+import { classNames, isHTMLElement, isNonNullable } from '../../utils';
+import { Confirm } from './confirm';
+import { Modal } from './modal';
+import { lockBody, unlockBody } from './helpers';
 
-const Dialog = forwardRef<HTMLDivElement, DialogProps>(function (props, ref) {
+interface Dialog extends ForwardRefExoticComponent<DialogProps & RefAttributes<HTMLDialogElement>> {
+	Confirm: typeof Confirm;
+	Modal: typeof Modal;
+}
+
+const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (props, ref) {
 	const {
 		id: _id,
-		open,
-		title,
-		alert,
+		open: _open,
+		role = 'dialog',
 		modal = true,
-		backdropCloseable = true,
 		closeable = true,
-		onClose,
-		onConfirm,
-		footer = true,
-		children,
+		backdropCloseable = true,
+		fullscreen = true,
 		...rest
 	} = props;
 
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('dialog');
 
-	const mounted = useMounted();
-	const { lock, unlock } = useScrollLock();
+	const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-	const originRef = useRef<HTMLElement | null>(null);
-	const portalRef = useRef<HTMLDivElement | null>(null);
+	function open() {
+		const dialog = dialogRef.current;
 
-	const id = _id || useId();
-	const titleId = `${ id }-title`;
+		if (!isHTMLElement(dialog) || dialog.open) {
+			return;
+		}
 
-	function close() {
+		if (modal) {
+			lockBody();
+
+			dialog.showModal();
+		} else {
+			dialog.show();
+		}
+	}
+
+	function close(returnValue?: string | undefined) {
+		const dialog = dialogRef.current;
+
+		if (!isHTMLElement(dialog) || !dialog.open) {
+			return;
+		}
+
+		dialog.close(returnValue ?? dialog.returnValue);
+	}
+
+	function handleClose(e: SyntheticEvent<HTMLDialogElement>) {
+		unlockBody();
+
+		if (rest.onClose) {
+			rest.onClose(e);
+		}
+	}
+
+	function handleCancel(e: SyntheticEvent<HTMLDialogElement>) {
 		if (!closeable) {
+			e.preventDefault();
 			return;
 		}
 
-		if (originRef.current) {
-			originRef.current?.focus();
-		}
-
-		originRef.current = null;
-
-		if (onClose) {
-			onClose();
-		}
-
-		unlock();
-	}
-
-	function handleKeyDown(e: KeyboardEvent) {
-		const key = getKey(e.key);
-
-		switch (key) {
-			case Key.Tab: {
-				if (open && modal) {
-					handleFocus(e.shiftKey ? TabDirection.Backward : TabDirection.Forward, e, portalRef.current);
-				}
-
-				break;
-			}
-			case Key.Escape: {
-				close();
-
-				break;
-			}
+		if (rest.onCancel) {
+			rest.onCancel(e);
 		}
 	}
 
-	function handleBackdropClick() {
-		if (!backdropCloseable) {
+	function handleSubmit(e: FormEvent<HTMLDialogElement>) {
+		if (rest.onSubmit) {
+			rest.onSubmit(e);
+		}
+	}
+
+	function handleClick(e: MouseEvent<HTMLDialogElement>) {
+		const dialog = dialogRef.current;
+
+		if (!backdropCloseable || !isHTMLElement(dialog) || e.target !== dialog) {
 			return;
 		}
 
-		close();
-	}
+		// Return if it was a key press rather than a mouse click.
+		if (e.clientX === 0 && e.clientY === 0 && e.detail === 0) {
+			return;
+		}
 
-	useEffect(function () {
-		if (open) {
-			const originElement = window.document.activeElement;
-			const dialog = portalRef.current?.firstElementChild;
+		const x = e.clientX;
+		const y = e.clientY;
 
-			if (isHTMLElement(originElement)) {
-				originRef.current = originElement;
-			}
+		const {
+			top: minY,
+			bottom: maxY,
+			left: minX,
+			right: maxX,
+		} = dialog.getBoundingClientRect();
 
-			if (isHTMLElement(dialog)) {
-				dialog.focus();
-			}
-
-			lock();
-
-			window.addEventListener('keydown', handleKeyDown, { passive: false });
-		} else if (mounted) {
+		if ((x < minX || x > maxX) ||
+			(y < minY || y > maxY)) {
 			close();
 		}
 
-		return function () {
-			if (mounted) {
-				window.removeEventListener('keydown', handleKeyDown);
-			}
-		};
-	}, [open]);
+		if (rest.onClick) {
+			rest.onClick(e);
+		}
+	}
+
+	useEffect(function () {
+		if (_open) {
+			open();
+		} else {
+			close();
+		}
+
+		return close;
+	}, [_open]);
 
 	return (
-		<Portal
-			hidden={ !open }
-			className={ `${ prefixCls }-portal` }
-			ref={ portalRef }
-		>
-			<div
-				{ ...rest }
-				id={ id }
-				className={ classNames(prefixCls, rest.className) }
-				role={ alert ? 'alertdialog' : 'dialog' }
-				aria-modal={ Boolean(modal) }
-				aria-hidden={ !open }
-				aria-labelledby={ titleId }
-				tabIndex={ -1 }
-				ref={ ref }
-			>
-				<DialogHeader
-					title={ title }
-					titleId={ titleId }
-					prefixCls={ prefixCls }
-					closeable={ closeable }
-					close={ close }
-				/>
-				<div role="document" className={ `${ prefixCls }-body` }>
-					{ children }
-				</div>
-				<DialogFooter
-					footer={ footer }
-					prefixCls={ prefixCls }
-					close={ close }
-					onConfirm={ onConfirm }
-				/>
-			</div>
-			{ modal ? (
-				<div className={ `${ prefixCls }-backdrop` } onClick={ handleBackdropClick } />
-			) : null }
-		</Portal>
+		<dialog
+			{ ...rest }
+			role={ role }
+			onClick={ handleClick }
+			onCancel={ handleCancel }
+			onSubmit={ handleSubmit }
+			onClose={ handleClose }
+			className={ classNames(prefixCls, rest.className, { [`${ prefixCls }-fullscreen`]: fullscreen }) }
+			ref={ function (node) {
+				dialogRef.current = node;
+
+				if (typeof ref === 'function') {
+					ref(node);
+				} else if (isNonNullable(ref)) {
+					ref.current = node;
+				}
+			} }
+		/>
 	);
-});
+}) as Dialog;
+
+Dialog.Confirm = Confirm;
+Dialog.Modal = Modal;
+
+Object.freeze(Dialog);
 
 export { Dialog };

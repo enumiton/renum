@@ -1,48 +1,34 @@
 import type { DialogFooterProps } from './interface';
-import { isValidElement } from 'react';
-import { isHTMLElement } from '../../utils';
 import { Button } from '../button';
 import { useRenumProvider } from '../renum-provider';
+import { classNames } from '../../utils';
 
 function DialogFooter(props: DialogFooterProps) {
 	const {
-		footer,
-		prefixCls,
-		close,
+		onCancel,
 		onConfirm,
+		children,
+		...rest
 	} = props;
 
-	const { locale } = useRenumProvider();
-
-	function renderFooter() {
-		if (isValidElement(footer) || isHTMLElement(footer)) {
-			return footer;
-		}
-
-		if (Array.isArray(footer)) {
-			return footer;
-		}
-
-		return (
-			<>
-				<Button type="primary" onClick={ onConfirm }>
-					{ locale.dialog.primaryButtonText }
-				</Button>
-				<Button type="invisible" onClick={ close }>
-					{ locale.dialog.cancelButtonText }
-				</Button>
-			</>
-		);
-	}
+	const { locale, getPrefixCls } = useRenumProvider();
+	const prefixCls = getPrefixCls('dialog');
 
 	// User explicitly removed the footer.
-	if (footer === null || footer === false) {
+	if (children === null || children === false) {
 		return null;
 	}
 
 	return (
-		<div className={ `${ prefixCls }-footer` }>
-			{ renderFooter() }
+		<div { ...rest } className={ classNames(`${ prefixCls }-footer`, rest.className) }>
+			{ (children === undefined) ? ([
+				<Button key="confirm" type="primary" onClick={ onConfirm }>
+					{ locale.dialog.primaryButtonText }
+				</Button>,
+				<Button key="cancel" type="invisible" onClick={ onCancel }>
+					{ locale.dialog.cancelButtonText }
+				</Button>,
+			]) : children }
 		</div>
 	);
 }

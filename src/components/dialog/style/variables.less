@@ -1,11 +1,16 @@
 @import (reference) "../../../styles/index.less";
 
 @dialog-prefix: ~"@{renum-prefix}-dialog";
-@dialog-animation: ~"@{renum-prefix}-dialog-open";
+@dialog-confirm-prefix: ~"@{dialog-prefix}-confirm";
+@dialog-modal-prefix: ~"@{dialog-prefix}-modal";
+
+@dialog-animation-open: ~"@{dialog-prefix}-open";
+@dialog-backdrop-animation-name: ~"@{dialog-prefix}-backdrop-fade-in";
 
 @dialog-max-width: @screen-tablet;
 
 @dialog-padding-x: 1em;
 @dialog-padding-y: 0.75em;
 
-@dialog-margin-y: 5vh;
+@dialog-margin-y: 2em;
+@dialog-margin-x: 2em;
