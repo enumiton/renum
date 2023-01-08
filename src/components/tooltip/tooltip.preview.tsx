@@ -45,16 +45,30 @@ function Simple() {
 			<form>
 				<fieldset onChange={ handlePlacementChange }>
 					<legend>Placement</legend>
-					<Radio name="placement" value="top" label="Top" />
-					<Radio name="placement" value="bottom" label="Bottom" />
-					<Radio name="placement" value="right" label="Right" />
-					<Radio name="placement" value="left" label="Left" />
+					<Radio name="placement" value="top">
+						Top
+					</Radio>
+					<Radio name="placement" value="bottom">
+						Bottom
+					</Radio>
+					<Radio name="placement" value="right">
+						Right
+					</Radio>
+					<Radio name="placement" value="left">
+						Left
+					</Radio>
 				</fieldset>
 				<fieldset onChange={ handleOffsetChange }>
 					<legend>Offset</legend>
-					<Radio name="offset" value="start" label="Start" />
-					<Radio name="offset" value="center" label="Center" />
-					<Radio name="offset" value="end" label="End" />
+					<Radio name="offset" value="start">
+						Start
+					</Radio>
+					<Radio name="offset" value="center">
+						Center
+					</Radio>
+					<Radio name="offset" value="end">
+						End
+					</Radio>
 				</fieldset>
 			</form>
 		</div>
