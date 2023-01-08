@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.6.0
+
+- Refactored `Dialog` component to use the new `dialog` element
+- Added tooltip component
+- Stylesheets
+  - `reset.less` has been renamed to `normalize.less` as it normalizes styles rather than resetting them
+  - Added a monospaced font stack (`@font-family-monospace`) to `normalize.less`
+  - More basic HTML ("Hypertext Markup Language") tags have received normalizing styles
+  - The `normalize.less` has become optional meaning you can choose to only import component styles and
+    the `themes.less`
+  - Added some missing component styles to `renum.less`
+- Button
+  - colors have been slightly changed
+  - Fixed text cutting off & blurry icons
+- Fixed `select` dropdown text cutting off due to width
+- ♿ Browsers default `font-size` is now used
+- 👋 removed some unnecessary hooks
+- `input` component now takes up full width
+- `checkbox` & `radio` component styles are now consistent with the `input` styles
+- Radio
+  - Removed `line-height` of `1`
+  - Removed `label` prop
+  - `children` prop will now bbe used as label
+- fix loading `active` class
+
 ## v0.5.1
 
 - Context
