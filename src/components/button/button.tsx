@@ -32,7 +32,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function (prop
 			return;
 		}
 
-		props?.onClick?.(e);
+		rest?.onClick?.(e);
 	}
 
 	return (
@@ -64,5 +64,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function (prop
 }) as Button;
 
 Button.Group = Group;
+
+Object.freeze(Button);
 
 export { Button };

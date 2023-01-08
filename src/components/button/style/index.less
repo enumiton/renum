@@ -28,7 +28,6 @@
 	color: var(--btn-color);
 	font-weight: @font-weight-medium;
 	text-align: left;
-	line-height: 1;
 	white-space: nowrap;
 	vertical-align: inherit;
 	cursor: pointer;
@@ -48,13 +47,13 @@
 	}
 
 	& .@{icon-prefix} {
-		transform: translateZ(0) scale(unit(@font-size-large));
+		font-size: @font-size-large;
+		transform: translateZ(0);
 	}
 
 	&-text {
 		font-size: inherit;
 		color: inherit;
-		line-height: 1;
 	}
 
 	&-icon-only {
