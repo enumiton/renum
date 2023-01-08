@@ -10,9 +10,15 @@ const config = {
 function Example() {
 	return (
 		<div style={ { display: 'flex', flexDirection: 'column', gap: '0.5em' } }>
-			<Radio name="sample" value={ 1 } label="Option 1" />
-			<Radio name="sample" value={ 2 } label="Option 2" />
-			<Radio name="sample" value={ 3 } label="Option 3" />
+			<Radio name="sample" value={ 1 }>
+				Option 1
+			</Radio>
+			<Radio name="sample" value={ 2 }>
+				Option 2
+			</Radio>
+			<Radio name="sample" value={ 3 }>
+				Option 3
+			</Radio>
 		</div>
 	);
 }
@@ -25,9 +31,15 @@ function WithFieldset() {
 			<fieldset disabled={ disabled } style={ { marginBottom: '1em' } }>
 				<legend>Fieldset legend</legend>
 				<div style={ { display: 'flex', flexDirection: 'column', gap: '0.5em' } }>
-					<Radio name="fieldset" value={ 1 } label="Option 1" />
-					<Radio name="fieldset" value={ 2 } label="Option 2" />
-					<Radio name="fieldset" value={ 3 } label="Option 3" />
+					<Radio name="fieldset" value={ 1 }>
+						Option 1
+					</Radio>
+					<Radio name="fieldset" value={ 2 }>
+						Option 2
+					</Radio>
+					<Radio name="fieldset" value={ 3 }>
+						Option 3
+					</Radio>
 				</div>
 			</fieldset>
 			<Button onClick={ () => setDisabled((v) => !v) }>
@@ -43,8 +55,12 @@ function Disabled() {
 	return (
 		<div>
 			<div style={ { display: 'flex', flexDirection: 'column', gap: '0.5em' } }>
-				<Radio disabled={ disabled } name="disabled" value={ 1 } label="Option 1" />
-				<Radio disabled={ disabled } name="disabled" value={ 2 } label="Option 2" />
+				<Radio disabled={ disabled } name="disabled" value={ 1 }>
+					Option 1
+				</Radio>
+				<Radio disabled={ disabled } name="disabled" value={ 2 }>
+					Option 2
+				</Radio>
 			</div>
 			<div style={ { marginTop: '1em' } }>
 				<Button onClick={ () => setDisabled((v) => !v) }>

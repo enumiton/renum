@@ -5,8 +5,8 @@ import { classNames } from '../../utils';
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
 	const {
-		label,
 		disabled,
+		children,
 		...rest
 	} = props;
 
@@ -23,7 +23,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
 				ref={ ref }
 			/>
 			<span className={ `${ prefixCls }-label` }>
-				{ label }
+				{ children }
 			</span>
 		</label>
 	);
