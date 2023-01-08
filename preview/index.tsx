@@ -1,71 +1,40 @@
 /// <reference types="vite/client" />
-import { StrictMode, useEffect, useState } from 'react';
+import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import type { RouteObject } from 'react-router-dom';
-import { BrowserRouter, Link, useLocation, useRoutes } from 'react-router-dom';
+import { Link, makeRoutes, Router } from 'react-even-better-router-dom';
 import { Overview } from './components/overview';
-import { Reset } from './components/reset';
+import { Normalize } from './components/normalize';
 import styles from './preview.module.less';
-import { capitalize, MODULES } from './utils';
 import { RenumProvider } from '../src';
 import { Header } from './components/header';
-import { Example } from './components/example';
 import locale from '../src/locale/en-us';
 import { default as ExternalLink } from '../src/icons/ExternalLink';
-import '../src/styles/themes.less';
-import '../src/styles/normalize.less';
-
-import.meta.glob('../src/components/*/style/index.less', { eager: true });
-
-const keys = Object.keys(MODULES).map((key) => key.split('/').pop()!.split('.').shift()!);
+import '../src/styles/renum.less';
+import { Example } from './components/example';
+import { capitalize } from './utils';
 
 const EXTERNAL_ICON = <ExternalLink />;
 
-function generateRoutes(): RouteObject[] {
-	return [
-		{
-			path: '/',
-			element: <Overview />,
-		},
-		{
-			path: '/reset',
-			element: <Reset />,
-		},
-		{
-			path: '/components',
-			children: [
-				{
-					index: true,
-					element: <Overview />,
-				},
-				...(keys.map(function (key) {
-					return {
-						path: key,
-						element: Example({ dir: key }),
-					};
-				})),
-			],
-		},
-	];
-}
+const components = [
+	'alert',
+	'button',
+	'checkbox',
+	'dialog',
+	'input',
+	'loading',
+	'radio',
+	'select',
+	'tooltip',
+] as const;
+
+const ROUTES = makeRoutes({
+	'': Overview,
+	'/normalize': Normalize,
+	'/components/:component': Example,
+});
 
 function App() {
-	const { pathname } = useLocation();
-
 	const [open, setOpen] = useState(false);
-	const [title, setTitle] = useState('Overview — Renum');
-
-	const routes = useRoutes(generateRoutes());
-
-	function handleLocation() {
-		let title = (pathname === '/') ? 'Overview' : pathname.split('/').pop()!.replaceAll('-', ' ');
-		title = capitalize(title);
-
-		window.document.title = title + ' \u2022 Renum';
-		setTitle(title);
-	}
-
-	useEffect(handleLocation, [pathname]);
 
 	return (
 		<>
@@ -76,25 +45,31 @@ function App() {
 					<nav>
 						<ul role="list">
 							<li>
-								<Link to="/">
+								<Link href={ ROUTES.url(Overview) }>
 									Overview
 								</Link>
 							</li>
 							<li>
-								<Link to="/reset">
-									Reset styles { EXTERNAL_ICON }
+								<Link href={ ROUTES.url(Normalize) }>
+									Normalize
 								</Link>
 							</li>
 							<li>
+								<hr />
+							</li>
+							<li>
 								<a href="https://tabler-icons.io" target="_blank" rel="nofollow noreferrer">
-									Icons
+									Icons { EXTERNAL_ICON }
 								</a>
 							</li>
-							{ keys.map(function (key, i) {
+							<li>
+								<hr />
+							</li>
+							{ components.map(function (component) {
 								return (
-									<li key={ i }>
-										<Link to={ '/components/' + key }>
-											{ capitalize(key) }
+									<li key={ component }>
+										<Link href={ ROUTES.url(Example, { component }) }>
+											{ capitalize(component) }
 										</Link>
 									</li>
 								);
@@ -103,8 +78,8 @@ function App() {
 					</nav>
 				</aside>
 				<main id="main" className={ styles.main }>
-					<h1>{ title }</h1>
-					{ routes }
+					<h1>idk</h1>
+					<Router routes={ ROUTES } />
 				</main>
 			</div>
 		</>
@@ -115,9 +90,7 @@ function Providers() {
 	return (
 		<StrictMode>
 			<RenumProvider locale={ locale }>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
+				<App />
 			</RenumProvider>
 		</StrictMode>
 	);

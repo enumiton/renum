@@ -1,13 +1,13 @@
 import { createElement } from 'react';
-import styles from './reset.module.less';
+import styles from './normalize.module.less';
 
 const headings = new Array(6).fill(null).map(function (_, i) {
 	return createElement('h' + ++i, { role: 'presentation', children: 'Heading h' + i });
 });
 
-function Reset() {
+function Normalize() {
 	return (
-		<div className={ styles.reset }>
+		<div className={ styles.normalize }>
 			<section>
 				<h2>Headings</h2>
 				<div>
@@ -126,7 +126,7 @@ function Reset() {
 					Language.
 				</p>
 			</section>
-			<section className={ styles.form }>
+			<section>
 				<h2>Fieldset</h2>
 				<fieldset>
 					<legend>Your favorite anime</legend>
@@ -150,4 +150,4 @@ function Reset() {
 	);
 }
 
-export { Reset };
+export { Normalize };

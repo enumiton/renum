@@ -1,7 +1,9 @@
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
-import { Alert } from '../../../src/components/alert';
+import { Alert, Loading } from '../../../src';
 import styles from './example.module.less';
+import type { RouteComponentProps } from 'react-even-better-router-dom';
+import { capitalize } from '../../utils';
 
 type Alert = {
 	readonly title?: string;
@@ -15,23 +17,33 @@ type Imports = {
 	});
 };
 
-type Props = {
-	readonly dir: string;
-};
+function Example(props: RouteComponentProps) {
+	const component = props.match.component?.toString();
 
-function Example({ dir }: Props) {
 	const [components, setComponents] = useState<Imports>({});
+	const [loading, setLoading] = useState(false);
 
 	// @ts-ignore
 	const alerts = components['default']?.['alerts'] as (Alert[] | undefined);
 
 	async function get() {
-		setComponents(await import(`../../../src/components/${ dir }/${ dir }.preview.tsx`));
+		setComponents(await import(`../../../src/components/${ component }/${ component }.preview.tsx`));
 	}
 
 	useEffect(function () {
-		void get();
-	}, []);
+		if (!component) {
+			return;
+		}
+
+		window.document.title = capitalize(component) + ' \u2022 Renum';
+
+		setLoading(true);
+
+		get()
+			.finally(function () {
+				return setLoading(false);
+			});
+	}, [component]);
 
 	return (
 		<div>
@@ -46,20 +58,26 @@ function Example({ dir }: Props) {
 					}) }
 				</div>
 			) : null }
-			<div className={ styles.container }>
-				{ Object.entries(components).map(function ([key, Component], i) {
-					if (typeof Component === 'object' && 'title' in Component) {
-						return;
-					}
+			{ loading ? (
+				<div style={ { textAlign: 'center' } }>
+					<Loading active />
+				</div>
+			) : (
+				<div className={ styles.container }>
+					{ Object.entries(components).map(function ([key, Component], i) {
+						if (typeof Component === 'object' && 'title' in Component) {
+							return;
+						}
 
-					return (
-						<section key={ i } className={ styles.section }>
-							<h2>{ key }</h2>
-							<Component />
-						</section>
-					);
-				}) }
-			</div>
+						return (
+							<section key={ i } className={ styles.section }>
+								<h2>{ key }</h2>
+								<Component />
+							</section>
+						);
+					}) }
+				</div>
+			) }
 		</div>
 	);
 }

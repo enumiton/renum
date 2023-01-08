@@ -1,7 +1,3 @@
-import type { FC } from 'react';
-
-const MODULES = import.meta.glob<FC>('../src/components/**/*.preview.tsx');
-
 function capitalize(str: string) {
 	return str
 		.split(' ')
@@ -15,4 +11,4 @@ function capitalize(str: string) {
 		.join(' ');
 }
 
-export { MODULES, capitalize };
+export { capitalize };
