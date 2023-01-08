@@ -73,7 +73,7 @@ h6 {
 	font-weight: @font-weight-bold;
 }
 
-:is(header, main, section, footer) > :is(h1, h2, h3, h4, h5, h6):first-child {
+:where(header, main, section, footer) > :where(h1, h2, h3, h4, h5, h6):first-child {
 	margin-block-start: 0;
 }
 
@@ -82,11 +82,11 @@ p {
 	font-size: @font-size-medium;
 }
 
-:is(ul, ol) {
+:where(ul, ol) {
 	margin-block: 1em;
 	padding-inline-start: 2em;
 
-	& :is(ul, ol) {
+	& :where(ul, ol) {
 		margin-block: 0;
 	}
 }
@@ -123,11 +123,11 @@ a[href] {
 	}
 }
 
-:is(pre, code, kbd, samp, output) {
+:where(pre, code, kbd, samp, output) {
 	font-family: @font-family-monospace;
 }
 
-:is(code, kbd) {
+:where(code, kbd) {
 	padding-block: 0.125em;
 	padding-inline: 0.25em;
 	background-color: var(--bg-subtle);
@@ -159,11 +159,11 @@ address {
 	font-style: normal;
 }
 
-:is(em, i) {
+:where(em, i) {
 	font-style: italic;
 }
 
-:is(strong, b) {
+:where(strong, b) {
 	font-weight: @font-weight-semiBold;
 }
 
@@ -219,7 +219,7 @@ textarea {
 	resize: block;
 }
 
-:is(input[type="submit"], input[type="reset"], input[type="button"], button):not([disabled], :disabled) {
+:where(input[type="submit"], input[type="reset"], input[type="button"], button):not([disabled], :disabled) {
 	cursor: pointer;
 }
 
