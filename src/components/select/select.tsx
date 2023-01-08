@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent, MutableRefObject } from 'react';
+import type { KeyboardEvent, MouseEvent } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { default as Selector } from '../../icons/Selector';
 import { clamp, classNames, contains, getKey, isHTMLElement, isNullable, Key } from '../../utils';
@@ -30,8 +30,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 	const [expanded, setExpanded] = useState<boolean>(false);
 	const [selected, setSelected] = useState<number | undefined>();
 
-	const buttonRef = useRef<HTMLButtonElement>(null);
-	const listboxRef = useRef<HTMLUListElement>(null);
+	const buttonRef = useRef<HTMLButtonElement | null>(null);
+	const listboxRef = useRef<HTMLUListElement | null>(null);
 
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('select');
@@ -368,7 +368,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				onKeyDown={ handleButtonKeyDown }
 				className={ classNames(prefixCls, rest.className) }
 				ref={ function (node) {
-					(buttonRef as MutableRefObject<HTMLButtonElement | null>).current = node;
+					buttonRef.current = node;
 
 					if (typeof ref === 'function') {
 						ref(node);
