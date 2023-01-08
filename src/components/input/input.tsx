@@ -15,6 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 		suffix,
 		disabled,
 		readOnly,
+		required,
 		borderless = false,
 		wrapperStyle,
 		wrapperClassName,
@@ -62,7 +63,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 	}
 
 	function renderClear() {
-		if (!clearable || readOnly || disabled) {
+		if (!clearable || required || readOnly || disabled) {
 			return null;
 		}
 
@@ -95,6 +96,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 				<input
 					{ ...rest }
 					value={ value }
+					required={ required }
 					readOnly={ readOnly }
 					disabled={ disabled }
 					onInput={ handleInput }
@@ -102,7 +104,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
 					ref={ ref }
 					className={ classNames(prefixCls, {
 						[`${ prefixCls }-icon`]: !!icon,
-						[`${ prefixCls }-clearable`]: clearable && !readOnly && !disabled,
+						[`${ prefixCls }-clearable`]: clearable && !required && !readOnly && !disabled,
 						[`${ prefixCls }-borderless`]: borderless,
 					}, props.className) }
 				/>
