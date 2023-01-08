@@ -27,11 +27,6 @@ export default defineConfig(function (env) {
 	}
 
 	return {
-		server: {
-			watch: {
-				usePolling: true,
-			},
-		},
 		esbuild: {
 			jsxInject: 'import React from \'react\'',
 		},

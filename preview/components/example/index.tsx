@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Alert } from '../../../src/components/alert';
 import styles from './example.module.less';
 
 type Alert = {
@@ -15,26 +16,21 @@ type Imports = {
 };
 
 type Props = {
-	readonly component: string;
+	readonly dir: string;
 };
 
-function Example({ component }: Props) {
+function Example({ dir }: Props) {
 	const [components, setComponents] = useState<Imports>({});
-	const mounted = useRef(false);
 
 	// @ts-ignore
 	const alerts = components['default']?.['alerts'] as (Alert[] | undefined);
 
 	async function get() {
-		setComponents(await import(`../../../src/components/${ component }/${ component }.preview.tsx`));
+		setComponents(await import(`../../../src/components/${ dir }/${ dir }.preview.tsx`));
 	}
 
 	useEffect(function () {
-		if (!mounted.current) {
-			void get();
-		}
-
-		mounted.current = true;
+		void get();
 	}, []);
 
 	return (
@@ -43,11 +39,9 @@ function Example({ component }: Props) {
 				<div>
 					{ alerts.map(function (alert, i) {
 						return (
-							<div key={ i }>
-								<p>
-									{ alert.description }
-								</p>
-							</div>
+							<Alert key={ i } type="light">
+								{ alert.description }
+							</Alert>
 						);
 					}) }
 				</div>

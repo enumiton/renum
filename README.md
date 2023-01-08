@@ -21,9 +21,6 @@ yarn add @enumiton/renum
 All components make use of the `em`/`rem` units, this means you can easily make any components larger or smaller by
 changing the `font-size` of the component or its parent.
 
-You can either import all styles from `@enumiton/renum/es/styles/renum.css|less` or import them dynamically using a
-library like [vite-plugin-style-import](https://npmjs.com/package/vite-plugin-style-import).
-
 ```tsx
 import { Button } from '@enumiton/renum';
 import '@enumiton/renum/es/styles/renum.less';
@@ -52,6 +49,15 @@ function App() {
 	);
 }
 ```
+
+### Styles
+
+All styles can be import from `@enumiton/renum/es/styles/renum.css|less`, although this isn't recommended for obvious
+reasons.
+
+A better option is to import the themes from `@enumiton/renum/es/styles/themes.less`, optionally import a styles
+normalizer from `@enumiton/renum/es/styles/normalize.less` and then import all component specific styles dynamically
+using a library like [vite-plugin-style-import](https://npmjs.com/package/vite-plugin-style-import).
 
 ## Types
 

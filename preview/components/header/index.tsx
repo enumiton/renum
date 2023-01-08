@@ -2,8 +2,9 @@ import { Button } from '../../../src';
 import { default as Menu } from '../../../src/icons/Menu2';
 import { default as Moon } from '../../../src/icons/Moon';
 import { default as TextDirectionRtl } from '../../../src/icons/TextDirectionRtl';
-import styles from '../../preview.module.less';
+import { default as BrandGithub } from '../../../src/icons/BrandGithub';
 import { useEffect } from 'react';
+import styles from '../../preview.module.less';
 
 type Props = {
 	readonly open: boolean;
@@ -50,6 +51,14 @@ function Header(props: Props) {
 				<span className={ styles.logo }>Renum</span>
 			</div>
 			<div className={ styles.rhs }>
+				<a
+					target="_blank"
+					href="https://github.com/enumiton/renum"
+					aria-label="Open GitHub repository"
+					title="Open GitHub repository"
+				>
+					<BrandGithub />
+				</a>
 				<Button
 					type="invisible"
 					icon={ <TextDirectionRtl /> }

@@ -1,5 +1,4 @@
 /// <reference types="vite/client" />
-import type { FC } from 'react';
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { RouteObject } from 'react-router-dom';
@@ -7,22 +6,20 @@ import { BrowserRouter, Link, useLocation, useRoutes } from 'react-router-dom';
 import { Overview } from './components/overview';
 import { Reset } from './components/reset';
 import styles from './preview.module.less';
-import { capitalize } from './utils';
+import { capitalize, MODULES } from './utils';
 import { RenumProvider } from '../src';
 import { Header } from './components/header';
 import { Example } from './components/example';
-import locale from '../src/locale/nl-nl';
-import '../src/styles/reset.less';
+import locale from '../src/locale/en-us';
+import { default as ExternalLink } from '../src/icons/ExternalLink';
+import '../src/styles/themes.less';
+import '../src/styles/normalize.less';
 
 import.meta.glob('../src/components/*/style/index.less', { eager: true });
 
-const modules = import.meta.glob<FC>('../src/components/**/*.preview.tsx');
+const keys = Object.keys(MODULES).map((key) => key.split('/').pop()!.split('.').shift()!);
 
-const imports = Object.entries(modules).map(function ([path, module]) {
-	const key = path.split('/').pop()!.split('.').shift()!;
-
-	return [key, module] as const;
-});
+const EXTERNAL_ICON = <ExternalLink />;
 
 function generateRoutes(): RouteObject[] {
 	return [
@@ -41,10 +38,10 @@ function generateRoutes(): RouteObject[] {
 					index: true,
 					element: <Overview />,
 				},
-				...(imports.map(function ([key]) {
+				...(keys.map(function (key) {
 					return {
 						path: key,
-						element: Example({ component: key }),
+						element: Example({ dir: key }),
 					};
 				})),
 			],
@@ -85,7 +82,7 @@ function App() {
 							</li>
 							<li>
 								<Link to="/reset">
-									Reset styles
+									Reset styles { EXTERNAL_ICON }
 								</Link>
 							</li>
 							<li>
@@ -93,7 +90,7 @@ function App() {
 									Icons
 								</a>
 							</li>
-							{ imports.map(function ([key], i) {
+							{ keys.map(function (key, i) {
 								return (
 									<li key={ i }>
 										<Link to={ '/components/' + key }>
