@@ -14,7 +14,6 @@ interface Dialog extends ForwardRefExoticComponent<DialogProps & RefAttributes<H
 
 const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (props, ref) {
 	const {
-		id: _id,
 		open: _open,
 		role = 'dialog',
 		modal = true,
