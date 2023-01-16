@@ -1,16 +1,36 @@
-import type { FormEvent, ForwardRefExoticComponent, MouseEvent, RefAttributes, SyntheticEvent } from 'react';
+import type {
+	AnimationEvent,
+	FormEvent,
+	ForwardRefExoticComponent,
+	MouseEvent,
+	RefAttributes,
+	SyntheticEvent,
+} from 'react';
 import { forwardRef, useEffect, useRef } from 'react';
 import type { DialogProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
-import { classNames, isHTMLElement, isNonNullable } from '../../utils';
+import { classNames, isHTMLDialogElement, isNonNullable } from '../../utils';
+import { cancelAnimations, lockBody, unlockBody } from './helpers';
 import { Confirm } from './confirm';
 import { Modal } from './modal';
-import { lockBody, unlockBody } from './helpers';
 
 interface Dialog extends ForwardRefExoticComponent<DialogProps & RefAttributes<HTMLDialogElement>> {
 	Confirm: typeof Confirm;
 	Modal: typeof Modal;
 }
+
+const ANIMATION_OPTIONS: KeyframeAnimationOptions = {
+	duration: 120,
+	easing: 'cubic-bezier(0.33, 1, 0.66, 1)',
+	fill: 'forwards',
+};
+
+const ANIMATION: Keyframe[] = [
+	{ opacity: 0, transform: 'translateY(0.75rem)' },
+	{ opacity: 1, transform: 'translateY(0)' },
+];
+
+const ANIMATION_CLOSING = [...ANIMATION].reverse();
 
 const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (props, ref) {
 	const {
@@ -42,16 +62,26 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 		} else {
 			dialog.show();
 		}
+
+		cancelAnimations(dialog);
+
+		dialog.animate(ANIMATION, ANIMATION_OPTIONS);
 	}
 
-	function close(returnValue?: string | undefined) {
+	async function close(returnValue?: string | undefined) {
 		const dialog = dialogRef.current;
 
 		if (!isHTMLDialogElement(dialog) || !dialog.open) {
 			return;
 		}
 
-		dialog.close(returnValue ?? dialog.returnValue);
+		cancelAnimations(dialog);
+
+		try {
+			await dialog.animate(ANIMATION_CLOSING, ANIMATION_OPTIONS).finished;
+		} finally {
+			dialog.close(returnValue ?? dialog.returnValue);
+		}
 	}
 
 	function handleClose(e: SyntheticEvent<HTMLDialogElement>) {
@@ -103,7 +133,7 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 
 		if ((x < minX || x > maxX) ||
 			(y < minY || y > maxY)) {
-			close();
+			void close();
 		}
 
 		if (rest.onClick) {
@@ -111,15 +141,27 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 		}
 	}
 
+	function handleAnimationEnd(_: AnimationEvent<HTMLDialogElement>) {
+		const dialog = dialogRef.current;
+
+		if (!isHTMLDialogElement(dialog) || !dialog.classList.contains(`${ prefixCls }-closing`)) {
+			return;
+		}
+
+		dialog.classList.remove(`${ prefixCls }-closing`);
+	}
+
 	useEffect(function () {
 		if (_open) {
 			open();
 		} else {
-			close();
+			void close();
 		}
-
-		return close;
 	}, [_open]);
+
+	useEffect(function () {
+		return void close;
+	}, []);
 
 	return (
 		<dialog
@@ -129,6 +171,7 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 			onCancel={ handleCancel }
 			onSubmit={ handleSubmit }
 			onClose={ handleClose }
+			onAnimationEnd={ handleAnimationEnd }
 			className={ classNames(prefixCls, rest.className, { [`${ prefixCls }-fullscreen`]: fullscreen }) }
 			ref={ function (node) {
 				dialogRef.current = node;

@@ -49,4 +49,10 @@ function unlockBody() {
 	});
 }
 
-export { lockBody, unlockBody, bodyIsLocked, getOpenDialogs };
+function cancelAnimations(element: HTMLElement, options?: GetAnimationsOptions) {
+	for (const animation of element.getAnimations(options)) {
+		animation.cancel();
+	}
+}
+
+export { lockBody, unlockBody, bodyIsLocked, getOpenDialogs, cancelAnimations };

@@ -16,7 +16,6 @@
 	color: var(--text-default);
 	box-shadow: @shadow-small, @shadow-extra;
 	transform-origin: bottom center;
-	animation: @dialog-animation-open @transition-speed-medium @transition-easing forwards;
 	outline: 0;
 	pointer-events: auto;
 	z-index: @z-index-modal;
@@ -115,7 +114,6 @@
 		z-index: @z-index-modal-backdrop;
 		pointer-events: auto;
 		.backdrop-filter-blur(0.25em);
-		animation: @dialog-backdrop-animation-name @transition-speed-medium @transition-easing;
 	}
 }
 
@@ -141,25 +139,5 @@
 		padding-block: @dialog-padding-y calc(@dialog-padding-y + env(safe-area-inset-bottom, 0px));
 		padding-inline: @dialog-padding-x;
 		border-block-start: @border-width-medium @border-style var(--border-subtle);
-	}
-}
-
-@keyframes @dialog-animation-open {
-	0% {
-		transform: translateZ(0) translateY(0.5rem);
-		opacity: 0.75;
-	}
-	to {
-		transform: translateZ(0) translateY(0);
-		opacity: 1;
-	}
-}
-
-@keyframes @dialog-backdrop-animation-name {
-	0% {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
 	}
 }
