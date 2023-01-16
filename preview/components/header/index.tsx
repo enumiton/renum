@@ -3,7 +3,7 @@ import { default as Menu } from '../../../src/icons/Menu2';
 import { default as Moon } from '../../../src/icons/Moon';
 import { default as TextDirectionRtl } from '../../../src/icons/TextDirectionRtl';
 import { default as BrandGithub } from '../../../src/icons/BrandGithub';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../../preview.module.less';
 
 type Props = {
@@ -11,30 +11,35 @@ type Props = {
 	readonly onToggle: () => void;
 };
 
-const html = window.document.documentElement;
+type Theme = 'dark' | 'light';
+type Dir = 'rtl' | 'ltr';
 
-let theme = window.localStorage.getItem('theme') || 'dark';
-let td = window.localStorage.getItem('td') || 'ltr';
-
-function toggleTheme() {
-	theme = (theme === 'light') ? 'dark' : 'light';
-
-	window.localStorage.setItem('theme', theme);
-	html.dataset.theme = theme;
+function sanitizeTheme(theme: string | null): Theme | undefined {
+	return (theme === 'dark' || theme === 'light') ? theme : undefined;
 }
 
-function toggleTextDirection() {
-	td = (td === 'ltr') ? 'rtl' : 'ltr';
-
-	window.localStorage.setItem('td', td);
-	html.dir = td;
+function sanitizeDir(dir: string | null): Dir | undefined {
+	return (dir === 'ltr' || dir === 'rtl') ? dir : undefined;
 }
 
 function Header(props: Props) {
+	const [theme, setTheme] = useState<Theme | undefined>(sanitizeTheme(window.localStorage.getItem('theme')));
+	const [dir, setDir] = useState<Dir | undefined>(sanitizeDir(window.localStorage.getItem('dir')));
+
 	useEffect(function () {
-		html.dataset.theme = (theme === 'light') ? 'light' : 'dark';
-		html.dir = (td === 'rtl') ? 'rtl' : 'ltr';
-	}, []);
+		const html = window.document.documentElement;
+
+		if (theme) {
+			html.classList.remove('dark', 'light');
+			html.classList.add(theme);
+			window.localStorage.setItem('theme', theme);
+		}
+
+		if (dir) {
+			html.dir = dir;
+			window.localStorage.setItem('dir', dir);
+		}
+	}, [theme, dir]);
 
 	return (
 		<header className={ styles.header }>
@@ -62,13 +67,13 @@ function Header(props: Props) {
 				<Button
 					type="invisible"
 					icon={ <TextDirectionRtl /> }
-					onClick={ toggleTextDirection }
+					onClick={ () => setDir((state) => state === 'ltr' ? 'rtl' : 'ltr') }
 					aria-label="Change color theme"
 				/>
 				<Button
 					type="invisible"
 					icon={ <Moon /> }
-					onClick={ toggleTheme }
+					onClick={ () => setTheme((state) => state === 'dark' ? 'light' : 'dark') }
 					aria-label="Change color theme"
 				/>
 			</div>

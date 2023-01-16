@@ -56,8 +56,12 @@ body {
 	}
 }
 
-html[data-theme="dark"] {
-	.header {
+:global(.@{dark-mode-cls}) .header {
+	background-color: var(--gray-2);
+}
+
+@media (prefers-color-scheme: dark) {
+	:global(:root:not(.@{dark-mode-cls})) .header {
 		background-color: var(--gray-2);
 	}
 }
