@@ -24,8 +24,16 @@ function isHTMLInputElement(value: any): value is HTMLInputElement {
 	return (value instanceof HTMLInputElement);
 }
 
+function isHTMLAnchorElement(value: any): value is HTMLAnchorElement {
+	return (value instanceof HTMLAnchorElement);
+}
+
 function isHTMLButtonElement(value: any): value is HTMLButtonElement {
 	return (value instanceof HTMLButtonElement);
+}
+
+function isHTMLDialogElement(value: any): value is HTMLDialogElement {
+	return (value instanceof HTMLDialogElement);
 }
 
 export {
@@ -35,6 +43,8 @@ export {
 	isNode,
 	isHTMLElement,
 	isHTMLInputElement,
+	isHTMLAnchorElement,
 	isHTMLButtonElement,
+	isHTMLDialogElement,
 };
 

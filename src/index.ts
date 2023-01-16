@@ -54,5 +54,7 @@ export {
 	isNode,
 	isHTMLElement,
 	isHTMLInputElement,
+	isHTMLAnchorElement,
 	isHTMLButtonElement,
+	isHTMLDialogElement,
 } from './utils';

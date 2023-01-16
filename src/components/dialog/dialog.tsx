@@ -31,7 +31,7 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 	function open() {
 		const dialog = dialogRef.current;
 
-		if (!isHTMLElement(dialog) || dialog.open) {
+		if (!isHTMLDialogElement(dialog) || dialog.open) {
 			return;
 		}
 
@@ -47,7 +47,7 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 	function close(returnValue?: string | undefined) {
 		const dialog = dialogRef.current;
 
-		if (!isHTMLElement(dialog) || !dialog.open) {
+		if (!isHTMLDialogElement(dialog) || !dialog.open) {
 			return;
 		}
 
@@ -82,7 +82,7 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 	function handleClick(e: MouseEvent<HTMLDialogElement>) {
 		const dialog = dialogRef.current;
 
-		if (!backdropCloseable || !isHTMLElement(dialog) || e.target !== dialog) {
+		if (!backdropCloseable || !isHTMLDialogElement(dialog) || e.target !== dialog) {
 			return;
 		}
 
