@@ -12,26 +12,22 @@ interface DialogTitleProp {
 interface DialogProps extends Base {
 	/**
 	 * @default 'dialog'
-	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alertdialog_role
-	 * */
+	 */
 	readonly role?: 'dialog' | 'alertdialog';
 	/**
 	 * Does not apply on non-modals nor when `closeable` is `false`.
-	 *
 	 * @default true
-	 * */
+	 */
 	readonly backdropCloseable?: boolean | undefined;
 	readonly closeable?: boolean | undefined;
 	/**
 	 * @default true
-	 *
 	 * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal
-	 * */
+	 */
 	readonly modal?: boolean | undefined;
 	/**
 	 * Enables fullscreen mode on smaller devices for a better experience.
-	 *
 	 * @default true
 	 */
 	readonly fullscreen?: boolean | undefined;

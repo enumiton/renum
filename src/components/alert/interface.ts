@@ -12,11 +12,10 @@ interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
 	readonly banner?: boolean | undefined;
 	/**
 	 * @default 'presentation'
-	 *
 	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role}
 	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role}
 	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions}
-	 * */
+	 */
 	readonly role?: AlertRole | undefined;
 	readonly title?: string | undefined;
 	readonly actions?: ReactElement | ReactElement[] | undefined;
