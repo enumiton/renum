@@ -121,11 +121,11 @@ a[href] {
 	}
 }
 
-:where(pre, code, kbd, samp, output) {
+pre, code, kbd, samp, output {
 	font-family: @font-family-monospace;
 }
 
-:where(code, kbd) {
+code, kbd {
 	padding-block: 0.125em;
 	padding-inline: 0.25em;
 	background-color: var(--bg-subtle);
@@ -157,11 +157,11 @@ address {
 	font-style: normal;
 }
 
-:where(em, i) {
+em, i, var {
 	font-style: italic;
 }
 
-:where(strong, b) {
+strong, b {
 	font-weight: @font-weight-semiBold;
 }
 
