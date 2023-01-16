@@ -7,7 +7,7 @@
 	flex-direction: column;
 	max-width: calc(min(@dialog-max-width, 100dvi) - (@dialog-margin-x * 2));
 	height: fit-content;
-	max-height: (100dvb - (@dialog-margin-y * 2));
+	max-height: calc(100dvb - (@dialog-margin-y * 2));
 	margin: auto;
 	padding: 0;
 	background-color: var(--bg-default);
@@ -29,13 +29,21 @@
 		margin: 0;
 		border-radius: 0;
 
+		& .@{dialog-prefix}-body {
+			flex: 1;
+		}
+
 		@media (min-width: (@dialog-max-width * 1.125)) {
 			width: fit-content;
 			max-width: @dialog-max-width;
 			height: fit-content;
-			max-height: (100vh - (@dialog-margin-y * 2));
+			max-height: calc(100dvb - (@dialog-margin-y * 2));
 			margin: auto;
 			border-radius: @border-radius-large;
+
+			& .@{dialog-prefix}-body {
+				flex: auto;
+			}
 		}
 	}
 
