@@ -1,3 +1,27 @@
-@import "./themes/common.less";
-@import "./themes/dark.less";
-@import "./themes/light.less";
+@import (reference) "./index.less";
+@import (reference) "./themes/dark.less";
+@import (reference) "./themes/light.less";
+
+:root {
+	.common();
+}
+
+.@{dark-mode-cls} {
+	.dark-mode();
+}
+
+.@{light-mode-cls} {
+	.light-mode();
+}
+
+@selector: ~".@{dark-mode-cls}, .@{light-mode-cls}";
+
+:root:not(@{selector}) {
+	@media (prefers-color-scheme: dark) {
+		.dark-mode();
+	}
+
+	@media (prefers-color-scheme: light) {
+		.light-mode();
+	}
+}
