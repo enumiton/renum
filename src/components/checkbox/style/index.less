@@ -99,7 +99,7 @@
 		cursor: not-allowed;
 
 		&::before {
-			background-color: var(--input-color-disabled2);
+			background-color: var(--text-disabled);
 		}
 
 		&:is([checked], :checked) {
@@ -107,12 +107,12 @@
 			border-color: var(--input-border-disabled);
 
 			&::before {
-				background-color: var(--input-color-disabled2);
+				background-color: var(--text-disabled);
 			}
 		}
 
 		& + .@{checkbox-prefix}-label {
-			color: var(--input-color-disabled2);
+			color: var(--text-disabled);
 			cursor: not-allowed;
 		}
 	}
