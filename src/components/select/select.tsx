@@ -70,7 +70,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 	}
 
 	function getLis(type: OptionState.Hovered | OptionState.Selected): HTMLLIElement | null
-	function getLis(type: OptionState.None | OptionState.Disabled): HTMLLIElement[]
+	function getLis(type: OptionState.None | OptionState.Disabled | OptionState.All): HTMLLIElement[]
 	function getLis(type: OptionState = OptionState.None): (HTMLLIElement | null) | HTMLLIElement[] {
 		const list = listboxRef.current;
 
@@ -275,7 +275,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				aria-label={ option?.ariaLabel }
 				aria-selected={ (selected === options.indexOf(option)) }
 				aria-disabled={ option?.disabled ?? false }
-				tabIndex={ 0 }
+				tabIndex={ option.disabled ? -1 : 0 }
 				onKeyDown={ handleLiKeyDown }
 				onClick={ handleLiClick(option) }
 				className={ prefixCls + '-option' }
@@ -296,6 +296,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) 
 				aria-labelledby={ labelId }
 				aria-multiselectable={ false }
 				className={ prefixCls + '-list' }
+				tabIndex={ -1 }
 			>
 				{ options.map(renderOption) }
 			</ul>

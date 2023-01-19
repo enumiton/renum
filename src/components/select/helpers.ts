@@ -5,6 +5,7 @@ function NOT(selector: string): string {
 	return ':not(' + selector + ')';
 }
 
+/** @internal */
 const enum Direction {
 	Next = +1,
 	Next10 = +10,
@@ -14,11 +15,13 @@ const enum Direction {
 	End = 3,
 }
 
+/** @internal */
 const enum OptionState {
 	None,
 	Hovered,
 	Selected,
 	Disabled,
+	All,
 }
 
 export {
