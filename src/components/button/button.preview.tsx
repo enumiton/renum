@@ -8,6 +8,7 @@ import { default as AlignRight } from '../../icons/AlignRight';
 
 const config = {
 	title: 'button',
+	description: 'They click and clack around.',
 };
 
 function Types() {

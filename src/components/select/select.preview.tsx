@@ -9,7 +9,7 @@ const config = {
 const ICON = <UserIcon />;
 
 const options: SelectOptions = Array(12).fill(null).map(function () {
-	const str = (Math.random() + 1).toString(36).substring(7);
+	const str = (Math.random() + 1).toString(16).substring(7);
 
 	return {
 		label: str,
