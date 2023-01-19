@@ -39,6 +39,10 @@
 	--tooltip-color: var(--text-inverse);
 	--tooltip-bg: rgba(@white, 0.8);
 
+	// hover
+	--transparent-hover: rgba(@white, 0.1);
+	--transparent-active: rgba(@white, 0.2);
+
 	// btn
 	--btn-color: var(--text-default);
 	--btn-color-primary: var(--primary-contrast);
@@ -88,13 +92,11 @@
 	--select-color-selected: var(--primary-200);
 
 	--select-bg-list: var(--bg-overlay);
-	--select-bg-option-hover: var(--gray-4);
-	--select-bg-option-active: var(--gray-6);
+	--select-bg-option-hover: var(--transparent-hover);
+	--select-bg-option-active: var(--transparent-active);
 	--select-bg-option-selected: var(--primary-muted);
 	--select-bg-option-selected-hover: var(--primary-muted-hover);
 	--select-bg-option-selected-active: var(--primary-muted-active);
-
-	--select-border-list: var(--border-muted);
 
 	// alert
 	--alert-color: var(--text-default);
