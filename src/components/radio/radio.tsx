@@ -5,7 +5,8 @@ import { classNames } from '../../utils';
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
 	const {
-		disabled,
+		wrapperClassName,
+		labelClassName,
 		children,
 		...rest
 	} = props;
@@ -16,16 +17,15 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
 	const id = rest.id || useId();
 
 	return (
-		<span className={ classNames(`${ prefixCls }-wrapper`, rest.wrapperClassName) }>
+		<span className={ classNames(`${ prefixCls }-wrapper`, wrapperClassName) }>
 			<input
 				{ ...rest }
 				id={ id }
 				type="radio"
-				disabled={ disabled }
 				className={ classNames(prefixCls, rest.className) }
 				ref={ ref }
 			/>
-			<label htmlFor={ id } className={ `${ prefixCls }-label` }>
+			<label htmlFor={ id } className={ classNames(`${ prefixCls }-label`, labelClassName) }>
 				{ children }
 			</label>
 		</span>
