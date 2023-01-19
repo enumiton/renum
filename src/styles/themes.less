@@ -8,10 +8,12 @@
 
 .@{dark-mode-cls} {
 	.dark-mode();
+	color-scheme: dark;
 }
 
 .@{light-mode-cls} {
 	.light-mode();
+	color-scheme: light;
 }
 
 @selector: ~".@{dark-mode-cls}, .@{light-mode-cls}";
@@ -19,9 +21,11 @@
 :root:not(@{selector}) {
 	@media (prefers-color-scheme: dark) {
 		.dark-mode();
+		color-scheme: dark;
 	}
 
 	@media (prefers-color-scheme: light) {
 		.light-mode();
+		color-scheme: light;
 	}
 }
