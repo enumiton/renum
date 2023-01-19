@@ -10,21 +10,26 @@ type Alert = {
 	readonly description?: string | ReactNode;
 }
 
-type Imports = {
-	[key: string]: (FC | {
-		readonly title: string;
-		readonly alerts?: Alert[];
-	});
-};
+interface Config {
+	title: string;
+	description?: string | undefined;
+	alerts?: Alert[] | undefined;
+}
+
+interface Imports {
+	default: Config;
+
+	[key: string]: FC | Config;
+}
 
 function Example(props: RouteComponentProps) {
 	const component = props.match.component?.toString();
 
-	const [components, setComponents] = useState<Imports>({});
-	const [loading, setLoading] = useState(false);
+	const [components, setComponents] = useState<Imports | undefined>();
 
 	// @ts-ignore
-	const alerts = components['default']?.['alerts'] as (Alert[] | undefined);
+	const alerts = components?.['default']?.['alerts'];
+	const description = components?.['default']?.['description'];
 
 	async function get() {
 		setComponents(await import(`../../../src/components/${ component }/${ component }.preview.tsx`));
@@ -37,16 +42,17 @@ function Example(props: RouteComponentProps) {
 
 		window.document.title = capitalize(component) + ' \u2022 Renum';
 
-		setLoading(true);
-
-		get()
-			.finally(function () {
-				return setLoading(false);
-			});
+		void get();
 	}, [component]);
 
 	return (
-		<div>
+		<>
+			<div className={ styles.header }>
+				<h1>{ capitalize(component ?? '') }</h1>
+				{ (description) ? (
+					<p>{ description }</p>
+				) : null }
+			</div>
 			{ (alerts && alerts.length > 0) ? (
 				<div>
 					{ alerts.map(function (alert, i) {
@@ -58,19 +64,19 @@ function Example(props: RouteComponentProps) {
 					}) }
 				</div>
 			) : null }
-			{ loading ? (
+			{ (!components) ? (
 				<div style={ { textAlign: 'center' } }>
 					<Loading active />
 				</div>
 			) : (
-				<div className={ styles.container }>
+				<div className={ styles.examples }>
 					{ Object.entries(components).map(function ([key, Component], i) {
-						if (typeof Component === 'object' && 'title' in Component) {
+						if ('title' in Component) {
 							return;
 						}
 
 						return (
-							<section key={ i } className={ styles.section }>
+							<section key={ i }>
 								<h2>{ key }</h2>
 								<Component />
 							</section>
@@ -78,7 +84,7 @@ function Example(props: RouteComponentProps) {
 					}) }
 				</div>
 			) }
-		</div>
+		</>
 	);
 }
 

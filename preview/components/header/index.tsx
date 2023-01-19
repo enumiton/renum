@@ -30,8 +30,8 @@ function Header(props: Props) {
 		const html = window.document.documentElement;
 
 		if (theme) {
-			html.classList.remove('dark', 'light');
-			html.classList.add(theme);
+			html.classList.remove('re-dark', 're-light');
+			html.classList.add(`re-${ theme }`);
 			window.localStorage.setItem('theme', theme);
 		}
 
@@ -44,7 +44,7 @@ function Header(props: Props) {
 	return (
 		<header className={ styles.header }>
 			<a className={ styles.skip } href="#main">Skip to main</a>
-			<div>
+			<div className={ styles.row }>
 				<Button
 					icon={ <Menu /> }
 					type="invisible"
@@ -55,7 +55,7 @@ function Header(props: Props) {
 				/>
 				<span className={ styles.logo }>Renum</span>
 			</div>
-			<div className={ styles.rhs }>
+			<div className={ styles.row }>
 				<a
 					target="_blank"
 					href="https://github.com/enumiton/renum"

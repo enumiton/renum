@@ -11,6 +11,7 @@ import locale from '../src/locale/en-us';
 import { default as ExternalLink } from '../src/icons/ExternalLink';
 import '../src/styles/renum.less';
 import { Example } from './components/example';
+import { Colors } from './components/colors';
 import { capitalize } from './utils';
 
 const EXTERNAL_ICON = <ExternalLink />;
@@ -30,6 +31,7 @@ const components = [
 const ROUTES = makeRoutes({
 	'': Overview,
 	'/normalize': Normalize,
+	'/colors': Colors,
 	'/components/:component': Example,
 });
 
@@ -52,6 +54,11 @@ function App() {
 							<li>
 								<Link href={ ROUTES.url(Normalize) }>
 									Normalize
+								</Link>
+							</li>
+							<li>
+								<Link href={ ROUTES.url(Colors) }>
+									Colors
 								</Link>
 							</li>
 							<li>
@@ -78,7 +85,6 @@ function App() {
 					</nav>
 				</aside>
 				<main id="main" className={ styles.main }>
-					<h1>idk</h1>
 					<Router routes={ ROUTES } />
 				</main>
 			</div>

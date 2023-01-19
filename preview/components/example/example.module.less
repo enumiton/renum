@@ -1,25 +1,28 @@
 @import "../../../src/styles/variables/index.less";
 
-.container {
-	display: flex;
-	flex-flow: row wrap;
-	gap: (@margin-medium * 4) (@margin-medium * 2);
-	margin-block-start: 3.5em;
+.header {
+	margin-block: -1em 1em;
+	margin-inline: -1em;
+	padding: 1em;
+	background-color: var(--bg-subtle);
 }
 
-.section {
-	flex: 1 auto;
-	max-width: @screen-mobile-max;
-	padding: @padding-medium;
-	background-color: var(--bg-default);
-	border-radius: @border-radius-medium;
-	box-shadow: @shadow-small;
+.examples {
+	& > section {
+		max-width: @screen-mobile-max;
+		padding: 1em;
+		margin-block: 4em;
+		margin-inline: auto;
+		border: @border-width-medium @border-style var(--border-subtle);
+		border-radius: @border-radius-large;
 
-	& > h2 {
-		padding-block-end: calc(@font-size-large + (@border-width-medium * 2));
-		margin-block: -(@font-size-large * 2) 0;
-		margin-inline: 0;
-		font-size: @font-size-large;
-		line-height: 1;
+		& > h2 {
+			width: max-content;
+			padding-inline: 0.5em;
+			margin-block: (-1.75em) 0.25em;
+			margin-inline: 0;
+			background-color: var(--bg-default);
+			font-size: @font-size-large;
+		}
 	}
 }
