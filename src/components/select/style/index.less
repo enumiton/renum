@@ -121,7 +121,7 @@
 		}
 
 		&[aria-selected="true"] {
-			color: var(--text-disabled);
+			color: var(--select-color-selected);
 			background-color: var(--select-bg-option-selected);
 
 			&:hover,
@@ -136,8 +136,14 @@
 		}
 
 		&[aria-disabled="true"] {
-			color: var(--input-color-disabled);
-			cursor: not-allowed;
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: transparent;
+				color: var(--text-disabled);
+				cursor: not-allowed;
+			}
 		}
 	}
 
