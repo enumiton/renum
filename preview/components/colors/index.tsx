@@ -10,7 +10,7 @@ function Color({ color }: { readonly color: string }) {
 		<section className={ styles.color }>
 			<h3>{ capitalize(color) }</h3>
 			<ul className={ styles.row2 } role="list">
-				{ Array(gray ? 33 : 9).fill(null).map(function (_, i) {
+				{ Array(gray ? 25 : 9).fill(null).map(function (_, i) {
 					const key = gray ? (i).toString() : ((i + 1) + '00');
 
 					return (
