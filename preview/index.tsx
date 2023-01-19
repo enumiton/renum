@@ -9,10 +9,10 @@ import { RenumProvider } from '../src';
 import { Header } from './components/header';
 import locale from '../src/locale/en-us';
 import { default as ExternalLink } from '../src/icons/ExternalLink';
-import '../src/styles/renum.less';
 import { Example } from './components/example';
 import { Colors } from './components/colors';
 import { capitalize } from './utils';
+import '../src/styles/renum.less';
 
 const EXTERNAL_ICON = <ExternalLink />;
 

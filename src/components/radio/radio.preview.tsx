@@ -1,7 +1,6 @@
 import { Radio } from './radio';
 import { useState } from 'react';
 import { Button } from '../button';
-import '../button/style/index.less';
 
 const config = {
 	title: 'radio',
@@ -9,17 +8,17 @@ const config = {
 
 function Example() {
 	return (
-		<div style={ { display: 'flex', flexDirection: 'column', gap: '0.5em' } }>
-			<Radio name="sample" value={ 1 }>
+		<>
+			<Radio name="example" value={ 1 }>
 				Option 1
 			</Radio>
-			<Radio name="sample" value={ 2 }>
+			<Radio name="example" value={ 2 }>
 				Option 2
 			</Radio>
-			<Radio name="sample" value={ 3 }>
+			<Radio name="example" value={ 3 }>
 				Option 3
 			</Radio>
-		</div>
+		</>
 	);
 }
 
@@ -45,5 +44,24 @@ function Disabled() {
 	);
 }
 
-export { Example, Disabled };
+function HelpText() {
+	return (
+		<div>
+			<div style={ { display: 'flex', flexDirection: 'column' } }>
+				<Radio name="help" value={ 1 }>
+					Option 1
+
+					<p style={ { color: 'var(--text-muted)', marginBlockStart: '0.5em' } }>More detailed value</p>
+				</Radio>
+				<Radio name="help" value={ 2 }>
+					Option 2
+
+					<p style={ { color: 'var(--text-muted)', marginBlockStart: '0.5em' } }>More detailed value</p>
+				</Radio>
+			</div>
+		</div>
+	);
+}
+
+export { Example, Disabled, HelpText };
 export default config;
