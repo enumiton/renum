@@ -16,7 +16,7 @@ import '../src/styles/renum.less';
 
 const EXTERNAL_ICON = <ExternalLink />;
 
-const components = [
+export const COMPONENTS = [
 	'alert',
 	'button',
 	'checkbox',
@@ -28,7 +28,7 @@ const components = [
 	'tooltip',
 ] as const;
 
-const ROUTES = makeRoutes({
+export const ROUTES = makeRoutes({
 	'': Overview,
 	'/normalize': Normalize,
 	'/colors': Colors,
@@ -72,7 +72,7 @@ function App() {
 							<li>
 								<hr />
 							</li>
-							{ components.map(function (component) {
+							{ COMPONENTS.map(function (component) {
 								return (
 									<li key={ component }>
 										<Link href={ ROUTES.url(Example, { component }) }>
