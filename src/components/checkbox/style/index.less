@@ -39,7 +39,7 @@
 		opacity: 0;
 	}
 
-	&:is([checked], :checked) {
+	&:where([checked], :checked) {
 		background-color: var(--primary);
 		border-color: var(--primary);
 
@@ -93,7 +93,7 @@
 		}
 	}
 
-	&:is([disabled], :disabled) {
+	&:where([disabled], :disabled) {
 		background-color: var(--input-bg-disabled);
 		border-color: var(--input-border-disabled);
 		cursor: not-allowed;
@@ -102,7 +102,7 @@
 			background-color: var(--text-disabled);
 		}
 
-		&:is([checked], :checked) {
+		&:where([checked], :checked) {
 			background-color: var(--input-bg-disabled);
 			border-color: var(--input-border-disabled);
 

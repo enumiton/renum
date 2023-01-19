@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 import type { CheckboxProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
 import { classNames } from '../../utils';
@@ -6,8 +6,6 @@ import { classNames } from '../../utils';
 // @todo intermediate state
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function (props, ref) {
 	const {
-		label,
-		disabled,
 		wrapperClassName,
 		labelClassName,
 		children,
@@ -17,19 +15,21 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function (props, re
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('checkbox');
 
+	const id = rest.id || useId();
+
 	return (
-		<label className={ classNames(`${ prefixCls }-wrapper`, wrapperClassName) }>
+		<span className={ classNames(`${ prefixCls }-wrapper`, wrapperClassName) }>
 			<input
 				{ ...rest }
-				disabled={ disabled }
+				id={ id }
 				type="checkbox"
 				className={ classNames(prefixCls, rest.className) }
 				ref={ ref }
 			/>
-			<span className={ classNames(`${ prefixCls }-label`, labelClassName) }>
-				{ label || children }
-			</span>
-		</label>
+			<label htmlFor={ id } className={ classNames(`${ prefixCls }-label`, labelClassName) }>
+				{ children }
+			</label>
+		</span>
 	);
 });
 
