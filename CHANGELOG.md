@@ -1,5 +1,37 @@
 # Changelog
 
+## v0.6.1
+
+- Comments are now preserved
+- Theme
+  - Now applied automatically based on `prefers-color-scheme`
+  - Theme is now switched using the `re-dark` or `re-light` classes instead of a dataset
+  - Added `color-scheme` to themes
+  - Added `accent-color` to body
+  - `--primary-muted` now uses `rgba` to be transparent rather than lightened
+- Normalize
+  - Added `textarea`
+  - Remove body transitions
+  - Added `line-through` style to `strike` element
+  - `anchor` elements are now `inline-block`
+- Input
+  - Clear button no longer appears when `required` is true
+- Dialog
+  - Fix body display issue
+  - Fix `id` prop not being passed to `dialog` element
+  - Added closing animations
+  - Redid animations using `element.animate`
+- Radio
+  - Refactor to be more inline with other input styles
+  - Added `labelClassName` prop
+- Checkbox
+  - Refactor to be more inline with other input styles
+- Select
+  - Minor style changes
+  - Fixed issue trying to tab into the list box
+- Fixed `Alert` actions gap
+- Added `isHTMLAnchorElement` & `isHTMLDialogElement` util
+
 ## v0.6.0
 
 - Refactored `Dialog` component to use the new `dialog` element
