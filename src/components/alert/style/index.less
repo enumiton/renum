@@ -71,10 +71,11 @@
 	}
 
 	&-actions {
-		margin-block-start: @alert-actions-gap;
+		margin: -@padding-tiny;
 
-		& > .@{btn-prefix} + .@{btn-prefix} {
-			margin-inline-start: @padding-tiny;
+		& > .@{btn-prefix} {
+			margin-block: @padding-tiny;
+			margin-inline: @padding-tiny;
 		}
 	}
 
