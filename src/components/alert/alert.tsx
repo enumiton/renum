@@ -15,7 +15,7 @@ const DANGER_ICON = <AlertTriangleIcon />;
 const ERROR_ICON = <AlertCirceIcon />;
 const CLOSE_ICON = <CloseIcon />;
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(function (props, ref) {
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
 	const {
 		icon = true,
 		type = 'light',

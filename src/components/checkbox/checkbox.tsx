@@ -4,7 +4,7 @@ import { useRenumProvider } from '../renum-provider';
 import { classNames } from '../../utils';
 
 // @todo intermediate state
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function (props, ref) {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(props, ref) {
 	const {
 		wrapperClassName,
 		labelClassName,

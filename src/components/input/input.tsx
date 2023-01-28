@@ -5,7 +5,7 @@ import { useRenumProvider } from '../renum-provider';
 import type { InputProps } from './interface';
 import { Clear } from '../clear';
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function (props, ref) {
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, ref) {
 	const {
 		value: _value,
 		defaultValue,

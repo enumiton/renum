@@ -6,7 +6,7 @@ import { useRenumProvider } from '../renum-provider';
 import type { PortalPosition, PortalProps } from './interface';
 import { getPosition } from './helpers';
 
-const Portal = forwardRef<HTMLDivElement, PortalProps>(function (props, ref): ReactPortal {
+const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, ref): ReactPortal {
 	const {
 		target,
 		container,

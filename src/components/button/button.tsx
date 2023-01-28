@@ -10,7 +10,7 @@ interface Button extends ForwardRefExoticComponent<ButtonProps & RefAttributes<H
 	Group: typeof Group;
 }
 
-const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function (props, ref) {
+const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
 	const {
 		icon,
 		suffix,

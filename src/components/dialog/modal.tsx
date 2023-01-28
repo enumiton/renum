@@ -7,7 +7,7 @@ import { DialogFooter } from './footer';
 import { classNames } from '../../utils';
 import { DialogBody } from './body';
 
-const Modal = forwardRef<HTMLDialogElement, DialogModalProps>(function (props, ref) {
+const Modal = forwardRef<HTMLDialogElement, DialogModalProps>(function Modal(props, ref) {
 	const {
 		id: _id,
 		title,

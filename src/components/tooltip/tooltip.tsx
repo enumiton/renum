@@ -3,7 +3,7 @@ import type { TooltipProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
 import { Portal } from '../portal';
 
-const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function (props, ref) {
+const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(props, ref) {
 	const {
 		label,
 		icon,

@@ -32,7 +32,7 @@ const ANIMATION: Keyframe[] = [
 
 const ANIMATION_CLOSING = [...ANIMATION].reverse();
 
-const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (props, ref) {
+const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function Dialog(props, ref) {
 	const {
 		open: _open,
 		role = 'dialog',

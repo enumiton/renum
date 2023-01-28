@@ -3,7 +3,7 @@ import { classNames } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { IconProps } from './interface';
 
-const Icon = forwardRef<HTMLSpanElement, IconProps>(function (props, ref) {
+const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(props, ref) {
 	const {
 		className,
 		children,

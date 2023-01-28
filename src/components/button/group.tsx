@@ -3,7 +3,7 @@ import { classNames } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { ButtonGroupProps } from './interface';
 
-const Group = forwardRef<HTMLDivElement, ButtonGroupProps>(function (props, ref) {
+const Group = forwardRef<HTMLDivElement, ButtonGroupProps>(function Group(props, ref) {
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('btn-group');
 

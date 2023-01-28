@@ -7,7 +7,7 @@ import { useRenumProvider } from '../renum-provider';
 import { DialogFooter } from './footer';
 import { DialogBody } from './body';
 
-const Confirm = forwardRef<HTMLDialogElement, DialogConfirmProps>(function (props, ref) {
+const Confirm = forwardRef<HTMLDialogElement, DialogConfirmProps>(function DialogConfirm(props, ref) {
 	const {
 		id: _id,
 		title,

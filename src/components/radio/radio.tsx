@@ -3,7 +3,7 @@ import type { RadioProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
 import { classNames } from '../../utils';
 
-const Radio = forwardRef<HTMLInputElement, RadioProps>(function (props, ref) {
+const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref) {
 	const {
 		wrapperClassName,
 		labelClassName,

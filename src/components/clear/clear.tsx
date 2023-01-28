@@ -6,7 +6,7 @@ import { classNames } from '../../utils';
 
 const CLEAR_ICON = <ClearIcon />;
 
-const Clear = forwardRef<HTMLSpanElement, ClearProps>(function (props, ref) {
+const Clear = forwardRef<HTMLSpanElement, ClearProps>(function Clear(props, ref) {
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('clear');
 

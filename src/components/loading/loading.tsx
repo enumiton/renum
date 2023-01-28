@@ -4,7 +4,7 @@ import { Icon } from '../icon';
 import { useRenumProvider } from '../renum-provider';
 import type { LoadingProps } from './interface';
 
-const Loading = forwardRef<HTMLSpanElement, LoadingProps>(function (props, ref) {
+const Loading = forwardRef<HTMLSpanElement, LoadingProps>(function Loading(props, ref) {
 	const { active, ...rest } = props;
 
 	const { getPrefixCls } = useRenumProvider();

@@ -10,7 +10,7 @@ import { ARIA_DISABLED, ARIA_SELECTED, Direction, NOT, OptionState } from './hel
 
 const SELECTOR_ICON = <Selector />;
 
-const Select = forwardRef<HTMLButtonElement, SelectProps>(function (props, ref) {
+const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props, ref) {
 	const {
 		name,
 		placeholder,
