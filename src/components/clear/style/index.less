@@ -1,4 +1,5 @@
 @import (reference) "./variables.less";
+@import (reference) "../../icon/style/variables.less";
 
 .@{clear-prefix} {
 	position: relative;
@@ -21,5 +22,10 @@
 
 	&:active {
 		background-color: var(--clear-bg-active);
+	}
+
+	& > .@{icon-prefix} {
+		vertical-align: 0;
+		transform: scale(unit(@font-size-small));
 	}
 }
