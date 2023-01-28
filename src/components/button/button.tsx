@@ -56,7 +56,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function Butto
 		>
 			{ loading ? <Loading active /> : icon }
 			{ (!!props.children) ? (
-				<span className={ prefixCls + '-text' }>{ props.children }</span>
+				<span className={ prefixCls + '-inner' }>{ props.children }</span>
 			) : null }
 			{ suffix }
 		</button>

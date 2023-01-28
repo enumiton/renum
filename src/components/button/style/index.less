@@ -51,7 +51,7 @@
 		transform: translateZ(0);
 	}
 
-	&-text {
+	&-inner {
 		font-size: inherit;
 		color: inherit;
 	}
@@ -96,45 +96,83 @@
 		}
 	}
 
-	&-light {
-		color: var(--btn-color-light);
-		background-color: var(--btn-bg-light);
+	&-muted {
+		color: var(--btn-color-muted);
+		background-color: var(--btn-bg-muted);
 		border-color: transparent;
 
 		&:hover,
 		&:focus {
-			background-color: var(--btn-bg-light-hover);
+			background-color: var(--btn-bg-muted-hover);
 			border-color: transparent;
 		}
 
 		&:active {
-			background-color: var(--btn-bg-light-active);
+			background-color: var(--btn-bg-muted-active);
 			border-color: transparent;
 		}
 	}
 
-	&-invisible {
+	&-link {
+		background-color: transparent;
+		border-color: transparent;
+		color: var(--primary);
+
+		&:hover,
+		&:focus {
+			background-color: transparent;
+			border-color: transparent;
+			color: var(--primary-hover);
+		}
+
+		&:active {
+			background-color: transparent;
+			border-color: transparent;
+			color: var(--primary-active);
+		}
+	}
+
+	&-text {
 		background-color: transparent;
 		border-color: transparent;
 
 		&:hover,
 		&:focus {
-			background-color: var(--btn-bg-hover);
-			border-color: var(--btn-bg-hover);
+			background-color: var(--transparent-hover);
+			border-color: transparent;
 		}
 
 		&:active {
-			background-color: var(--btn-bg-active);
-			border-color: var(--btn-bg-active);
+			background-color: var(--transparent-active);
+			border-color: transparent;
 		}
 	}
 
-	&-ghost {
+	&-border {
 		&,
 		&:hover,
 		&:focus,
 		&:active {
 			background-color: transparent;
+		}
+
+		&-primary {
+			color: var(--primary);
+			background-color: transparent;
+			border-color: var(--primary);
+
+			&:hover,
+			&:focus {
+				color: var(--primary-hover);
+				background-color: transparent;
+				border-color: var(--primary-hover);
+			}
+
+			&:active {
+				color: var(--primary-active);
+				background-color: transparent;
+				border-color: var(--primary-active);
+			}
 		}
 	}
 

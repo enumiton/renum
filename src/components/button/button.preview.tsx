@@ -16,10 +16,12 @@ function Types() {
 		<div style={ { display: 'flex', flexFlow: 'row wrap', gap: '0.5em' } }>
 			<Button type="default">Default</Button>
 			<Button type="primary">Primary</Button>
+			<Button type="muted">Muted</Button>
 			<Button type="complementary">Complementary</Button>
-			<Button type="light">Light</Button>
-			<Button type="invisible">Invisible</Button>
-			<Button type="ghost">Ghost</Button>
+			<Button type="link">Link</Button>
+			<Button type="text">Text</Button>
+			<Button type="border">Border</Button>
+			<Button type="border-primary">Border primary</Button>
 			<Button dashed>Dashed border</Button>
 			<Button disabled>Disabled</Button>
 		</div>
