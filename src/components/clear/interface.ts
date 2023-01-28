@@ -1,7 +1,7 @@
-import type { HTMLAttributes } from 'react';
+import type { HTMLAttributes, ReactElement } from 'react';
 
-interface ClearProps extends HTMLAttributes<HTMLSpanElement> {
-
+interface ClearProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+	readonly icon?: ReactElement | undefined;
 }
 
 export type { ClearProps };
