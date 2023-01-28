@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.6.2
+
+- Redid `Button` types
+- Normalize
+  - Added hover color for `a[href]`
+  - Increase `font-weight` of `b`, `strong` & `legend` elements from `600` (semi-bold) to `700` (bold)
+  - Fixed `color` of `code` element not following color scheme
+  - Added `font-size` of `1em` by default to all code-like elements
+  - Removed some block-start margins
+  - The `summary` element now has cursor by default
+- Fixed body not unlocking after navigating to a different page with a modal dialog open
+- Clear
+  - Minor refactor
+  - Added support for custom clear icon
+- All components have now been given names inside the `forwardRef` which should help when finding errors
+
 ## v0.6.1
 
 - Comments are now preserved

@@ -1,7 +1,7 @@
 {
 	"name": "@enumiton/renum",
 	"description": "A minimalistic react component library without unnecessary dependencies.",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"keywords": [
 		"renum",
 		"react",
