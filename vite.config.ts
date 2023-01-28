@@ -4,6 +4,7 @@ export default defineConfig(function (env) {
 	if (env.command === 'build') {
 		return {
 			build: {
+				copyPublicDir: false,
 				rollupOptions: {
 					input: './src/styles/renum.less',
 					output: {
