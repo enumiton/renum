@@ -160,7 +160,10 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function (prop
 	}, [_open]);
 
 	useEffect(function () {
-		return void close;
+		return function () {
+			unlockBody();
+			void close();
+		};
 	}, []);
 
 	return (
