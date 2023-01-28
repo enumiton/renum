@@ -41,7 +41,7 @@ function DialogHeader(props: DialogHeaderProps) {
 					</h2>
 					{ showClose ? (
 						<Button
-							type="invisible"
+							type="text"
 							shape="circle"
 							aria-label={ locale.close }
 							icon={ CLOSE_ICON }

@@ -47,7 +47,7 @@ function Header(props: Props) {
 			<div className={ styles.row }>
 				<Button
 					icon={ <Menu /> }
-					type="invisible"
+					type="text"
 					shape="circle"
 					onClick={ props.onToggle }
 					aria-label={ props.open ? 'Close sidemenu' : 'Open sidemenu' }
@@ -65,13 +65,13 @@ function Header(props: Props) {
 					<BrandGithub />
 				</a>
 				<Button
-					type="invisible"
+					type="text"
 					icon={ <TextDirectionRtl /> }
 					onClick={ () => setDir((state) => state === 'ltr' ? 'rtl' : 'ltr') }
 					aria-label="Change color theme"
 				/>
 				<Button
-					type="invisible"
+					type="text"
 					icon={ <Moon /> }
 					onClick={ () => setTheme((state) => state === 'dark' ? 'light' : 'dark') }
 					aria-label="Change color theme"

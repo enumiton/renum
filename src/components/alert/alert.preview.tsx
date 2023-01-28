@@ -75,10 +75,10 @@ function Actions() {
 				title="An error has occurred!"
 				closeable
 				actions={ [
-					<Button key="report" type="light">
+					<Button key="report" type="primary">
 						Report issue
 					</Button>,
-					<Button key="reload" type="invisible">
+					<Button key="reload" type="text">
 						Reload page
 					</Button>,
 				] }

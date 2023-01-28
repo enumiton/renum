@@ -108,7 +108,7 @@ function Simple() {
 					>
 						{ loading ? 'Creating account\u2026' : 'Create account' }
 					</Button>,
-					<Button key="cancel" type="invisible" onClick={ handleClose }>
+					<Button key="cancel" type="text" onClick={ handleClose }>
 						Cancel
 					</Button>,
 				] }
@@ -144,7 +144,7 @@ function Simple() {
 					<Button key="confirm" type="primary" onClick={ handleClose }>
 						Remove
 					</Button>,
-					<Button key="cancel" type="invisible" onClick={ handleClose }>
+					<Button key="cancel" type="text" onClick={ handleClose }>
 						Cancel
 					</Button>,
 				] }

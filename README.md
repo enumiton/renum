@@ -88,7 +88,7 @@ function App() {
 	return (
 		<Button
 			icon={ <Menu /> }
-			type="invisible"
+			type="text"
 			shape="circle"
 			aria-label="Open menu"
 		/>

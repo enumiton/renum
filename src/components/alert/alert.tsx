@@ -90,7 +90,7 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) 
 				icon={ CLOSE_ICON }
 				onClick={ handleClose }
 				shape="circle"
-				type="invisible"
+				type="text"
 			/>
 		);
 	}

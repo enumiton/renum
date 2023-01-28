@@ -67,7 +67,7 @@ function Block() {
 	return (
 		<div>
 			<Button>Default</Button>
-			<Button block style={ { marginTop: '0.5em' } }>Block</Button>
+			<Button block style={ { marginBlockStart: '0.5em' } }>Block</Button>
 		</div>
 	);
 }
