@@ -138,8 +138,24 @@ code {
 	color: var(--purple-600);
 }
 
-.@{dark-mode-cls} code {
-	color: var(--purple-200);
+.@{dark-mode-cls} {
+	code {
+		color: var(--purple-200);
+	}
+}
+
+:root:not(@{selector}) {
+	@media (prefers-color-scheme: dark) {
+		code {
+			color: var(--purple-200);
+		}
+	}
+
+	@media (prefers-color-scheme: light) {
+		code {
+			color: var(--purple-600);
+		}
+	}
 }
 
 kbd {
