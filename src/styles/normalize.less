@@ -73,12 +73,12 @@ h6 {
 }
 
 p {
-	margin-block: 1em;
+	margin-block: 0 1em;
 	font-size: @font-size-medium;
 }
 
 :where(ul, ol) {
-	margin-block: 1em;
+	margin-block: 0 1em;
 	padding-inline-start: 2em;
 
 	& :where(ul, ol) {
@@ -95,7 +95,7 @@ dt {
 }
 
 dd {
-	margin-block: 0 0.5em;
+	margin-block: 0;
 	margin-inline: 0;
 }
 
@@ -169,7 +169,7 @@ s, strike {
 }
 
 address {
-	margin-block: 1em;
+	margin-block: 0 1em;
 	font-style: normal;
 }
 
@@ -196,7 +196,7 @@ abbr[title] {
 }
 
 pre {
-	margin-block: 1em;
+	margin-block: 0 1em;
 	overscroll-behavior: contain;
 	overflow: auto;
 }
@@ -211,7 +211,7 @@ hr {
 
 fieldset {
 	padding: 0.75em;
-	margin-block: 1em;
+	margin-block: 0 1em;
 	border: @border-width-medium @border-style var(--border-subtle);
 	border-radius: @border-radius-medium;
 }
