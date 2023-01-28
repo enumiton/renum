@@ -90,6 +90,13 @@ function Normalize() {
 						<dd>Dolor sit amet.</dd>
 					</dl>
 				</section>
+				<section>
+					<h3>Details</h3>
+					<details>
+						<summary>Lorem ipsum</summary>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam praesentium sequi vel!</p>
+					</details>
+				</section>
 			</section>
 			<section>
 				<h2>Advanced text formatting</h2>
