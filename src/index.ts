@@ -24,6 +24,16 @@ export type { IconProps } from './components/icon';
 export { Input } from './components/input';
 export type { InputProps } from './components/input';
 
+export { Listbox } from './components/listbox';
+export type {
+	ListboxProps,
+	OptionProps,
+	GroupProps,
+	ListboxOption,
+	ListboxOptionGroup,
+	ListboxValue,
+} from './components/listbox';
+
 export { Loading } from './components/loading';
 export type { LoadingProps } from './components/loading';
 

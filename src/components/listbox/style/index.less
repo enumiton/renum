@@ -1,0 +1,105 @@
+@import "./variables.less";
+
+.@{listbox-prefix} {
+	display: block;
+	width: 100%;
+	min-width: inherit;
+	padding: @input-padding-y;
+	margin: 0;
+	background-color: var(--select-bg-list);
+	border-radius: @listbox-border-radius;
+	font-size: @font-size-medium;
+	overflow-y: auto;
+	overflow-x: hidden;
+	overscroll-behavior-y: contain;
+	list-style: none;
+
+	&-group {
+		position: relative;
+		display: block;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+
+		&-label {
+			font-weight: @font-weight-bold;
+		}
+
+		&::after {
+			content: "";
+			display: block;
+			width: 100%;
+			height: @border-width-medium;
+			background-color: var(--border-subtle);
+		}
+	}
+
+	& *:last-child > &-group::after {
+		display: none;
+	}
+
+	&-group-label,
+	&-option {
+		.user-select();
+		.touch-action();
+
+		display: block;
+		height: @listbox-option-height;
+		padding-block: @input-padding-y;
+		padding-inline: @input-padding-x;
+		margin-block: (@margin-extraTiny / 2);
+		background-color: transparent;
+		color: var(--select-color);
+		font-size: @font-size-medium;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		outline: none;
+	}
+
+	&-option {
+		@outline: var(--text-emphasis) @border-style @border-width-medium;
+
+		border-radius: @listbox-border-radius;
+		cursor: pointer;
+		transition: @transition-speed-fast @transition-easing;
+		transition-property: color, background-color;
+
+		&:hover {
+			background-color: var(--select-bg-option-hover);
+		}
+
+		&:active {
+			background-color: var(--select-bg-option-active);
+		}
+
+		&:focus {
+			outline: @outline;
+		}
+
+		@supports selector(:focus-visible) {
+			&:focus {
+				outline: none;
+			}
+		}
+
+		&:focus-visible {
+			outline: @outline;
+		}
+
+		&[aria-selected="true"] {
+			background-color: var(--select-bg-option-selected);
+			color: var(--select-color-selected);
+
+			&:hover {
+				background-color: var(--select-bg-option-selected-hover);
+				color: var(--select-color-selected);
+			}
+
+			&:active {
+				background-color: var(--select-bg-option-selected-active);
+				color: var(--select-color-selected);
+			}
+		}
+	}
+}

@@ -23,6 +23,7 @@ export const COMPONENTS = [
 	'dialog',
 	'input',
 	'loading',
+	'listbox',
 	'radio',
 	'select',
 	'tooltip',
