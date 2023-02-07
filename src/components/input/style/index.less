@@ -118,6 +118,12 @@
 		transition-property: background-color, border;
 		z-index: 1;
 
+		&:hover,
+		&:focus,
+		&:focus-within {
+			z-index: 5;
+		}
+
 		&-text {
 			padding-block: calc(@input-padding-y - @border-width-medium);
 			padding-inline: @input-padding-x;

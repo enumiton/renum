@@ -10,22 +10,17 @@
 	border-radius: @border-radius-circle;
 	line-height: 1;
 	font-size: @font-size-medium;
-	color: var(--clear-color);
+	color: var(--input-bg);
 	cursor: pointer;
 	transition: @transition-speed-fast @transition-easing;
-	transition-property: color, background-color, opacity;
-
-	&:hover,
-	&:focus {
-		background-color: var(--clear-bg-hover);
-	}
-
-	&:active {
-		background-color: var(--clear-bg-active);
-	}
+	transition-property: opacity;
 
 	& > .@{icon-prefix} {
 		vertical-align: 0;
-		transform: scale(unit(@font-size-small));
+		transform: scale(@clear-icon-scale);
+
+		& > svg {
+			stroke-width: @clear-icon-stroke;
+		}
 	}
 }
