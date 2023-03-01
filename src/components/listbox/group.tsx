@@ -10,11 +10,12 @@ const OptionGroup = forwardRef<HTMLUListElement, GroupProps>(function ListboxOpt
 		options,
 		onChange,
 		selected,
+		disabled,
 		...rest
 	} = props;
 
 	const { getPrefixCls } = useRenumProvider();
-	const prefixCls = getPrefixCls('listbox');
+	const prefixCls = getPrefixCls('listbox-group');
 
 	const id = rest.id || useId();
 	const labelId = id + '-label';
@@ -26,21 +27,25 @@ const OptionGroup = forwardRef<HTMLUListElement, GroupProps>(function ListboxOpt
 				id={ id }
 				role="group"
 				aria-labelledby={ labelId }
-				className={ classNames(`${ prefixCls }-group`, rest.className) }
+				className={ classNames(prefixCls, {
+					[`${ prefixCls }-disabled`]: disabled,
+				}, rest.className) }
 				ref={ ref }
 			>
-				<span
+				<li
 					id={ labelId }
 					role="presentation"
-					className={ `${ prefixCls }-group-label` }
+					className={ `${ prefixCls }-label` }
 				>
 					{ label }
-				</span>
+				</li>
 				{ options.map(function (option, i) {
 					return (
 						<Option
 							{ ...option }
+							id={ `${ id }-option-${ i }` }
 							isSelected={ (selected === option.value) }
+							disabled={ disabled }
 							onChange={ onChange }
 							key={ i }
 						/>

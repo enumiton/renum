@@ -130,19 +130,19 @@
 		}
 
 		& .@{btn-prefix} {
-			margin: -@border-width-medium;
+			margin: calc(@border-width-medium * -1);
 			border-radius: inherit;
 		}
 	}
 
 	&-prefix {
-		margin-inline-end: -@border-width-medium;
+		margin-inline-end: calc(@border-width-medium * -1);
 		border-start-end-radius: 0;
 		border-end-end-radius: 0;
 	}
 
 	&-suffix {
-		margin-inline-start: -@border-width-medium;
+		margin-inline-start: calc(@border-width-medium * -1);
 		border-start-start-radius: 0;
 		border-end-start-radius: 0;
 	}

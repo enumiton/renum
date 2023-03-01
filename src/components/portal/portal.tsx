@@ -1,7 +1,7 @@
 import type { ReactPortal } from 'react';
 import { forwardRef, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { classNames, isNonNullable } from '../../utils';
+import { classNames, duplicateRef } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { PortalPosition, PortalProps } from './interface';
 import { getPosition } from './helpers';
@@ -19,7 +19,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('portal');
 
-	const childRef = useRef<HTMLElement | null>(null);
+	const childRef = useRef<HTMLDivElement | null>(null);
 
 	const [position, setPosition] = useState<PortalPosition>({
 		top: 0,
@@ -59,15 +59,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 			{ ...rest }
 			className={ classNames(prefixCls, rest.className) }
 			style={ { ...rest.style, ...position } }
-			ref={ function (node) {
-				childRef.current = node;
-
-				if (typeof ref === 'function') {
-					ref(node);
-				} else if (isNonNullable(ref)) {
-					ref.current = node;
-				}
-			} }
+			ref={ duplicateRef(childRef, ref) }
 		>
 			{ children }
 		</div>

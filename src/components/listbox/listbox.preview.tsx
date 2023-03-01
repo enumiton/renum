@@ -35,9 +35,9 @@ function Example() {
 		<div>
 			<label id={ id }>Choose an option</label>
 			<Listbox
-				placeholder="Placeholder"
 				options={ options }
 				aria-labelledby={ id }
+				style={ { marginBlockStart: '1em' } }
 			/>
 		</div>
 	);

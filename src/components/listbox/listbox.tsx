@@ -1,142 +1,129 @@
-import type { KeyboardEvent } from 'react';
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import type { FocusEvent, KeyboardEvent, UIEvent } from 'react';
+import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import type { ListboxProps, ListboxValue } from './interface';
-import { Option } from './option';
-import { OptionGroup } from './group';
-import { useRenumProvider } from '../renum-provider';
-import { classNames, getKey, isHTMLElement, Key } from '../../utils';
-import { cancelEvents, focusIn, focusOut, move } from './helper';
+import { duplicateRef, isHTMLElement, isNonNullable, Key } from '../../utils';
+import { useKeyDownListener } from '../../hooks';
+import { InternalListbox } from './internal';
+import {
+	findOptionByChar,
+	getFocusedOptionElement,
+	getOptionElements,
+	getSelectedOptionElement,
+	move,
+	removeFocusClassOfOption,
+	setSelectedOnOption,
+} from './helpers';
 
 const Listbox = forwardRef<HTMLUListElement, ListboxProps>(function Listbox(props, ref) {
 	const {
+		value: _value,
+		defaultValue,
 		options,
 		onChange,
-		defaultValue,
+		disabled,
+		multiSelectable,
 		...rest
 	} = props;
-
-	const { getPrefixCls } = useRenumProvider();
-	const prefixCls = getPrefixCls('listbox');
 
 	const [value, setValue] = useState<ListboxValue>(defaultValue);
 
 	const listboxRef = useRef<HTMLUListElement | null>(null);
 
-	function handleChange(next: ListboxValue) {
-		if (next === value) {
+	const id = props.id || useId();
+
+	function handleChange(next: ListboxValue, e: UIEvent<HTMLElement>) {
+		if (disabled || next === value) {
 			return;
 		}
+
+		const listbox = listboxRef.current;
+		const target = e.currentTarget;
+
+		if (!isHTMLElement(listbox) || !isHTMLElement(target)) {
+			return;
+		}
+
+		setSelectedOnOption(getSelectedOptionElement(listbox), false);
+		setSelectedOnOption(target, true);
+
+		listbox.setAttribute('aria-activedescendant', target.id);
 
 		setValue(next);
 
-		onChange?.(next);
+		onChange?.(next, e);
+	}
+
+	function setValueByFocused(listbox: HTMLUListElement | null | undefined) {
+		listbox ??= listboxRef.current;
+
+		if (!isHTMLElement(listbox)) {
+			return;
+		}
+
+		const focused = getFocusedOptionElement(listbox);
+
+		if (isNonNullable(focused)) {
+			setSelectedOnOption(getSelectedOptionElement(listbox), false);
+			setSelectedOnOption(focused, true);
+		}
 	}
 
 	function handleKeyDown(e: KeyboardEvent<HTMLUListElement>) {
-		const key = getKey(e.key);
+		if (e.key.length === 1 || e.key !== ' ') {
+			const listbox = listboxRef.current;
 
-		if (!isHTMLElement(listboxRef.current)) {
-			return;
+			if (!isHTMLElement(listbox)) {
+				return;
+			}
+
+			findOptionByChar(listbox, e.key);
 		}
 
-		switch (key) {
-			case Key.Down:
-			case Key.Right:
-				cancelEvents(e);
-				move(listboxRef.current, 'next');
-				break;
-			case Key.Up:
-			case Key.Left:
-				cancelEvents(e);
-				move(listboxRef.current, 'prev');
-				break;
-			case Key.Home:
-				cancelEvents(e);
-				move(listboxRef.current, 'first');
-				break;
-			case Key.End:
-				cancelEvents(e);
-				move(listboxRef.current, 'last');
-				break;
-		}
+		rest?.onKeyDown?.(e);
 	}
 
-	function handleFocusIn(e: FocusEvent) {
+	function handleBlur(e: FocusEvent<HTMLUListElement>) {
 		const listbox = listboxRef.current;
 
 		if (!isHTMLElement(listbox)) {
 			return;
 		}
 
-		focusIn(listbox, e);
-	}
-
-	function handleFocusOut(e: FocusEvent) {
-		const listbox = listboxRef.current;
-
-		if (!isHTMLElement(listbox)) {
-			return;
+		for (const option of getOptionElements(listbox)) {
+			removeFocusClassOfOption(option);
 		}
 
-		focusOut(listbox, e);
+		rest?.onBlur?.(e);
 	}
+
+	useKeyDownListener(listboxRef, {
+		[Key.Up]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'prev') ?? ''),
+		[Key.Down]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'next') ?? ''),
+		[Key.Home]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'first') ?? ''),
+		[Key.End]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'last') ?? ''),
+		[Key.Space]: (_, listbox) => setValueByFocused(listbox),
+		[Key.Enter]: (_, listbox) => setValueByFocused(listbox),
+	}, { preventDefault: true, stopPropagation: true });
 
 	useEffect(function () {
-		const listbox = listboxRef.current;
-
-		if (!isHTMLElement(listbox)) {
-			return;
-		}
-
-		listbox.addEventListener('focusin', handleFocusIn, { passive: true });
-		listbox.addEventListener('focusout', handleFocusOut, { passive: true });
-
-		return function () {
-			listbox.removeEventListener('focusin', handleFocusIn);
-			listbox.removeEventListener('focusout', handleFocusOut);
-		};
-	}, [!!listboxRef.current]);
+		setValue(_value);
+	}, [_value]);
 
 	return (
-		<ul
+		<InternalListbox
 			{ ...rest }
-			role="listbox"
+			value={ value }
+			options={ options }
+			id={ id }
+			disabled={ disabled }
+			tabIndex={ 0 }
 			aria-orientation="vertical"
-			aria-multiselectable="false"
+			aria-multiselectable={ multiSelectable }
 			onKeyDown={ handleKeyDown }
-			className={ classNames(prefixCls, rest.className) }
-			ref={ function (node) {
-				listboxRef.current = node;
-
-				if (typeof ref === 'function') {
-					ref?.(node);
-				} else if (ref) {
-					ref.current = node;
-				}
-			} }
-		>
-			{ options.map(function (option, i) {
-				if ('options' in option) {
-					return (
-						<OptionGroup
-							{ ...option }
-							selected={ value }
-							onChange={ handleChange }
-							key={ i }
-						/>
-					);
-				} else {
-					return (
-						<Option
-							{ ...option }
-							isSelected={ (value === option.value) }
-							onChange={ handleChange }
-							key={ i }
-						/>
-					);
-				}
-			}) }
-		</ul>
+			onBlur={ handleBlur }
+			onChange={ handleChange }
+			ref={ duplicateRef(listboxRef, ref) }
+		/>
 	);
 });
 

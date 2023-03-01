@@ -1,5 +1,6 @@
 export { Listbox } from './listbox';
 export type {
+	InternalListboxProps,
 	ListboxProps,
 	OptionProps,
 	GroupProps,

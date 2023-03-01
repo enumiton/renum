@@ -54,10 +54,13 @@ export type { TooltipProps } from './components/tooltip';
 
 export type { Locale } from './locale/interface';
 
+export { useKeyDownListener } from './hooks';
+export type { KeyDownListenerOptions } from './hooks';
+
 export {
 	classNames,
-	clamp,
 	contains,
+	NOT,
 	isNullable,
 	isNonNullable,
 	isString,
@@ -67,4 +70,5 @@ export {
 	isHTMLAnchorElement,
 	isHTMLButtonElement,
 	isHTMLDialogElement,
+	clamp,
 } from './utils';

@@ -1,9 +1,7 @@
-import type { HTMLAttributes, LiHTMLAttributes, ReactElement } from 'react';
+import type { HTMLAttributes, LiHTMLAttributes, ReactElement, UIEvent } from 'react';
 
-type ListboxValue = string | ReadonlyArray<string> | number | undefined;
-type ListboxChangeHandler = ((value: ListboxValue) => void);
-
-type Base = Omit<HTMLAttributes<HTMLUListElement>, 'onChange'>;
+type ListboxValue = string /*| ReadonlyArray<string>*/ | number | undefined;
+type ListboxChangeHandler = ((value: ListboxValue, e: UIEvent<HTMLElement>) => void);
 
 interface ListboxOption {
 	readonly value: ListboxValue;
@@ -21,9 +19,18 @@ interface SharedProps {
 	readonly onChange?: ListboxChangeHandler | undefined;
 }
 
-interface ListboxProps extends Omit<Base, 'onChange' | 'children'>, SharedProps {
+type Base = Omit<HTMLAttributes<HTMLUListElement>, 'role' | 'onChange' | 'aria-disabled'>;
+
+interface ListboxProps extends Omit<Base, 'defaultValue' | 'children'>, SharedProps {
+	readonly value?: ListboxValue;
+	readonly defaultValue?: ListboxValue;
 	readonly options: (ListboxOption | ListboxOptionGroup)[];
+	/** @default false */
+	readonly multiSelectable?: boolean | undefined;
+	readonly disabled?: boolean | undefined;
 }
+
+type InternalListboxProps = Omit<ListboxProps, 'defaultValue'>;
 
 interface OptionProps extends Omit<LiHTMLAttributes<HTMLLIElement>, 'onChange' | 'value'>, ListboxOption, SharedProps {
 	readonly isSelected?: boolean | undefined;
@@ -32,6 +39,15 @@ interface OptionProps extends Omit<LiHTMLAttributes<HTMLLIElement>, 'onChange' |
 interface GroupProps extends Base, ListboxOptionGroup, SharedProps {
 	readonly selected?: ListboxValue;
 	readonly options: ListboxOption[];
+	readonly disabled?: boolean | undefined;
 }
 
-export type { ListboxProps, OptionProps, GroupProps, ListboxOption, ListboxOptionGroup, ListboxValue };
+export type {
+	ListboxProps,
+	InternalListboxProps,
+	OptionProps,
+	GroupProps,
+	ListboxOption,
+	ListboxOptionGroup,
+	ListboxValue,
+};

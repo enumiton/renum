@@ -9,7 +9,7 @@ import type {
 import { forwardRef, useEffect, useRef } from 'react';
 import type { DialogProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
-import { classNames, isHTMLDialogElement, isNonNullable } from '../../utils';
+import { classNames, duplicateRef, isHTMLDialogElement } from '../../utils';
 import { cancelAnimations, lockBody, unlockBody } from './helpers';
 import { Confirm } from './confirm';
 import { Modal } from './modal';
@@ -176,15 +176,7 @@ const Dialog: Dialog = forwardRef<HTMLDialogElement, DialogProps>(function Dialo
 			onClose={ handleClose }
 			onAnimationEnd={ handleAnimationEnd }
 			className={ classNames(prefixCls, rest.className, { [`${ prefixCls }-fullscreen`]: fullscreen }) }
-			ref={ function (node) {
-				dialogRef.current = node;
-
-				if (typeof ref === 'function') {
-					ref(node);
-				} else if (isNonNullable(ref)) {
-					ref.current = node;
-				}
-			} }
+			ref={ duplicateRef(dialogRef, ref) }
 		/>
 	);
 }) as Dialog;
