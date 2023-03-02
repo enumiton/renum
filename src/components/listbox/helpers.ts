@@ -64,6 +64,8 @@ function move(listboxElement: HTMLUListElement, direction: 'first' | 'last' | 'p
 
 	addFocusClassToOption(option);
 
+	option?.click();
+
 	return option?.id;
 }
 

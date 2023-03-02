@@ -1,5 +1,5 @@
-import { forwardRef, useId } from 'react';
 import type { UIEvent } from 'react';
+import { forwardRef, useId } from 'react';
 import type { InternalListboxProps, ListboxValue } from './interface';
 import { Option } from './option';
 import { OptionGroup } from './group';

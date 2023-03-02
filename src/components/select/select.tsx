@@ -131,6 +131,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 				type="button"
 				role="button"
 				aria-haspopup="listbox"
+				aria-owns={ listboxId }
 				aria-expanded={ expanded }
 				onClick={ handleButtonClick }
 				className={ classNames(prefixCls, rest.className) }

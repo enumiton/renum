@@ -1,12 +1,11 @@
 import type { FocusEvent, KeyboardEvent, UIEvent } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import type { ListboxProps, ListboxValue } from './interface';
-import { duplicateRef, isHTMLElement, isNonNullable, Key } from '../../utils';
+import { duplicateRef, isHTMLElement, Key } from '../../utils';
 import { useKeyDownListener } from '../../hooks';
 import { InternalListbox } from './internal';
 import {
 	findOptionByChar,
-	getFocusedOptionElement,
 	getOptionElements,
 	getSelectedOptionElement,
 	move,
@@ -53,21 +52,6 @@ const Listbox = forwardRef<HTMLUListElement, ListboxProps>(function Listbox(prop
 		onChange?.(next, e);
 	}
 
-	function setValueByFocused(listbox: HTMLUListElement | null | undefined) {
-		listbox ??= listboxRef.current;
-
-		if (!isHTMLElement(listbox)) {
-			return;
-		}
-
-		const focused = getFocusedOptionElement(listbox);
-
-		if (isNonNullable(focused)) {
-			setSelectedOnOption(getSelectedOptionElement(listbox), false);
-			setSelectedOnOption(focused, true);
-		}
-	}
-
 	function handleKeyDown(e: KeyboardEvent<HTMLUListElement>) {
 		if (e.key.length === 1 || e.key !== ' ') {
 			const listbox = listboxRef.current;
@@ -101,8 +85,6 @@ const Listbox = forwardRef<HTMLUListElement, ListboxProps>(function Listbox(prop
 		[Key.Down]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'next') ?? ''),
 		[Key.Home]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'first') ?? ''),
 		[Key.End]: (_, listbox) => listbox.setAttribute('aria-activedescendant', move(listbox, 'last') ?? ''),
-		[Key.Space]: (_, listbox) => setValueByFocused(listbox),
-		[Key.Enter]: (_, listbox) => setValueByFocused(listbox),
 	}, { preventDefault: true, stopPropagation: true });
 
 	useEffect(function () {
