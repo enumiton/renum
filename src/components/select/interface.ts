@@ -15,9 +15,10 @@ interface SelectOption<T = SelectValue> {
 
 type SelectOptions<T = SelectValue> = SelectOption<T>[];
 
-interface SelectProps<T = SelectValue> extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'value' | 'onChange'> {
+interface SelectProps<T = SelectValue> extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'value' | 'defaultValue' | 'onChange'> {
 	readonly icon?: ReactElement | undefined;
 	readonly value?: T;
+	readonly defaultValue?: T;
 	readonly options: SelectOptions<T>;
 	readonly onChange?: ((value: T) => void) | undefined;
 	/** @default true */

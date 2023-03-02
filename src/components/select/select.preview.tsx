@@ -8,14 +8,14 @@ const config = {
 
 const ICON = <UserIcon />;
 
-const options: SelectOptions = Array(12).fill(null).map(function () {
+const options: SelectOptions = Array(16).fill(null).map(function () {
 	const str = (Math.random() + 1).toString(16).substring(7);
 
 	return {
 		label: str,
 		value: str,
 		icon: Math.random() > 0.5 ? ICON : undefined,
-		disabled: Math.random() > 0.75,
+		// disabled: Math.random() > 0.75,
 	};
 });
 

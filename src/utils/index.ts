@@ -14,4 +14,5 @@ export {
 } from './is';
 export { Key, getKey } from './keys';
 export { clamp } from './math';
+export { nop } from './nop';
 export { duplicateRef } from './ref';

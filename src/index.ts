@@ -71,4 +71,5 @@ export {
 	isHTMLButtonElement,
 	isHTMLDialogElement,
 	clamp,
+	nop,
 } from './utils';

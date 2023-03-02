@@ -1,21 +1,37 @@
+import type { MouseEvent } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { default as Selector } from '../../icons/Selector';
-import { classNames, contains, duplicateRef, Key } from '../../utils';
+import { clamp, classNames, contains, duplicateRef, isHTMLElement, Key, NOT } from '../../utils';
 import { Overlay } from '../overlay';
 import { useRenumProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
 import { Clear } from '../clear';
 import type { ListboxValue } from '../listbox';
-import { Listbox } from '../listbox';
 import { useKeyDownListener } from '../../hooks';
+import { InternalListbox } from '../listbox/internal.js';
+import { findOptionByValue } from './helpers.js';
+import {
+	addFocusClassToOption,
+	getFocusedOptionElement,
+	getOptionElements,
+	getSelectedOptionElement,
+	removeFocusClassOfOption,
+	SELECTOR_DISABLED,
+} from '../listbox/helpers.js';
 
 const SELECTOR_ICON = <Selector />;
+
+const enum Direction {
+	Next = +1,
+	Prev = -1,
+}
 
 const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props, ref) {
 	const {
 		name,
 		placeholder,
-		value: $value,
+		value: _value,
+		defaultValue,
 		options,
 		onChange,
 		clearable = true,
@@ -27,7 +43,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 	const prefixCls = getPrefixCls('select');
 
 	const [expanded, setExpanded] = useState<boolean>(false);
-	const [selected, setSelected] = useState<SelectOption | undefined>();
+	const [selected, setSelected] = useState<SelectOption | undefined>(findOptionByValue(options, defaultValue));
 
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	const listboxRef = useRef<HTMLUListElement | null>(null);
@@ -37,19 +53,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 	const listboxId = id + '-list';
 
 	function close() {
-		const btn = buttonRef.current;
-
-		if (btn) {
-			btn.focus();
-		}
-
 		setExpanded(false);
 	}
 
 	function open() {
-		if (!expanded) {
-			setExpanded(true);
-		}
+		setExpanded(true);
+	}
+
+	function toggle() {
+		setExpanded((v) => !v);
 	}
 
 	function clear() {
@@ -58,12 +70,58 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		}
 	}
 
+	function move(direction: Direction) {
+		return function () {
+			const listbox = listboxRef.current;
+			const button = buttonRef.current;
+
+			if (!isHTMLElement(listbox) || !isHTMLElement(button)) {
+				return;
+			}
+
+			if (!expanded) {
+				open();
+			}
+
+			const focused = getFocusedOptionElement(listbox) ?? getSelectedOptionElement(listbox);
+			const options = getOptionElements(listbox, NOT(SELECTOR_DISABLED));
+
+			removeFocusClassOfOption(focused);
+
+			let option: HTMLLIElement | undefined;
+
+			const index = options.findIndex(function (option) {
+				return (option === focused);
+			});
+
+			option = options.at(clamp(index + direction, 0, options.length - 1));
+
+			if (!option) {
+				return;
+			}
+
+			const [min, max] = [option.offsetTop - option.clientHeight, option.offsetTop + option.clientHeight];
+
+			if (!(min > listbox.scrollTop && max < (listbox.scrollTop + listbox.clientHeight))) {
+				listbox.scrollTo({
+					top: (direction === Direction.Next) ? option.offsetTop - listbox.clientHeight + (option.clientHeight * 2) : min,
+					behavior: 'auto',
+				});
+			}
+
+			addFocusClassToOption(option);
+			button.setAttribute('aria-activedescendant', option?.id ?? '');
+
+			option?.click();
+		};
+	}
+
 	function handleListboxChange(value: ListboxValue) {
 		setSelected(options.find(function (v) {
 			return (v.value === value);
 		}));
 
-		close();
+		// close();
 	}
 
 	function handleOutsideClick(e: Event) {
@@ -72,19 +130,21 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		}
 	}
 
-	function handleButtonClick() {
+	function handleButtonClick(e: MouseEvent<HTMLButtonElement>) {
 		if (expanded) {
 			close();
 		} else {
 			open();
 		}
+
+		props?.onClick?.(e);
 	}
 
 	useKeyDownListener(buttonRef, {
-		[Key.Up]: open,
-		[Key.Down]: open,
-		[Key.Space]: open,
-		[Key.Enter]: open,
+		[Key.Up]: move(Direction.Prev),
+		[Key.Down]: move(Direction.Next),
+		[Key.Space]: toggle,
+		[Key.Enter]: toggle,
 		[Key.Escape]: close,
 		[Key.Clear]: clear,
 		[Key.Delete]: clear,
@@ -93,7 +153,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 
 	useEffect(function () {
 		if (expanded) {
-			listboxRef.current?.focus();
 			window.addEventListener('click', handleOutsideClick, { passive: true });
 		}
 
@@ -102,12 +161,18 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		};
 	}, [expanded]);
 
+	useEffect(function () {
+		if (_value !== selected?.value) {
+			setSelected(findOptionByValue(options, _value));
+		}
+	}, [_value]);
+
 	return (
 		<Overlay
 			portalClassName={ `${ prefixCls }-portal` }
 			className={ `${ prefixCls }-wrapper` }
 			content={ (
-				<Listbox
+				<InternalListbox
 					ref={ listboxRef }
 					id={ listboxId }
 					value={ selected?.value }
@@ -129,9 +194,10 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 				{ ...rest }
 				id={ buttonId }
 				type="button"
-				role="button"
+				role="combobox"
 				aria-haspopup="listbox"
 				aria-owns={ listboxId }
+				aria-controls={ expanded ? listboxId : undefined }
 				aria-expanded={ expanded }
 				onClick={ handleButtonClick }
 				className={ classNames(prefixCls, rest.className) }
