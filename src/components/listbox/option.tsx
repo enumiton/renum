@@ -7,6 +7,7 @@ import { classNames, getKey, Key } from '../../utils';
 const Option = forwardRef<HTMLLIElement, OptionProps>(function ListboxOption(props, ref) {
 	const {
 		label,
+		icon,
 		value,
 		disabled,
 		onChange,
@@ -53,8 +54,8 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(function ListboxOption(pro
 			className={ classNames(prefixCls, rest.className) }
 			ref={ ref }
 		>
-			{ isSelected ? '✓ ' : null }
-			{ props.label }
+			{icon}
+			{ label }
 		</li>
 	);
 });

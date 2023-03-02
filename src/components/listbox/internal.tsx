@@ -1,6 +1,5 @@
-import type { UIEvent } from 'react';
 import { forwardRef, useId } from 'react';
-import type { InternalListboxProps, ListboxValue } from './interface';
+import type { InternalListboxProps } from './interface';
 import { Option } from './option';
 import { OptionGroup } from './group';
 import { useRenumProvider } from '../renum-provider';
@@ -21,10 +20,6 @@ const InternalListbox = forwardRef<HTMLUListElement, InternalListboxProps>(funct
 	const prefixCls = getPrefixCls('listbox');
 	const id = props.id || useId();
 
-	function handleChange(value: ListboxValue, e: UIEvent<HTMLElement>) {
-		onChange?.(value, e);
-	}
-
 	return (
 		<ul
 			aria-orientation="vertical"
@@ -41,7 +36,7 @@ const InternalListbox = forwardRef<HTMLUListElement, InternalListboxProps>(funct
 						{ ...option }
 						id={ `${ id }-group-${ i }` }
 						selected={ selected }
-						onChange={ handleChange }
+						onChange={ onChange }
 						key={ i }
 					/>
 				) : (
@@ -49,7 +44,7 @@ const InternalListbox = forwardRef<HTMLUListElement, InternalListboxProps>(funct
 						{ ...option }
 						id={ `${ id }-option-${ i }` }
 						isSelected={ (selected === option.value) }
-						onChange={ handleChange }
+						onChange={ onChange }
 						key={ i }
 					/>
 				);

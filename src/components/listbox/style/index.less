@@ -76,8 +76,7 @@
 
 		display: block;
 		height: @listbox-option-height;
-		padding-block: @input-padding-y;
-		padding-inline: @input-padding-x;
+		padding: @input-padding-block;
 		margin-block: (@margin-extraTiny / 2);
 		background-color: transparent;
 		color: var(--select-color);
@@ -91,10 +90,21 @@
 	&-option {
 		@outline: var(--text-emphasis) @border-style @border-width-large;
 
+		position: relative;
 		border-radius: @listbox-border-radius;
 		cursor: pointer;
 		transition: @transition-speed-fast @transition-easing;
 		transition-property: color, background-color;
+
+		&::before {
+			content: "";
+			display: inline-block;
+			width: 1em;
+			margin-inline-end: @input-padding-block;
+			text-align: center;
+			opacity: 0;
+			transition: opacity @transition-speed-fast @transition-easing;
+		}
 
 		&:hover {
 			background-color: var(--select-bg-option-hover);
@@ -111,6 +121,11 @@
 		&[aria-selected="true"] {
 			background-color: var(--select-bg-option-selected);
 			color: var(--select-color-selected);
+
+			&::before {
+				content: "\2713";
+				opacity: 1;
+			}
 
 			&:hover {
 				background-color: var(--select-bg-option-selected-hover);
@@ -132,6 +147,10 @@
 				color: var(--text-disabled);
 				cursor: not-allowed;
 			}
+		}
+
+		& .@{icon-prefix} {
+			margin-inline-end: @input-padding-block;
 		}
 	}
 }

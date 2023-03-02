@@ -10,7 +10,7 @@
 	min-width: @select-min-width;
 	justify-content: space-between;
 	align-items: center;
-	gap: @input-padding-y;
+	gap: @input-padding-block;
 	cursor: pointer;
 
 	&[aria-expanded="true"] {
@@ -39,8 +39,8 @@
 
 	& + &-clear {
 		position: absolute;
-		inset-block-start: (@input-padding-y + 0.25em);
-		inset-inline-end: calc(@input-padding-x + @border-width-medium);
+		inset-block-start: (@input-padding-block + 0.25em);
+		inset-inline-end: calc(@input-padding-inline + @border-width-medium);
 		z-index: 2;
 	}
 

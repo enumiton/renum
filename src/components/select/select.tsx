@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react';
+import type { MouseEvent, UIEvent } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { default as Selector } from '../../icons/Selector';
 import { clamp, classNames, contains, duplicateRef, isHTMLElement, Key, NOT } from '../../utils';
@@ -53,6 +53,17 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 	const listboxId = id + '-list';
 
 	function close() {
+		const listbox = listboxRef.current;
+		const activeElement = window.document.activeElement;
+
+		if (isHTMLElement(listbox)) {
+			removeFocusClassOfOption(getFocusedOptionElement(listbox));
+
+			if (listbox.contains(activeElement)) {
+				buttonRef.current?.focus();
+			}
+		}
+
 		setExpanded(false);
 	}
 
@@ -61,12 +72,17 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 	}
 
 	function toggle() {
-		setExpanded((v) => !v);
+		if (expanded) {
+			close();
+		} else {
+			open();
+		}
 	}
 
 	function clear() {
 		if (clearable) {
 			setSelected(undefined);
+			buttonRef.current?.focus();
 		}
 	}
 
@@ -116,12 +132,15 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		};
 	}
 
-	function handleListboxChange(value: ListboxValue) {
+	function handleListboxChange(value: ListboxValue, e: UIEvent<HTMLElement>) {
 		setSelected(options.find(function (v) {
 			return (v.value === value);
 		}));
 
-		// close();
+		// temp: Only close when selecting with mouse
+		if (e.detail !== 0) {
+			close();
+		}
 	}
 
 	function handleOutsideClick(e: Event) {
@@ -175,6 +194,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 				<InternalListbox
 					ref={ listboxRef }
 					id={ listboxId }
+					tabIndex={ -1 }
 					value={ selected?.value }
 					options={ options }
 					onChange={ handleListboxChange }

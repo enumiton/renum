@@ -7,6 +7,7 @@ interface ListboxOption {
 	readonly value: ListboxValue;
 	readonly label: string | number | ReactElement;
 	readonly disabled?: boolean | undefined;
+	readonly icon?: ReactElement | undefined;
 }
 
 interface ListboxOptionGroup {
