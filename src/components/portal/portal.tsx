@@ -10,7 +10,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 	const {
 		target,
 		container,
-		align = ['bottom', 'start'],
+		align = 'bottom-start',
 		key,
 		children,
 		...rest
@@ -23,8 +23,6 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 
 	const [position, setPosition] = useState<PortalPosition>({
 		top: 0,
-		right: 0,
-		bottom: 0,
 		left: 0,
 	});
 
@@ -47,8 +45,6 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 			update();
 		}
 	}, [target?.current, rest.hidden]);
-
-	useLayoutEffect(update, []);
 
 	if (!mount) {
 		throw new Error('[Renum/Portal]: no mount');

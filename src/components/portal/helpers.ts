@@ -1,52 +1,62 @@
-import type { PortalAlign, PortalAlignOffset, PortalPosition } from './interface';
+import type { PortalAlign, PortalAlignOffset, PortalAlignSide, PortalPosition } from './interface';
 
 // @todo refactor
-function getAlignment(target: HTMLElement, [align, offset]: [PortalAlign, PortalAlignOffset]): [PortalAlign, PortalAlignOffset] {
+function getAlignment(target: HTMLElement, align: PortalAlign): PortalAlign {
 	const isRTL = target ? window.getComputedStyle(target).direction === 'rtl' : false;
 	const rect = target?.getBoundingClientRect();
 	const [widthThreshold, heightThreshold] = [window.innerWidth / 2, window.innerHeight / 2];
 
+	let [lhs, rhs] = align.split('-') as [PortalAlignSide, PortalAlignOffset];
+
 	if (isRTL) {
-		switch (align) {
-			case 'right':
-				align = 'left';
+		switch (lhs) {
+			case 'top':
+				lhs = 'bottom';
+				break;
+			case 'bottom':
+				lhs = 'top';
 				break;
 			case 'left':
-				align = 'right';
+				lhs = 'right';
+				break;
+			case 'right':
+				lhs = 'left';
 				break;
 		}
 
-		switch (offset) {
+		switch (rhs) {
 			case 'start':
-				offset = 'end';
+				rhs = 'end';
 				break;
 			case 'end':
-				offset = 'start';
+				rhs = 'start';
 				break;
 		}
 	}
 
 	if (!rect) {
-		return [align, offset];
+		return align;
 	}
 
-	if (align === 'right' && rect.right > widthThreshold) {
-		align = 'left';
-	} else if (align === 'left' && rect.left < widthThreshold) {
-		align = 'right';
-	} else if (align === 'top' && rect.top < heightThreshold) {
-		align = 'bottom';
-	} else if (align === 'bottom' && rect.bottom > heightThreshold) {
-		align = 'top';
+	// noinspection IfStatementWithTooManyBranchesJS
+	if (lhs === 'right' && rect.right > widthThreshold) {
+		lhs = 'left';
+	} else if (lhs === 'left' && rect.left < widthThreshold) {
+		lhs = 'right';
+	} else if (lhs === 'top' && rect.top < heightThreshold) {
+		lhs = 'bottom';
+	} else if (lhs === 'bottom' && rect.bottom > heightThreshold) {
+		lhs = 'top';
 	}
 
-	return [align, offset];
+	return `${ lhs }-${ rhs }` as const;
 }
 
 // @todo refactor
-function getPosition(target: HTMLElement, child: HTMLElement, placement: [PortalAlign, PortalAlignOffset]): PortalPosition {
+function getPosition(target: HTMLElement, child: HTMLElement, align: PortalAlign): PortalPosition {
 	const { scrollX, scrollY } = window;
-	const [align, offset] = getAlignment(target, placement);
+
+	align = getAlignment(target, align);
 
 	const targetRect = target.getBoundingClientRect();
 	const childRect = child.getBoundingClientRect();
@@ -59,51 +69,58 @@ function getPosition(target: HTMLElement, child: HTMLElement, placement: [Portal
 
 	const position: PortalPosition = {
 		top: undefined,
-		right: undefined,
-		bottom: undefined,
 		left: undefined,
 	};
 
 	switch (align) {
-		case 'top':
-			position.top = targetRect.top - childRect.height + scrollY - margin;
+		case 'top-start':
+			position.top = targetRect.top - childRect.height + scrollY;
+			position.left = targetRect.left + scrollX;
 			break;
-		case 'bottom':
-			position.top = targetRect.bottom + scrollY + margin;
+		case 'top-center':
+			position.top = targetRect.top - childRect.height + scrollY;
+			position.left = targetRect.left + (childRect.width / 2 - targetRect.width / 2) + scrollX;
 			break;
-		case 'left':
-			position.left = targetRect.left - childRect.width + scrollX - margin;
+		case 'top-end':
+			position.top = targetRect.top - childRect.height + scrollY;
+			position.left = targetRect.right - childRect.width + scrollX;
 			break;
-		case 'right':
+		case 'right-start':
+			position.top = targetRect.top + scrollY;
+			position.left = targetRect.right + scrollX;
+			break;
+		case 'right-center':
+			position.top = targetRect.top + (childRect.height / 2 - targetRect.height / 2) + scrollY;
+			position.left = targetRect.right + scrollX;
+			break;
+		case 'right-end':
+			position.top = targetRect.bottom - childRect.height + scrollY;
 			position.left = targetRect.right + scrollX + margin;
 			break;
-	}
-
-	switch (offset) {
-		case 'start': {
-			if (align === 'top' || align === 'bottom') {
-				position.left = targetRect.left + scrollX - margin;
-			} else {
-				position.top = targetRect.top + scrollY - margin;
-			}
+		case 'bottom-start':
+			position.top = targetRect.bottom + scrollY;
+			position.left = targetRect.left + scrollX;
 			break;
-		}
-		case 'center': {
-			if (align === 'top' || align === 'bottom') {
-				position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2) + scrollX;
-			} else {
-				position.top = targetRect.top - (childRect.height / 2 - targetRect.height / 2) + scrollY;
-			}
+		case 'bottom-center':
+			position.top = targetRect.bottom + scrollY;
+			position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2) + scrollX;
 			break;
-		}
-		case 'end': {
-			if (align === 'top' || align === 'bottom') {
-				position.left = targetRect.right - childRect.width + scrollX + margin;
-			} else {
-				position.top = targetRect.bottom - childRect.height + scrollY + margin;
-			}
+		case 'bottom-end':
+			position.top = targetRect.bottom + scrollY;
+			position.left = targetRect.right - childRect.width + scrollX;
 			break;
-		}
+		case 'left-start':
+			position.top = targetRect.top + scrollY;
+			position.left = targetRect.left - childRect.width + scrollX;
+			break;
+		case 'left-center':
+			position.top = targetRect.top + (childRect.height / 2 - targetRect.height / 2) + scrollY;
+			position.left = targetRect.left - childRect.width + scrollX;
+			break;
+		case 'left-end':
+			position.top = targetRect.bottom - childRect.height + scrollY;
+			position.left = targetRect.left - childRect.width + scrollX;
+			break;
 	}
 
 	return position;

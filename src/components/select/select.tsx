@@ -35,7 +35,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		options,
 		onChange,
 		clearable = true,
-		placement,
+		placement = 'bottom-start',
 		wrapperClassName,
 		wrapperStyle,
 		...rest

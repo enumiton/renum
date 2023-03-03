@@ -8,7 +8,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(props,
 		label,
 		icon,
 		primaryLabel = false,
-		align = ['bottom', 'center'],
+		align = 'bottom-center',
 		children,
 		...rest
 	} = props;
