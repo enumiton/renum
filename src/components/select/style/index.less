@@ -65,13 +65,13 @@
 		--listbox-border: var(--border-subtle);
 		--listbox-border-focus: var(--border-subtle);
 
-		box-shadow: @shadow-large;
+		box-shadow: @shadow-small, @shadow-large;
 		margin: @outline-width;
 		max-height: 15em;
 		animation: open-select @transition-speed-fast @transition-easing;
 
 		&:focus {
-			box-shadow: @shadow-large;
+			box-shadow: @shadow-small, @shadow-large;
 		}
 	}
 }
