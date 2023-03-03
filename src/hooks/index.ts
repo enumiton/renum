@@ -1,3 +1,4 @@
 export { useDebounce } from './debounce';
-export { useKeyDownListener } from './useKey';
-export type { KeyDownListenerOptions } from './useKey';
+export { useKeyDownListener } from './key';
+export type { KeyDownListenerOptions } from './key';
+export { useResize } from './resize';
