@@ -5,7 +5,7 @@ import { $, duplicateRef } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { PortalPosition, PortalProps } from './interface';
 import { getPosition } from './helpers';
-import { useResize } from '../../hooks/resize.js';
+import { useResize } from '../../hooks';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, ref): ReactPortal {
 	const {
