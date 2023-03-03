@@ -14,16 +14,22 @@ interface PortalProps extends PropsWithRef<Pick<HTMLAttributes<HTMLDivElement>, 
 	readonly container?: Element | undefined;
 	/** @default 'bottom-center' */
 	readonly align?: PortalAlign | undefined;
+	/** @default false */
+	readonly setWidth?: boolean | undefined;
+	/** @default false */
+	readonly setMinWidth?: boolean | undefined;
+	/** @default false */
+	readonly setHeight?: boolean | undefined;
+	/** @default false */
+	readonly setMinHeight?: boolean | undefined;
 	readonly children: ReactNode;
 }
 
 interface PortalPosition {
-	top: number | undefined;
-	left: number | undefined;
+	top: number;
+	left: number;
 	width?: number;
-	minWidth?: number;
 	height?: number;
-	minHeight?: number;
 }
 
 export type { PortalProps, PortalPosition, PortalAlign, PortalAlignSide, PortalAlignOffset };

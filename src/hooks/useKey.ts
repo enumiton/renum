@@ -38,7 +38,7 @@ function useKeyDownListener<T extends HTMLElement>(
 			return;
 		}
 
-		target.addEventListener('keydown', handleKeyDown, { passive: !options?.preventDefault });
+		target.addEventListener('keydown', handleKeyDown);
 
 		return function () {
 			target.removeEventListener('keydown', handleKeyDown);

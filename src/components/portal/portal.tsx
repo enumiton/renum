@@ -5,13 +5,18 @@ import { $, duplicateRef } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { PortalPosition, PortalProps } from './interface';
 import { getPosition } from './helpers';
+import { useResize } from '../../hooks/resize.js';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, ref): ReactPortal {
 	const {
+		key,
 		target,
 		container,
 		align = 'bottom-start',
-		key,
+		setWidth,
+		setMinWidth,
+		setHeight,
+		setMinHeight,
 		children,
 		...rest
 	} = props;
@@ -21,7 +26,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 
 	const childRef = useRef<HTMLDivElement | null>(null);
 
-	const [position, setPosition] = useState<PortalPosition>({
+	const [pos, setPos] = useState<PortalPosition>({
 		top: 0,
 		left: 0,
 	});
@@ -33,7 +38,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 			return;
 		}
 
-		setPosition(getPosition(
+		setPos(getPosition(
 			target.current,
 			childRef.current,
 			align,
@@ -46,6 +51,8 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 		}
 	}, [target?.current, rest.hidden]);
 
+	useResize(update);
+
 	if (!mount) {
 		throw new Error('[Renum/Portal]: no mount');
 	}
@@ -54,7 +61,14 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 		<div
 			{ ...rest }
 			className={ $(prefixCls, rest.className) }
-			style={ { ...rest.style, ...position } }
+			style={ {
+				...rest.style,
+				width: (setWidth && pos.width) ? pos.width + 'px' : undefined,
+				minWidth: (setMinWidth && pos.width) ? pos.width + 'px' : undefined,
+				height: (setHeight && pos.height) ? pos.height + 'px' : undefined,
+				minHeight: (setMinHeight && pos.height) ? pos.height + 'px' : undefined,
+				transform: `translate(${ pos.left }px, ${ pos.top }px)`,
+			} }
 			ref={ duplicateRef(childRef, ref) }
 		>
 			{ children }

@@ -54,7 +54,7 @@ export type { TooltipProps } from './components/tooltip';
 
 export type { Locale } from './locale/interface';
 
-export { useKeyDownListener } from './hooks';
+export { useKeyDownListener, useDebounce } from './hooks';
 export type { KeyDownListenerOptions } from './hooks';
 
 export {

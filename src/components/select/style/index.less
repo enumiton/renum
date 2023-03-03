@@ -51,7 +51,6 @@
 	}
 
 	&-portal {
-		min-width: @select-min-width;
 		z-index: @z-index-dropdown;
 	}
 
@@ -65,6 +64,7 @@
 		--listbox-border: var(--border-subtle);
 		--listbox-border-focus: var(--border-subtle);
 
+		width: inherit;
 		box-shadow: @shadow-small, @shadow-large;
 		max-height: 15em;
 		animation: open-select @transition-speed-fast @transition-easing;

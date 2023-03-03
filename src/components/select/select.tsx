@@ -196,6 +196,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 
 	return (
 		<Overlay
+			setWidth
 			portalClassName={ `${ prefixCls }-portal` }
 			className={ $(`${ prefixCls }-wrapper`, wrapperClassName) }
 			style={ wrapperStyle }

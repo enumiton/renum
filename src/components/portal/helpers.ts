@@ -1,6 +1,5 @@
 import type { PortalAlign, PortalAlignOffset, PortalAlignSide, PortalPosition } from './interface';
 
-// @todo refactor
 function getAlignment(target: HTMLElement, align: PortalAlign): PortalAlign {
 	const isRTL = target ? window.getComputedStyle(target).direction === 'rtl' : false;
 	const rect = target?.getBoundingClientRect();
@@ -52,7 +51,6 @@ function getAlignment(target: HTMLElement, align: PortalAlign): PortalAlign {
 	return `${ lhs }-${ rhs }` as const;
 }
 
-// @todo refactor
 function getPosition(target: HTMLElement, child: HTMLElement, align: PortalAlign): PortalPosition {
 	const { scrollX, scrollY } = window;
 
@@ -61,67 +59,66 @@ function getPosition(target: HTMLElement, child: HTMLElement, align: PortalAlign
 	const targetRect = target.getBoundingClientRect();
 	const childRect = child.getBoundingClientRect();
 
-	let margin = child?.firstElementChild ? Number.parseInt(window.getComputedStyle(child.firstElementChild).margin) : 0;
-
-	if (Number.isNaN(margin)) {
-		margin = 0;
-	}
-
 	const position: PortalPosition = {
-		top: undefined,
-		left: undefined,
+		top: 0,
+		left: 0,
+		width: target.clientWidth,
+		height: target.clientHeight,
 	};
 
 	switch (align) {
 		case 'top-start':
-			position.top = targetRect.top - childRect.height + scrollY;
-			position.left = targetRect.left + scrollX;
+			position.top = targetRect.top - childRect.height;
+			position.left = targetRect.left;
 			break;
 		case 'top-center':
-			position.top = targetRect.top - childRect.height + scrollY;
-			position.left = targetRect.left + (childRect.width / 2 - targetRect.width / 2) + scrollX;
+			position.top = targetRect.top - childRect.height;
+			position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2);
 			break;
 		case 'top-end':
-			position.top = targetRect.top - childRect.height + scrollY;
-			position.left = targetRect.right - childRect.width + scrollX;
+			position.top = targetRect.top - childRect.height;
+			position.left = targetRect.right - childRect.width;
 			break;
 		case 'right-start':
-			position.top = targetRect.top + scrollY;
-			position.left = targetRect.right + scrollX;
+			position.top = targetRect.top;
+			position.left = targetRect.right;
 			break;
 		case 'right-center':
-			position.top = targetRect.top + (childRect.height / 2 - targetRect.height / 2) + scrollY;
-			position.left = targetRect.right + scrollX;
+			position.top = targetRect.top - (childRect.height / 2 - targetRect.height / 2);
+			position.left = targetRect.right;
 			break;
 		case 'right-end':
-			position.top = targetRect.bottom - childRect.height + scrollY;
-			position.left = targetRect.right + scrollX + margin;
+			position.top = targetRect.bottom - childRect.height;
+			position.left = targetRect.right;
 			break;
 		case 'bottom-start':
-			position.top = targetRect.bottom + scrollY;
-			position.left = targetRect.left + scrollX;
+			position.top = targetRect.bottom;
+			position.left = targetRect.left;
 			break;
 		case 'bottom-center':
-			position.top = targetRect.bottom + scrollY;
-			position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2) + scrollX;
+			position.top = targetRect.bottom;
+			position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2);
 			break;
 		case 'bottom-end':
-			position.top = targetRect.bottom + scrollY;
-			position.left = targetRect.right - childRect.width + scrollX;
+			position.top = targetRect.bottom;
+			position.left = targetRect.right - childRect.width;
 			break;
 		case 'left-start':
-			position.top = targetRect.top + scrollY;
-			position.left = targetRect.left - childRect.width + scrollX;
+			position.top = targetRect.top;
+			position.left = targetRect.left - childRect.width;
 			break;
 		case 'left-center':
-			position.top = targetRect.top + (childRect.height / 2 - targetRect.height / 2) + scrollY;
-			position.left = targetRect.left - childRect.width + scrollX;
+			position.top = targetRect.top - (childRect.height / 2 - targetRect.height / 2);
+			position.left = targetRect.left - childRect.width;
 			break;
 		case 'left-end':
-			position.top = targetRect.bottom - childRect.height + scrollY;
-			position.left = targetRect.left - childRect.width + scrollX;
+			position.top = targetRect.bottom - childRect.height;
+			position.left = targetRect.left - childRect.width;
 			break;
 	}
+
+	position.top += scrollY;
+	position.left += scrollX;
 
 	return position;
 }
