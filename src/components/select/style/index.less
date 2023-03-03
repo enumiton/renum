@@ -19,7 +19,7 @@
 	}
 
 	& .@{icon-prefix} {
-		transform: translateZ(0) scale(unit(@font-size-large));
+		font-size: @font-size-large;
 	}
 
 	&-text {
@@ -62,8 +62,27 @@
 	}
 
 	&-listbox {
+		--listbox-border: var(--border-subtle);
+		--listbox-border-focus: var(--border-subtle);
+
 		box-shadow: @shadow-large;
 		margin: @outline-width;
 		max-height: 15em;
+		animation: open-select @transition-speed-fast @transition-easing;
+
+		&:focus {
+			box-shadow: @shadow-large;
+		}
+	}
+}
+
+@keyframes open-select {
+	0% {
+		transform: translateY(-0.5em);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
 	}
 }

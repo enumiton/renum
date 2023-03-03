@@ -3,7 +3,7 @@ import type { InternalListboxProps } from './interface';
 import { Option } from './option';
 import { OptionGroup } from './group';
 import { useRenumProvider } from '../renum-provider';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 
 /** @internal */
 const InternalListbox = forwardRef<HTMLUListElement, InternalListboxProps>(function InternalListbox(props, ref) {
@@ -27,7 +27,7 @@ const InternalListbox = forwardRef<HTMLUListElement, InternalListboxProps>(funct
 			tabIndex={ 0 }
 			{ ...rest }
 			role="listbox"
-			className={ classNames(prefixCls, rest.className) }
+			className={ $(prefixCls, rest.className) }
 			ref={ ref }
 		>
 			{ options.map(function (option, i) {

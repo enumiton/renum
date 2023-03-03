@@ -1,4 +1,4 @@
-export { classNames } from './classnames';
+export { $ } from './classnames';
 export { contains } from './contains';
 export { NOT } from './css';
 export {

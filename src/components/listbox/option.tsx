@@ -2,7 +2,7 @@ import type { KeyboardEvent, MouseEvent } from 'react';
 import { forwardRef, useId } from 'react';
 import type { OptionProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
-import { classNames, getKey, Key } from '../../utils';
+import { $, getKey, Key } from '../../utils';
 
 const Option = forwardRef<HTMLLIElement, OptionProps>(function ListboxOption(props, ref) {
 	const {
@@ -51,10 +51,10 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(function ListboxOption(pro
 			aria-disabled={ disabled }
 			onClick={ handleClick }
 			onKeyDown={ handleKeyDown }
-			className={ classNames(prefixCls, rest.className) }
+			className={ $(prefixCls, rest.className) }
 			ref={ ref }
 		>
-			{icon}
+			{ icon }
 			{ label }
 		</li>
 	);

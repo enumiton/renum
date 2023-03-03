@@ -58,7 +58,7 @@ export { useKeyDownListener } from './hooks';
 export type { KeyDownListenerOptions } from './hooks';
 
 export {
-	classNames,
+	$,
 	contains,
 	NOT,
 	isNullable,

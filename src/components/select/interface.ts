@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactElement } from 'react';
+import type { ButtonHTMLAttributes, CSSProperties, ReactElement } from 'react';
 import type { PortalProps } from '../portal';
 
 type SelectValue = string | number | undefined;
@@ -24,6 +24,8 @@ interface SelectProps<T = SelectValue> extends Omit<ButtonHTMLAttributes<HTMLBut
 	/** @default true */
 	readonly clearable?: boolean | undefined;
 	readonly placement?: PortalProps['align'] | undefined;
+	readonly wrapperClassName?: string | undefined;
+	readonly wrapperStyle?: CSSProperties | undefined;
 }
 
 export type { SelectProps, SelectOptions, SelectOption, SelectValue };

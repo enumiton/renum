@@ -1,7 +1,7 @@
 import type { MouseEvent, UIEvent } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { default as Selector } from '../../icons/Selector';
-import { clamp, classNames, contains, duplicateRef, isHTMLElement, Key, NOT } from '../../utils';
+import { $, clamp, contains, duplicateRef, isHTMLElement, Key, NOT } from '../../utils';
 import { Overlay } from '../overlay';
 import { useRenumProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
@@ -36,6 +36,8 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		onChange,
 		clearable = true,
 		placement,
+		wrapperClassName,
+		wrapperStyle,
 		...rest
 	} = props;
 
@@ -133,9 +135,11 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 	}
 
 	function handleListboxChange(value: ListboxValue, e: UIEvent<HTMLElement>) {
-		setSelected(options.find(function (v) {
+		const option = options.find(function (v) {
 			return (v.value === value);
-		}));
+		});
+
+		setSelected(option);
 
 		// temp: Only close when selecting with mouse
 		if (e.detail !== 0) {
@@ -186,10 +190,17 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		}
 	}, [_value]);
 
+	useEffect(function () {
+		onChange?.(selected?.value);
+	}, [selected?.value]);
+
 	return (
 		<Overlay
 			portalClassName={ `${ prefixCls }-portal` }
-			className={ `${ prefixCls }-wrapper` }
+			className={ $(`${ prefixCls }-wrapper`, wrapperClassName) }
+			style={ wrapperStyle }
+			hidden={ !expanded }
+			align={ placement }
 			content={ (
 				<InternalListbox
 					ref={ listboxRef }
@@ -201,8 +212,6 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 					className={ `${ prefixCls }-listbox` }
 				/>
 			) }
-			hidden={ !expanded }
-			align={ placement }
 		>
 			<input
 				type="hidden"
@@ -220,13 +229,13 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 				aria-controls={ expanded ? listboxId : undefined }
 				aria-expanded={ expanded }
 				onClick={ handleButtonClick }
-				className={ classNames(prefixCls, rest.className) }
+				className={ $(prefixCls, rest.className) }
 				ref={ duplicateRef(buttonRef, ref) }
 			>
 				{ selected?.icon }
 				<span
 					aria-label={ selected?.ariaLabel }
-					className={ classNames(`${ prefixCls }-text`, {
+					className={ $(`${ prefixCls }-text`, {
 						[`${ prefixCls }-placeholder`]: (!selected),
 					}) }
 				>

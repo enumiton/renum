@@ -1,6 +1,6 @@
 import type { FormEvent } from 'react';
 import { forwardRef, isValidElement, useEffect, useState } from 'react';
-import { classNames, isHTMLInputElement, isNullable } from '../../utils';
+import { $, isHTMLInputElement, isNullable } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { InputProps } from './interface';
 import { Clear } from '../clear';
@@ -33,7 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, ref
 			return null;
 		}
 
-		const classes = classNames(`${ prefixCls }-${ name }`, {
+		const classes = $(`${ prefixCls }-${ name }`, {
 			[`${ prefixCls }-${ name }-text`]: !isValidElement(value),
 		});
 
@@ -85,7 +85,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, ref
 	return (
 		<div
 			style={ wrapperStyle }
-			className={ classNames(prefixCls + '-wrapper', {
+			className={ $(prefixCls + '-wrapper', {
 				[`${ prefixCls }-wrapper-prefix`]: !!prefix,
 				[`${ prefixCls }-wrapper-suffix`]: !!suffix,
 			}, wrapperClassName) }
@@ -102,7 +102,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(props, ref
 					onInput={ handleInput }
 					prefix={ htmlPrefix }
 					ref={ ref }
-					className={ classNames(prefixCls, {
+					className={ $(prefixCls, {
 						[`${ prefixCls }-icon`]: !!icon,
 						[`${ prefixCls }-clearable`]: clearable && !required && !readOnly && !disabled,
 						[`${ prefixCls }-borderless`]: borderless,

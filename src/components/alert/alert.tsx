@@ -7,7 +7,7 @@ import { default as CircleCheckIcon } from '../../icons/CircleCheck';
 import { default as AlertTriangleIcon } from '../../icons/AlertTriangle';
 import { default as AlertCirceIcon } from '../../icons/AlertCircle';
 import { default as CloseIcon } from '../../icons/X';
-import { classNames, isString } from '../../utils';
+import { $, isString } from '../../utils';
 
 const INFO_ICON = <InfoIcon />;
 const SUCCESS_ICON = <CircleCheckIcon />;
@@ -102,14 +102,14 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) 
 	return (
 		<div
 			{ ...rest }
-			className={ classNames(prefixCls, className, {
+			className={ $(prefixCls, className, {
 				[`${ prefixCls }-${ type }`]: !!type && type !== 'light',
 				[`${ prefixCls }-banner`]: banner,
 			}) }
 			ref={ ref }
 		>
 			{ renderIcon() }
-			<div className={ classNames(`${ prefixCls }-content`) }>
+			<div className={ $(`${ prefixCls }-content`) }>
 				{ title ? (
 					<div className={ `${ prefixCls }-title` }>{ title }</div>
 				) : null }

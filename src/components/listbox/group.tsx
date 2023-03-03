@@ -2,7 +2,7 @@ import { forwardRef, useId } from 'react';
 import type { GroupProps } from './interface';
 import { Option } from './option';
 import { useRenumProvider } from '../renum-provider';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 
 const OptionGroup = forwardRef<HTMLUListElement, GroupProps>(function ListboxOptionGroup(props, ref) {
 	const {
@@ -27,7 +27,7 @@ const OptionGroup = forwardRef<HTMLUListElement, GroupProps>(function ListboxOpt
 				id={ id }
 				role="group"
 				aria-labelledby={ labelId }
-				className={ classNames(prefixCls, {
+				className={ $(prefixCls, {
 					[`${ prefixCls }-disabled`]: disabled,
 				}, rest.className) }
 				ref={ ref }

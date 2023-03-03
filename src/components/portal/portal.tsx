@@ -1,7 +1,7 @@
 import type { ReactPortal } from 'react';
 import { forwardRef, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { classNames, duplicateRef } from '../../utils';
+import { $, duplicateRef } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { PortalPosition, PortalProps } from './interface';
 import { getPosition } from './helpers';
@@ -57,7 +57,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 	return createPortal((
 		<div
 			{ ...rest }
-			className={ classNames(prefixCls, rest.className) }
+			className={ $(prefixCls, rest.className) }
 			style={ { ...rest.style, ...position } }
 			ref={ duplicateRef(childRef, ref) }
 		>
