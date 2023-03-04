@@ -1,11 +1,11 @@
-import type { PortalAlign, PortalAlignOffset, PortalAlignSide, PortalPosition } from './interface';
+import type { PortalAlign, PortalAlignPosition, PortalAlignSide, PortalPosition } from './interface';
 
 function getAlignment(target: HTMLElement, align: PortalAlign): PortalAlign {
 	const isRTL = target ? window.getComputedStyle(target).direction === 'rtl' : false;
 	const rect = target?.getBoundingClientRect();
 	const [widthThreshold, heightThreshold] = [window.innerWidth / 2, window.innerHeight / 2];
 
-	let [lhs, rhs] = align.split('-') as [PortalAlignSide, PortalAlignOffset];
+	let [lhs, rhs] = align.split('-') as [PortalAlignSide, PortalAlignPosition];
 
 	if (isRTL) {
 		switch (lhs) {
@@ -66,54 +66,57 @@ function getPosition(target: HTMLElement, child: HTMLElement, align: PortalAlign
 		height: target.clientHeight,
 	};
 
+	const computed = window.getComputedStyle(window.document.body);
+	const offset = (Number(computed.fontSize) || 16) * 0.25;
+
 	switch (align) {
 		case 'top-start':
-			position.top = targetRect.top - childRect.height;
+			position.top = targetRect.top - childRect.height - offset;
 			position.left = targetRect.left;
 			break;
 		case 'top-center':
-			position.top = targetRect.top - childRect.height;
+			position.top = targetRect.top - childRect.height - offset;
 			position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2);
 			break;
 		case 'top-end':
-			position.top = targetRect.top - childRect.height;
+			position.top = targetRect.top - childRect.height - offset;
 			position.left = targetRect.right - childRect.width;
 			break;
 		case 'right-start':
 			position.top = targetRect.top;
-			position.left = targetRect.right;
+			position.left = targetRect.right + offset;
 			break;
 		case 'right-center':
 			position.top = targetRect.top - (childRect.height / 2 - targetRect.height / 2);
-			position.left = targetRect.right;
+			position.left = targetRect.right + offset;
 			break;
 		case 'right-end':
 			position.top = targetRect.bottom - childRect.height;
-			position.left = targetRect.right;
+			position.left = targetRect.right + offset;
 			break;
 		case 'bottom-start':
-			position.top = targetRect.bottom;
+			position.top = targetRect.bottom + offset;
 			position.left = targetRect.left;
 			break;
 		case 'bottom-center':
-			position.top = targetRect.bottom;
+			position.top = targetRect.bottom + offset;
 			position.left = targetRect.left - (childRect.width / 2 - targetRect.width / 2);
 			break;
 		case 'bottom-end':
-			position.top = targetRect.bottom;
+			position.top = targetRect.bottom + offset;
 			position.left = targetRect.right - childRect.width;
 			break;
 		case 'left-start':
 			position.top = targetRect.top;
-			position.left = targetRect.left - childRect.width;
+			position.left = targetRect.left - childRect.width - offset;
 			break;
 		case 'left-center':
 			position.top = targetRect.top - (childRect.height / 2 - targetRect.height / 2);
-			position.left = targetRect.left - childRect.width;
+			position.left = targetRect.left - childRect.width - offset;
 			break;
 		case 'left-end':
 			position.top = targetRect.bottom - childRect.height;
-			position.left = targetRect.left - childRect.width;
+			position.left = targetRect.left - childRect.width - offset;
 			break;
 	}
 

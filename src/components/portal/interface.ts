@@ -1,9 +1,9 @@
 import type { CSSProperties, HTMLAttributes, PropsWithRef, ReactNode, RefObject } from 'react';
 
 type PortalAlignSide = 'top' | 'right' | 'bottom' | 'left';
-type PortalAlignOffset = 'start' | 'center' | 'end';
+type PortalAlignPosition = 'start' | 'center' | 'end';
 
-type PortalAlign = `${ PortalAlignSide }-${ PortalAlignOffset }`;
+type PortalAlign = `${ PortalAlignSide }-${ PortalAlignPosition }`;
 
 interface PortalProps extends PropsWithRef<Pick<HTMLAttributes<HTMLDivElement>, 'onClick'>> {
 	readonly key?: string | null | undefined;
@@ -32,4 +32,4 @@ interface PortalPosition {
 	height?: number;
 }
 
-export type { PortalProps, PortalPosition, PortalAlign, PortalAlignSide, PortalAlignOffset };
+export type { PortalProps, PortalPosition, PortalAlign, PortalAlignSide, PortalAlignPosition };

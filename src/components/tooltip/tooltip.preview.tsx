@@ -4,9 +4,9 @@ import { Button } from '../button';
 import { Radio } from '../radio';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import type { PortalAlign, PortalAlignOffset } from '../portal';
+import type { PortalAlign, PortalAlignPosition } from '../portal';
 import { isHTMLInputElement } from '../../utils';
-import type { PortalAlignSide } from '../portal/interface.js';
+import type { PortalAlignSide } from '../portal';
 
 const config = {
 	title: 'tooltip',
@@ -15,7 +15,7 @@ const config = {
 const USER_ICON = <UserIcon />;
 
 function Simple() {
-	const [[lhs, rhs], setAlign] = useState<[PortalAlignSide, PortalAlignOffset]>(['bottom', 'center']);
+	const [[lhs, rhs], setAlign] = useState<[PortalAlignSide, PortalAlignPosition]>(['bottom', 'center']);
 
 	function handlePlacementChange(e: FormEvent<HTMLFieldSetElement>) {
 		if (isHTMLInputElement(e.target)) {
@@ -25,7 +25,7 @@ function Simple() {
 
 	function handleOffsetChange(e: FormEvent<HTMLFieldSetElement>) {
 		if (isHTMLInputElement(e.target)) {
-			setAlign([lhs, e.target.value as PortalAlignOffset]);
+			setAlign([lhs, e.target.value as PortalAlignPosition]);
 		}
 	}
 
