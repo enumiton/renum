@@ -10,7 +10,7 @@ window.addEventListener('resize', handle);
 function add(cb: ResizeHandler) {
 	const id = _id++;
 
-	listeners.set(_id++, cb);
+	listeners.set(id, cb);
 
 	return id;
 }
@@ -20,6 +20,7 @@ function remove(id: number) {
 }
 
 function handle(e: UIEvent) {
+	console.table(listeners);
 	for (const [, cb] of listeners) {
 		cb(e);
 	}
@@ -30,9 +31,11 @@ function useResize(cb: ResizeHandler) {
 
 	useEffect(function () {
 		id.current = add(cb);
+		console.log('add', id.current);
 
 		return function () {
-			if (id.current) {
+			console.log('remove', id.current);
+			if (id.current !== undefined) {
 				remove(id.current);
 			}
 		};
