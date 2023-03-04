@@ -207,6 +207,7 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 					ref={ listboxRef }
 					id={ listboxId }
 					tabIndex={ -1 }
+					aria-describedby={ rest['aria-describedby'] ?? buttonId }
 					value={ selected?.value }
 					options={ options }
 					onChange={ handleListboxChange }
