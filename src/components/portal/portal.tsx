@@ -34,7 +34,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 	const mount = container || window.document.body;
 
 	function update() {
-		if (!childRef?.current || !target?.current) {
+		if (!childRef?.current || childRef.current?.hidden || !target?.current) {
 			return;
 		}
 
@@ -45,11 +45,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 		));
 	}
 
-	useLayoutEffect(function () {
-		if (!rest.hidden) {
-			update();
-		}
-	}, [target?.current, rest.hidden]);
+	useLayoutEffect(update, [rest.hidden]);
 
 	useResize(update);
 
@@ -67,7 +63,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 				minWidth: (setMinWidth && pos.width) ? pos.width + 'px' : undefined,
 				height: (setHeight && pos.height) ? pos.height + 'px' : undefined,
 				minHeight: (setMinHeight && pos.height) ? pos.height + 'px' : undefined,
-				transform: `translate(${ pos.left }px, ${ pos.top }px)`,
+				transform: `translateZ(0) translate(${ pos.left }px, ${ pos.top }px)`,
 			} }
 			ref={ duplicateRef(childRef, ref) }
 		>

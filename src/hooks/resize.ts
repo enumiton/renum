@@ -1,3 +1,4 @@
+import type { DependencyList } from 'react';
 import { useEffect, useRef } from 'react';
 
 type ResizeHandler = ((e: UIEvent) => void);
@@ -29,7 +30,7 @@ function handle(e: UIEvent) {
 	}
 }
 
-function useResize(cb: ResizeHandler) {
+function useResize(cb: ResizeHandler, deps: DependencyList = []) {
 	const id = useRef<number>();
 
 	useEffect(function () {
@@ -40,7 +41,7 @@ function useResize(cb: ResizeHandler) {
 				remove(id.current);
 			}
 		};
-	}, []);
+	}, deps);
 }
 
 export { useResize };

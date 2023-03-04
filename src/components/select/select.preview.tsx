@@ -1,8 +1,8 @@
 import { default as UserIcon } from '../../icons/User';
 import { Select } from './select';
 import { useEffect, useId, useRef, useState } from 'react';
-import { Loading } from '../loading/index.js';
-import { Button } from '../button/index.js';
+import { Loading } from '../loading';
+import { Button } from '../button';
 
 const config = {
 	title: 'select',

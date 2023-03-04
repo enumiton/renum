@@ -117,8 +117,8 @@ function getPosition(target: HTMLElement, child: HTMLElement, align: PortalAlign
 			break;
 	}
 
-	position.top += scrollY;
-	position.left += scrollX;
+	position.top = (position.top + scrollY) | 0;
+	position.left = (position.left + scrollX) | 0;
 
 	return position;
 }
