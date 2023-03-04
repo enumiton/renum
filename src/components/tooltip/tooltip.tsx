@@ -2,13 +2,14 @@ import { cloneElement, forwardRef, useEffect, useId, useRef, useState } from 're
 import type { TooltipProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
 import { Portal } from '../portal';
+import { $ } from '../../utils';
 
 const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(props, ref) {
 	const {
 		label,
 		icon,
 		primaryLabel = false,
-		align = ['bottom', 'center'],
+		align = 'bottom-center',
 		children,
 		...rest
 	} = props;
@@ -74,7 +75,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(function Tooltip(props,
 					{ ...rest }
 					id={ id }
 					role="tooltip"
-					className={ prefixCls }
+					className={ $(prefixCls, `${ prefixCls }-${ align }`) }
 					ref={ ref }
 				>
 					{ icon }{ label }

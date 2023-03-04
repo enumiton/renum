@@ -3,7 +3,7 @@ import { Button } from '../button';
 import { default as CloseIcon } from '../../icons/X';
 import type { DialogHeaderProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
-import { classNames, isHTMLButtonElement } from '../../utils';
+import { $, isHTMLButtonElement } from '../../utils';
 
 const CLOSE_ICON = <CloseIcon />;
 
@@ -31,7 +31,7 @@ function DialogHeader(props: DialogHeaderProps) {
 	}
 
 	return (
-		<div { ...rest } className={ classNames(`${ prefixCls }-header`, rest.className) }>
+		<div { ...rest } className={ $(`${ prefixCls }-header`, rest.className) }>
 			{ (typeof title === 'function') ? (
 				title(titleId)
 			) : (

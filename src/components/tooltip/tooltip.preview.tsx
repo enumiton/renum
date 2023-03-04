@@ -4,8 +4,9 @@ import { Button } from '../button';
 import { Radio } from '../radio';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
-import type { PortalAlign, PortalAlignOffset } from '../portal';
+import type { PortalAlign, PortalAlignPosition } from '../portal';
 import { isHTMLInputElement } from '../../utils';
+import type { PortalAlignSide } from '../portal';
 
 const config = {
 	title: 'tooltip',
@@ -14,17 +15,17 @@ const config = {
 const USER_ICON = <UserIcon />;
 
 function Simple() {
-	const [align, setAlign] = useState<[PortalAlign, PortalAlignOffset]>(['bottom', 'center']);
+	const [[lhs, rhs], setAlign] = useState<[PortalAlignSide, PortalAlignPosition]>(['bottom', 'center']);
 
 	function handlePlacementChange(e: FormEvent<HTMLFieldSetElement>) {
 		if (isHTMLInputElement(e.target)) {
-			setAlign([e.target.value as PortalAlign, align[1]]);
+			setAlign([e.target.value as PortalAlignSide, rhs]);
 		}
 	}
 
 	function handleOffsetChange(e: FormEvent<HTMLFieldSetElement>) {
 		if (isHTMLInputElement(e.target)) {
-			setAlign([align[0], e.target.value as PortalAlignOffset]);
+			setAlign([lhs, e.target.value as PortalAlignPosition]);
 		}
 	}
 
@@ -34,7 +35,7 @@ function Simple() {
 				<Tooltip
 					label="Delete user"
 					icon={ USER_ICON }
-					align={ align }
+					align={ `${ lhs }-${ rhs }` as PortalAlign }
 					primaryLabel
 				>
 					<Button

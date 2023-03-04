@@ -4,16 +4,35 @@
 .@{tooltip-prefix} {
 	max-width: 20em;
 	padding: @padding-tiny;
-	margin: @outline-width;
 	background-color: var(--tooltip-bg);
 	border-radius: @tooltip-border-radius;
 	box-shadow: @shadow-small;
 	color: var(--tooltip-color);
 	font-size: @font-size-medium;
-	transform-origin: top center;
 	animation: tooltip-show @transition-speed-medium @transition-easing forwards;
 	opacity: 0;
 	.backdrop-filter-blur(0.25em);
+
+	@sides: {
+		top-start: bottom left;
+		top-center: bottom center;
+		top-end: bottom right;
+		bottom-start: top left;
+		bottom-center: top center;
+		bottom-end: top right;
+		right-start: left top;
+		right-center: left center;
+		right-end: left bottom;
+		left-start: right top;
+		left-center: right center;
+		left-end: right bottom;
+	};
+
+	each(@sides, {
+		&-@{key} {
+			transform-origin: @value;
+		}
+	})
 
 	& > .@{icon-prefix} {
 		margin-inline-end: @padding-tiny;

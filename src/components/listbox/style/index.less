@@ -1,0 +1,158 @@
+@import (reference) "./variables.less";
+@import (reference) "../../input/style/variables.less";
+
+.@{listbox-prefix} {
+	display: block;
+	width: 100%;
+	min-width: inherit;
+	padding: @padding-extraTiny;
+	margin: 0;
+	background-color: var(--listbox-bg);
+	border: @border-width-base @border-style var(--listbox-border);
+	border-radius: @listbox-border-radius;
+	font-size: @font-size-medium;
+	overflow-y: auto;
+	overflow-x: hidden;
+	overscroll-behavior-block: contain;
+	transition: @transition-speed-fast @transition-easing;
+	transition-property: box-shadow, border-color;
+	outline: none;
+	list-style: none;
+
+	&:focus {
+		border-color: var(--listbox-border-focus);
+		box-shadow: @input-shadow-focus;
+	}
+
+	& > li:first-child {
+		margin-block-start: 0;
+
+		& .@{listbox-prefix}-group {
+			&::before {
+				display: none;
+			}
+
+			& li:first-child {
+				margin-block-start: 0;
+			}
+		}
+	}
+
+	& > li:last-child {
+		margin-block-end: 0;
+
+		& .@{listbox-prefix}-group {
+			&::after {
+				display: none;
+			}
+
+			& li:last-child {
+				margin-block-end: 0;
+			}
+		}
+	}
+
+	&-group {
+		position: relative;
+		display: block;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+
+		&::before,
+		&::after {
+			content: "";
+			display: block;
+			width: 100%;
+			height: @border-width-medium;
+			background-color: var(--border-subtle);
+		}
+
+		&-label {
+			font-weight: @font-weight-bold;
+		}
+	}
+
+	& *:last-child > &-group::after {
+		display: none;
+	}
+
+	&-group-label,
+	&-option {
+		.user-select();
+		.touch-action();
+
+		display: block;
+		height: @listbox-option-height;
+		padding-block: @input-padding-block;
+		padding-inline: @input-padding-inline;
+		margin-block: (@margin-extraTiny / 2);
+		background-color: transparent;
+		color: var(--listbox-color);
+		font-size: @font-size-medium;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		outline: none;
+
+		& > .@{icon-prefix} {
+			margin-inline-end: @input-padding-block;
+		}
+	}
+
+	&-option {
+		@outline: var(--text-emphasis) @border-style @border-width-large;
+
+		position: relative;
+		border-radius: @listbox-border-radius;
+		cursor: pointer;
+		transition: @transition-speed-fast @transition-easing;
+		transition-property: color, background-color;
+
+		&:hover {
+			background-color: var(--listbox-bg-option-hover);
+		}
+
+		&:active {
+			background-color: var(--listbox-bg-option-active);
+		}
+
+		&.focused {
+			outline: @outline;
+		}
+
+		&[aria-selected="true"] {
+			background-color: var(--listbox-bg-option-selected);
+			color: var(--listbox-color-selected);
+
+			&:hover {
+				background-color: var(--listbox-bg-option-selected-hover);
+				color: var(--listbox-color-selected);
+			}
+
+			&:active {
+				background-color: var(--listbox-bg-option-selected-active);
+				color: var(--listbox-color-selected);
+			}
+		}
+
+		&[aria-disabled="true"] {
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: transparent;
+				color: var(--text-disabled);
+				cursor: not-allowed;
+			}
+		}
+	}
+
+	&:has(&-option > .@{icon-prefix}) &-option:not(:has(> .@{icon-prefix})) {
+		&::before {
+			content: "";
+			display: inline-block;
+			width: (@font-size-large + @input-padding-block);
+		}
+	}
+}

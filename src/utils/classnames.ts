@@ -1,6 +1,6 @@
 import { isString } from './is';
 
-function classNames(...classes: (Record<string, boolean | null | undefined> | string | undefined)[]): string {
+function $(...classes: (Record<string, boolean | null | undefined> | string | undefined)[]): string {
 	let str = [];
 
 	for (const item of classes) {
@@ -23,4 +23,4 @@ function classNames(...classes: (Record<string, boolean | null | undefined> | st
 	return str.join(' ');
 }
 
-export { classNames };
+export { $ };

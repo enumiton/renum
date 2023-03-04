@@ -1,7 +1,7 @@
 import type { ForwardRefExoticComponent, MouseEvent, RefAttributes } from 'react';
 import { forwardRef } from 'react';
 import type { ButtonProps } from './interface';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import { Loading } from '../loading';
 import { Group } from './group';
@@ -41,7 +41,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function Butto
 			role="button"
 			{ ...rest }
 			onClick={ handleClick }
-			className={ classNames(prefixCls, {
+			className={ $(prefixCls, {
 				[`${ prefixCls }-${ type }`]: (!!type && type !== 'default'),
 				[`${ prefixCls }-${ shape }`]: (!!shape && shape !== 'default'),
 				[`${ prefixCls }-icon-only`]: !props.children,

@@ -1,7 +1,7 @@
 import { forwardRef, useId, useRef } from 'react';
 import { Dialog } from './dialog';
 import type { DialogConfirmProps } from './interface';
-import { classNames, isString } from '../../utils';
+import { $, isString } from '../../utils';
 import { DialogHeader } from './header';
 import { useRenumProvider } from '../renum-provider';
 import { DialogFooter } from './footer';
@@ -46,7 +46,7 @@ const Confirm = forwardRef<HTMLDialogElement, DialogConfirmProps>(function Dialo
 			{ ...rest }
 			id={ id }
 			role="alertdialog"
-			className={ classNames(`${ prefixCls }-confirm`, rest.className) }
+			className={ $(`${ prefixCls }-confirm`, rest.className) }
 			aria-labelledby={ titleId }
 			aria-describedby={ descriptionId.current }
 			modal
@@ -59,7 +59,7 @@ const Confirm = forwardRef<HTMLDialogElement, DialogConfirmProps>(function Dialo
 			<DialogBody>
 				{ renderBody() }
 			</DialogBody>
-			<DialogFooter className={ classNames({ [`${ prefixCls }-footer-stacked`]: stacked }) }>
+			<DialogFooter className={ $({ [`${ prefixCls }-footer-stacked`]: stacked }) }>
 				{ actions }
 			</DialogFooter>
 		</Dialog>

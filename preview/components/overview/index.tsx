@@ -1,4 +1,4 @@
-import { COMPONENTS, ROUTES } from '../../index';
+import { COMPONENTS, ROUTES } from '../../app';
 import { Link } from 'react-even-better-router-dom';
 import { Example } from '../example';
 import { capitalize } from '../../utils';

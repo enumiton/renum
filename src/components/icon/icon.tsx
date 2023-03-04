@@ -1,5 +1,5 @@
 import { cloneElement, forwardRef } from 'react';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { IconProps } from './interface';
 
@@ -16,7 +16,7 @@ const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(props, ref) {
 	return (
 		<span
 			ref={ ref }
-			className={ classNames(prefixCls, className) }
+			className={ $(prefixCls, className) }
 		>
 			{ cloneElement(children, rest) }
 		</span>

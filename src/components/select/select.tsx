@@ -1,172 +1,149 @@
-import type { KeyboardEvent, MouseEvent } from 'react';
+import type { MouseEvent, UIEvent } from 'react';
 import { forwardRef, useEffect, useId, useRef, useState } from 'react';
 import { default as Selector } from '../../icons/Selector';
-import { clamp, classNames, contains, getKey, isHTMLElement, isNullable, Key } from '../../utils';
+import { $, clamp, contains, duplicateRef, isHTMLElement, Key, NOT } from '../../utils';
 import { Overlay } from '../overlay';
 import { useRenumProvider } from '../renum-provider';
 import type { SelectOption, SelectProps } from './interface';
 import { Clear } from '../clear';
-import { ARIA_DISABLED, ARIA_SELECTED, Direction, NOT, OptionState } from './helpers';
+import type { ListboxValue } from '../listbox';
+import { useKeyDownListener } from '../../hooks';
+import { InternalListbox } from '../listbox/internal.js';
+import { findOptionByValue } from './helpers.js';
+import {
+	addFocusClassToOption,
+	getFocusedOptionElement,
+	getOptionElements,
+	getSelectedOptionElement,
+	removeFocusClassOfOption,
+	SELECTOR_DISABLED,
+} from '../listbox/helpers.js';
 
 const SELECTOR_ICON = <Selector />;
+
+const enum Direction {
+	Next = +1,
+	Prev = -1,
+}
 
 const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props, ref) {
 	const {
 		name,
 		placeholder,
-		value: $value,
+		value: _value,
+		defaultValue,
 		options,
 		onChange,
 		clearable = true,
-		placement,
+		placement = 'bottom-start',
+		wrapperClassName,
+		wrapperStyle,
 		...rest
 	} = props;
-
-	const id = props.id || useId();
-	const buttonId = id + '-button';
-	const labelId = id + '-label';
-	const listId = id + '-list';
-
-	const [expanded, setExpanded] = useState<boolean>(false);
-	const [selected, setSelected] = useState<number | undefined>();
-
-	const buttonRef = useRef<HTMLButtonElement | null>(null);
-	const listboxRef = useRef<HTMLUListElement | null>(null);
 
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('select');
 
-	function close() {
-		const btn = buttonRef.current;
-		const ul = listboxRef.current;
+	const [expanded, setExpanded] = useState<boolean>(false);
+	const [selected, setSelected] = useState<SelectOption | undefined>(findOptionByValue(options, defaultValue));
 
-		if (btn) {
-			btn.focus();
+	const buttonRef = useRef<HTMLButtonElement | null>(null);
+	const listboxRef = useRef<HTMLUListElement | null>(null);
+
+	const id = props.id || useId();
+	const buttonId = id + '-button';
+	const listboxId = id + '-list';
+
+	function close() {
+		const listbox = listboxRef.current;
+		const activeElement = window.document.activeElement;
+
+		if (isHTMLElement(listbox)) {
+			removeFocusClassOfOption(getFocusedOptionElement(listbox));
+
+			if (listbox.contains(activeElement)) {
+				buttonRef.current?.focus();
+			}
 		}
 
 		setExpanded(false);
-
-		if (!isHTMLElement(ul)) {
-			return;
-		}
-
-		const lis = [...ul.querySelectorAll<HTMLLIElement>(`li${ NOT(ARIA_DISABLED) }.${ prefixCls }-option-hover`)];
-
-		for (const li of lis) {
-			li.classList.remove(`${ prefixCls }-option-hover`);
-		}
 	}
 
-	function open(focus: boolean = false) {
-		if (expanded) {
-			return;
-		}
-
+	function open() {
 		setExpanded(true);
+	}
 
-		if (focus) {
-			setHover();
+	function toggle() {
+		if (expanded) {
+			close();
+		} else {
+			open();
 		}
 	}
 
-	function getLis(type: OptionState.Hovered | OptionState.Selected): HTMLLIElement | null
-	function getLis(type: OptionState.None | OptionState.Disabled | OptionState.All): HTMLLIElement[]
-	function getLis(type: OptionState = OptionState.None): (HTMLLIElement | null) | HTMLLIElement[] {
-		const list = listboxRef.current;
-
-		if (!list) {
-			return [];
+	function clear() {
+		if (clearable) {
+			setSelected(undefined);
+			buttonRef.current?.focus();
 		}
-
-		let selector = 'li';
-
-		switch (type) {
-			case OptionState.None:
-				selector += NOT(ARIA_DISABLED);
-				break;
-			case OptionState.Hovered:
-				selector += `${ NOT(ARIA_DISABLED) }.${ prefixCls }-option-hover`;
-				return list.querySelector<HTMLLIElement>(selector);
-			case OptionState.Selected:
-				selector += ARIA_SELECTED + NOT(ARIA_DISABLED);
-				return list.querySelector<HTMLLIElement>(selector);
-			case OptionState.Disabled:
-				selector += ARIA_DISABLED;
-				break;
-		}
-
-		return [...list.querySelectorAll<HTMLLIElement>(selector)];
 	}
 
-	function setHover(direction?: Direction, hovered?: HTMLLIElement) {
-		const ul = listboxRef.current;
+	function move(direction: Direction) {
+		return function () {
+			const listbox = listboxRef.current;
+			const button = buttonRef.current;
 
-		if (!isHTMLElement(ul)) {
-			return;
-		}
+			if (!isHTMLElement(listbox) || !isHTMLElement(button)) {
+				return;
+			}
 
-		const lis = getLis(OptionState.None);
-		const hoveredOption = hovered ?? getLis(OptionState.Hovered);
-		const selectedOption = getLis(OptionState.Selected);
+			if (!expanded) {
+				open();
+			}
 
-		let index = -1;
+			const focused = getFocusedOptionElement(listbox) ?? getSelectedOptionElement(listbox);
+			const options = getOptionElements(listbox, NOT(SELECTOR_DISABLED));
 
-		if (!hoveredOption && selectedOption) {
-			index = lis.indexOf(selectedOption);
-		} else if (hoveredOption) {
-			index = lis.indexOf(hoveredOption);
-		}
+			removeFocusClassOfOption(focused);
 
-		switch (direction) {
-			case Direction.Start:
-			case Direction.End:
-				index = (direction === Direction.Start) ? 0 : lis.length - 1;
-				break;
-			default:
-				if (direction === undefined) {
-					index = Math.max(index, 0);
-				} else {
-					index = clamp(index + direction, 0, lis.length - 1);
-				}
-				break;
-		}
+			let option: HTMLLIElement | undefined;
 
-		const option = lis?.[index];
+			const index = options.findIndex(function (option) {
+				return (option === focused);
+			});
 
-		if (!isHTMLElement(option)) {
-			return;
-		}
+			option = options.at(clamp(index + direction, 0, options.length - 1));
 
-		hoveredOption?.classList?.remove?.(`${ prefixCls }-option-hover`);
+			if (!option) {
+				return;
+			}
 
-		ul.setAttribute('aria-activedescendant', option.id);
+			const [min, max] = [option.offsetTop - option.clientHeight, option.offsetTop + option.clientHeight];
 
-		option.focus();
-		option.classList.add(`${ prefixCls }-option-hover`);
+			if (!(min > listbox.scrollTop && max < (listbox.scrollTop + listbox.clientHeight))) {
+				listbox.scrollTo({
+					top: (direction === Direction.Next) ? option.offsetTop - listbox.clientHeight + (option.clientHeight * 2) : min,
+					behavior: 'auto',
+				});
+			}
+
+			addFocusClassToOption(option);
+			button.setAttribute('aria-activedescendant', option?.id ?? '');
+
+			option?.click();
+		};
 	}
 
-	function move(e: KeyboardEvent<HTMLButtonElement> | KeyboardEvent<HTMLLIElement>, normalized: Key) {
-		switch (normalized) {
-			case Key.Home:
-			case Key.End:
-				e.preventDefault();
-				open();
-				setHover((normalized === Key.Home) ? Direction.Start : Direction.End);
-				break;
-			case Key.PageUp:
-			case Key.PageDown:
-				e.preventDefault();
-				open();
-				setHover((normalized === Key.PageUp) ? Direction.Prev10 : Direction.Next10);
-				break;
-			case Key.Up:
-			case Key.Right:
-			case Key.Down:
-			case Key.Left:
-				e.preventDefault();
-				open();
-				setHover((normalized === Key.Up || normalized === Key.Left) ? Direction.Prev : Direction.Next);
-				break;
+	function handleListboxChange(value: ListboxValue, e: UIEvent<HTMLElement>) {
+		const option = options.find(function (v) {
+			return (v.value === value);
+		});
+
+		setSelected(option);
+
+		// temp: Only close when selecting with mouse
+		if (e.detail !== 0) {
+			close();
 		}
 	}
 
@@ -176,221 +153,103 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select(props,
 		}
 	}
 
-	function handleListFocusIn() {
-		const lis = getLis(OptionState.None);
-
-		for (const li of lis) {
-			li.setAttribute('tabindex', '-1');
-		}
-	}
-
-	function handleListFocusOut() {
-		const lis = getLis(OptionState.None);
-
-		for (const li of lis) {
-			li.setAttribute('tabindex', '0');
-		}
-	}
-
-	function handleButtonClick() {
+	function handleButtonClick(e: MouseEvent<HTMLButtonElement>) {
 		if (expanded) {
 			close();
 		} else {
 			open();
 		}
+
+		props?.onClick?.(e);
 	}
 
-	function handleLiClick(option: SelectOption) {
-		return function (e: MouseEvent<HTMLLIElement>) {
-			const li = e.target;
-
-			if (!isHTMLElement(li)) {
-				return;
-			}
-
-			const disabled = li.getAttribute('aria-disabled');
-
-			if (isNullable(disabled) || disabled === 'true') {
-				return;
-			}
-
-			setSelected(options.indexOf(option));
-			close();
-		};
-	}
-
-	function handleButtonKeyDown(e: KeyboardEvent<HTMLButtonElement>) {
-		const normalized = getKey(e.key);
-
-		switch (normalized) {
-			case Key.Escape:
-				e.preventDefault();
-				close();
-				return;
-			case Key.Space:
-			case Key.Enter:
-				e.preventDefault();
-				open(true);
-				return;
-			case Key.Clear:
-			case Key.Delete:
-			case Key.Backspace:
-				if (clearable) {
-					setSelected(undefined);
-				}
-				return;
-		}
-
-		move(e, normalized);
-	}
-
-	function handleLiKeyDown(e: KeyboardEvent<HTMLLIElement>) {
-		const normalized = getKey(e.key);
-		const target = e.target;
-
-		switch (normalized) {
-			case Key.Escape:
-				close();
-				return;
-			case Key.Space:
-			case Key.Enter:
-				e.preventDefault();
-
-				if (isHTMLElement(target)) {
-					target.click();
-				}
-
-				return;
-		}
-
-		move(e, normalized);
-	}
-
-	function renderOption(option: SelectOption, index: number) {
-		return (
-			<li
-				key={ index }
-				id={ id + '-option-' + index }
-				role="option"
-				aria-label={ option?.ariaLabel }
-				aria-selected={ (selected === options.indexOf(option)) }
-				aria-disabled={ option?.disabled ?? false }
-				tabIndex={ option.disabled ? -1 : 0 }
-				onKeyDown={ handleLiKeyDown }
-				onClick={ handleLiClick(option) }
-				className={ prefixCls + '-option' }
-				data-value={ option.value }
-			>
-				{ option?.icon }
-				<span>{ option.label }</span>
-			</li>
-		);
-	}
-
-	function renderList() {
-		return (
-			<ul
-				ref={ listboxRef }
-				id={ listId }
-				role="listbox"
-				aria-labelledby={ labelId }
-				aria-multiselectable={ false }
-				className={ prefixCls + '-list' }
-				tabIndex={ -1 }
-			>
-				{ options.map(renderOption) }
-			</ul>
-		);
-	}
-
-	function renderBtnText() {
-		let label: string | number | undefined = placeholder;
-
-		if (selected !== undefined) {
-			label = options.at(selected)?.label;
-		}
-
-		return (
-			<span
-				aria-label={ selected ? options.at(selected)?.ariaLabel : undefined }
-				className={ classNames(prefixCls + '-text', {
-					[`${ prefixCls }-placeholder`]: selected === undefined,
-				}) }
-			>
-				{ label }
-			</span>
-		);
-	}
+	useKeyDownListener(buttonRef, {
+		[Key.Up]: move(Direction.Prev),
+		[Key.Down]: move(Direction.Next),
+		[Key.Space]: toggle,
+		[Key.Enter]: toggle,
+		[Key.Escape]: close,
+		[Key.Clear]: clear,
+		[Key.Delete]: clear,
+		[Key.Backspace]: clear,
+	}, { preventDefault: true, stopPropagation: true });
 
 	useEffect(function () {
-		const listbox = listboxRef.current;
-
 		if (expanded) {
-			window.addEventListener('click', handleOutsideClick);
-
-			if (listbox) {
-				listbox.addEventListener('focusin', handleListFocusIn);
-				listbox.addEventListener('focusout', handleListFocusOut);
-			}
+			window.addEventListener('click', handleOutsideClick, { passive: true });
 		}
 
 		return function () {
 			window.removeEventListener('click', handleOutsideClick);
-
-			if (listbox) {
-				listbox.removeEventListener('focusin', handleListFocusIn);
-				listbox.removeEventListener('focusout', handleListFocusOut);
-			}
 		};
 	}, [expanded]);
 
+	useEffect(function () {
+		if (_value !== selected?.value) {
+			setSelected(findOptionByValue(options, _value));
+		}
+	}, [_value]);
+
+	useEffect(function () {
+		onChange?.(selected?.value);
+	}, [selected?.value]);
+
 	return (
 		<Overlay
+			setWidth
 			portalClassName={ `${ prefixCls }-portal` }
-			className={ prefixCls + '-wrapper' }
-			content={ renderList() }
+			className={ $(`${ prefixCls }-wrapper`, wrapperClassName) }
+			style={ wrapperStyle }
 			hidden={ !expanded }
 			align={ placement }
+			content={ (
+				<InternalListbox
+					ref={ listboxRef }
+					id={ listboxId }
+					tabIndex={ -1 }
+					aria-describedby={ rest['aria-describedby'] ?? buttonId }
+					value={ selected?.value }
+					options={ options }
+					onChange={ handleListboxChange }
+					className={ `${ prefixCls }-listbox` }
+				/>
+			) }
 		>
 			<input
 				type="hidden"
 				name={ name }
-				value={ selected ? options.at(selected)?.value : '' }
+				value={ selected?.value ?? '' }
 				hidden
 			/>
 			<button
 				{ ...rest }
 				id={ buttonId }
 				type="button"
-				role="button"
+				role="combobox"
 				aria-haspopup="listbox"
+				aria-owns={ listboxId }
+				aria-controls={ expanded ? listboxId : undefined }
 				aria-expanded={ expanded }
 				onClick={ handleButtonClick }
-				onKeyDown={ handleButtonKeyDown }
-				className={ classNames(prefixCls, rest.className) }
-				ref={ function (node) {
-					buttonRef.current = node;
-
-					if (typeof ref === 'function') {
-						ref(node);
-					} else if (ref) {
-						ref.current = node;
-					}
-				} }
+				className={ $(prefixCls, rest.className) }
+				ref={ duplicateRef(buttonRef, ref) }
 			>
-				{ (selected === undefined) ? null : (
-					options.at(selected)?.icon
-				) }
-				{ renderBtnText() }
+				{ selected?.icon }
+				<span
+					aria-label={ selected?.ariaLabel }
+					className={ $(`${ prefixCls }-text`, {
+						[`${ prefixCls }-placeholder`]: (!selected),
+					}) }
+				>
+					{ selected?.label ?? placeholder }
+				</span>
 				{ SELECTOR_ICON }
 			</button>
 			{ clearable ? (
 				<Clear
-					className={ prefixCls + '-clear' }
+					className={ `${ prefixCls }-clear` }
 					hidden={ (selected === undefined) }
-					onClick={ function () {
-						return setSelected(undefined);
-					} }
+					onClick={ clear }
 				/>
 			) : null }
 		</Overlay>

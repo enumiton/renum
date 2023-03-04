@@ -4,7 +4,7 @@ import type { DialogModalProps } from './interface';
 import { DialogHeader } from './header';
 import { useRenumProvider } from '../renum-provider';
 import { DialogFooter } from './footer';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 import { DialogBody } from './body';
 
 const Modal = forwardRef<HTMLDialogElement, DialogModalProps>(function DialogModal(props, ref) {
@@ -28,7 +28,7 @@ const Modal = forwardRef<HTMLDialogElement, DialogModalProps>(function DialogMod
 		<Dialog
 			{ ...rest }
 			id={ id }
-			className={ classNames(`${ prefixCls }-modal`, rest.className) }
+			className={ $(`${ prefixCls }-modal`, rest.className) }
 			aria-labelledby={ titleId }
 			ref={ ref }
 		>

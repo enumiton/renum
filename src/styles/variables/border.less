@@ -1,6 +1,9 @@
 @border-style: solid;
-@border-width-medium: 1px;
-@border-width-large: (@border-width-medium * 2);
+
+@border-width-base: 1px;
+
+@border-width-medium: max(unit((@border-width-base / 16), em), @border-width-base);
+@border-width-large: max(unit(((@border-width-base * 2) / 16), em), (@border-width-base * 2));
 
 @border-radius-extraSmall: 0.125em; // 2px
 @border-radius-small: 0.25em; // 4px

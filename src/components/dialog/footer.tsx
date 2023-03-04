@@ -1,7 +1,7 @@
 import type { DialogFooterProps } from './interface';
 import { Button } from '../button';
 import { useRenumProvider } from '../renum-provider';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 
 function DialogFooter(props: DialogFooterProps) {
 	const {
@@ -20,7 +20,7 @@ function DialogFooter(props: DialogFooterProps) {
 	}
 
 	return (
-		<div { ...rest } className={ classNames(`${ prefixCls }-footer`, rest.className) }>
+		<div { ...rest } className={ $(`${ prefixCls }-footer`, rest.className) }>
 			{ (children === undefined) ? ([
 				<Button key="confirm" type="primary" onClick={ onConfirm }>
 					{ locale.dialog.primaryButtonText }

@@ -1,17 +1,22 @@
 import type { ReactPortal } from 'react';
 import { forwardRef, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { classNames, isNonNullable } from '../../utils';
+import { $, duplicateRef } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import type { PortalPosition, PortalProps } from './interface';
 import { getPosition } from './helpers';
+import { useResize } from '../../hooks';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, ref): ReactPortal {
 	const {
+		key,
 		target,
 		container,
-		align = ['bottom', 'start'],
-		key,
+		align = 'bottom-start',
+		setWidth,
+		setMinWidth,
+		setHeight,
+		setMinHeight,
 		children,
 		...rest
 	} = props;
@@ -19,36 +24,30 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 	const { getPrefixCls } = useRenumProvider();
 	const prefixCls = getPrefixCls('portal');
 
-	const childRef = useRef<HTMLElement | null>(null);
+	const childRef = useRef<HTMLDivElement | null>(null);
 
-	const [position, setPosition] = useState<PortalPosition>({
+	const [pos, setPos] = useState<PortalPosition>({
 		top: 0,
-		right: 0,
-		bottom: 0,
 		left: 0,
 	});
 
 	const mount = container || window.document.body;
 
 	function update() {
-		if (!childRef?.current || !target?.current) {
+		if (!childRef?.current || childRef.current?.hidden || !target?.current) {
 			return;
 		}
 
-		setPosition(getPosition(
+		setPos(getPosition(
 			target.current,
 			childRef.current,
 			align,
 		));
 	}
 
-	useLayoutEffect(function () {
-		if (!rest.hidden) {
-			update();
-		}
-	}, [target?.current, rest.hidden]);
+	useLayoutEffect(update, [rest.hidden]);
 
-	useLayoutEffect(update, []);
+	useResize(update);
 
 	if (!mount) {
 		throw new Error('[Renum/Portal]: no mount');
@@ -57,17 +56,16 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(function Portal(props, re
 	return createPortal((
 		<div
 			{ ...rest }
-			className={ classNames(prefixCls, rest.className) }
-			style={ { ...rest.style, ...position } }
-			ref={ function (node) {
-				childRef.current = node;
-
-				if (typeof ref === 'function') {
-					ref(node);
-				} else if (isNonNullable(ref)) {
-					ref.current = node;
-				}
+			className={ $(prefixCls, rest.className) }
+			style={ {
+				...rest.style,
+				width: (setWidth && pos.width) ? pos.width + 'px' : undefined,
+				minWidth: (setMinWidth && pos.width) ? pos.width + 'px' : undefined,
+				height: (setHeight && pos.height) ? pos.height + 'px' : undefined,
+				minHeight: (setMinHeight && pos.height) ? pos.height + 'px' : undefined,
+				transform: `translateZ(0) translate(${ pos.left }px, ${ pos.top }px)`,
 			} }
+			ref={ duplicateRef(childRef, ref) }
 		>
 			{ children }
 		</div>

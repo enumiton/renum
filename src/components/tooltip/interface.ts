@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactElement } from 'react';
-import type { PortalAlign, PortalAlignOffset } from '../portal';
+import type { PortalAlign } from '../portal';
 
 interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
 	readonly label: string | number;
@@ -10,7 +10,7 @@ interface TooltipProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> 
 	 */
 	readonly primaryLabel?: boolean | undefined;
 	/** @default ['bottom', 'center'] */
-	readonly align?: [PortalAlign, PortalAlignOffset] | undefined;
+	readonly align?: PortalAlign | undefined;
 	readonly children: ReactElement;
 }
 

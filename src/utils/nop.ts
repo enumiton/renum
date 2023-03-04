@@ -1,0 +1,5 @@
+function nop() {
+	//
+}
+
+export { nop };

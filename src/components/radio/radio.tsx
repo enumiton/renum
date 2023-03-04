@@ -1,7 +1,7 @@
 import { forwardRef, useId } from 'react';
 import type { RadioProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref) {
 	const {
@@ -17,15 +17,15 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(props, ref
 	const id = rest.id || useId();
 
 	return (
-		<span className={ classNames(`${ prefixCls }-wrapper`, wrapperClassName) }>
+		<span className={ $(`${ prefixCls }-wrapper`, wrapperClassName) }>
 			<input
 				{ ...rest }
 				id={ id }
 				type="radio"
-				className={ classNames(prefixCls, rest.className) }
+				className={ $(prefixCls, rest.className) }
 				ref={ ref }
 			/>
-			<label htmlFor={ id } className={ classNames(`${ prefixCls }-label`, labelClassName) }>
+			<label htmlFor={ id } className={ $(`${ prefixCls }-label`, labelClassName) }>
 				{ children }
 			</label>
 		</span>

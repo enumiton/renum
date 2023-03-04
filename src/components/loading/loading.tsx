@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { classNames } from '../../utils';
+import { $ } from '../../utils';
 import { Icon } from '../icon';
 import { useRenumProvider } from '../renum-provider';
 import type { LoadingProps } from './interface';
@@ -13,7 +13,7 @@ const Loading = forwardRef<HTMLSpanElement, LoadingProps>(function Loading(props
 	return (
 		<Icon
 			{ ...rest }
-			className={ classNames(prefixCls, {
+			className={ $(prefixCls, {
 				[`${ prefixCls }-active`]: (!!active),
 			}, props.className) }
 			ref={ ref }
