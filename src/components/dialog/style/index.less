@@ -118,6 +118,7 @@
 }
 
 .@{dialog-confirm-prefix} {
+	max-width: calc(min(@dialog-confirm-max-width, 100dvi) - (@dialog-margin-x * 2));
 	padding-block: @dialog-padding-y;
 	padding-inline: @dialog-padding-x;
 }
