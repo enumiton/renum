@@ -1,0 +1,21 @@
+@import (reference) "../../../styles/index.less";
+@import (reference) "../../input/style/variables.less";
+
+@switch-prefix: ~"@{renum-prefix}-switch";
+
+@switch-padding: 0.125em;
+@switch-border-radius: @border-radius-pill;
+
+@switch-handle-size: (@font-size-huge + @switch-padding);
+@switch-handle-size-active: (@switch-handle-size * 1.375);
+
+.handle-position(@pos1, @pos2) {
+	inset-inline-@{pos1}: @switch-padding;
+	inset-inline-@{pos2}: calc(100% - (@switch-handle-size + @switch-padding));
+}
+
+.handle-position-active(@pos1, @pos2) {
+	inset-inline-@{pos1}: @switch-padding;
+	inset-inline-@{pos2}: calc(100% - @switch-handle-size-active);
+	transition-duration: @transition-speed-slow;
+}

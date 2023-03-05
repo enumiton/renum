@@ -1,4 +1,3 @@
-import { default as UserIcon } from '../../icons/User';
 import { Select } from './select';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Loading } from '../loading';
@@ -21,8 +20,6 @@ async function fetchUsers() {
 
 	return (await response.json())['users'] as User[];
 }
-
-const ICON = <UserIcon />;
 
 function Simple() {
 	const id = useId();

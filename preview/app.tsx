@@ -25,6 +25,7 @@ const COMPONENTS = [
 	'listbox',
 	'radio',
 	'select',
+	'switch',
 	'tooltip',
 ] as const;
 
