@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.7.1
+
+- Fix button type not set on switch
+- `max-width` of a confirm dialog decreased
+- Fix `Select` causing overflow when selected label is too long
+
 ## v0.7.0
 
 - Added `Listbox` component
