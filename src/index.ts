@@ -41,7 +41,13 @@ export { RenumProvider, useRenumProvider } from './components/renum-provider';
 export type { RenumConfig } from './components/renum-provider';
 
 export { Portal } from './components/portal';
-export type { PortalProps, PortalPosition, PortalAlign, PortalAlignSide, PortalAlignPosition } from './components/portal';
+export type {
+	PortalProps,
+	PortalPosition,
+	PortalAlign,
+	PortalAlignSide,
+	PortalAlignPosition,
+} from './components/portal';
 
 export { Radio } from './components/radio';
 export type { RadioProps } from './components/radio';
@@ -49,13 +55,16 @@ export type { RadioProps } from './components/radio';
 export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
 
+export { Switch } from './components/switch';
+export type { SwitchProps } from './components/switch';
+
 export { Tooltip } from './components/tooltip';
 export type { TooltipProps } from './components/tooltip';
 
 export type { Locale } from './locale/interface';
 
 export { useDebounce, useKeyDownListener, useResize } from './hooks';
-export type { KeyDownListenerOptions } from './hooks';
+export type { KeyDownListenerOptions, ResizeHandler } from './hooks';
 
 export {
 	$,
