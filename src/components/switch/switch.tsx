@@ -47,7 +47,9 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(function Switch(props,
 
 	return (
 		<button
+			tabIndex={ 0 }
 			{ ...rest }
+			type="button"
 			role="switch"
 			aria-checked={ value }
 			aria-disabled={ disabled }
