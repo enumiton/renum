@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.7.0
+
+- Added `Listbox` component
+- Added `Switch` component
+- Added `useKeyDownListener` hook
+- Added `useResize` hook
+- Renamed `classNames` helper to `$`
+- Refactor `Select` component
+- Refactor portal positioning system
+- Border widths are now adaptive to `font-size`
+- Fix `text-decoration` not showing on webkit browsers
+- Minor `Clear` component visual change
+- Bumped Vite development dependency to `^v4.1.1`
+
 ## v0.6.2
 
 - Redid `Button` types
