@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.8.0
+
+- Fixed disabled input color for IOS
+- Colors
+  - You can now disable color mixing by setting `@mix-colors` to `false`
+  - You can now change the amount of color mixing with `@mix-percentage`. Default `2%`
+  - Switched blue to azure
+- Alert
+  - Fixed icon & close button position
+  - Background colors are now use rgba values
+- Added `Rate` component
+- Refactor `Switch` component
+  - Now uses an input element rather than a button
+  - Changed the select background color to primary rather than green
+- Added `.@{renum-prefix}-hidden` helper to visually hide elements
+
 ## v0.7.1
 
 - Fix button type not set on switch
