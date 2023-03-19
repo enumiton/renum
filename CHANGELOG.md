@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.1
+
+- 🤦‍♂️ export `Rate` component 🤦‍
+
 ## v0.8.0
 
 - Fixed disabled input color for IOS
