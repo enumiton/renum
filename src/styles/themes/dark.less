@@ -127,9 +127,15 @@
 
 	// switch
 	--switch-bg: var(--gray-8);
-	--switch-bg-checked: var(--green-700);
-	--switch-bg-checked-disabled: var(--green-800);
+	--switch-bg-disabled: var(--gray-6);
+	--switch-bg-checked: var(--primary);
+	--switch-bg-checked-disabled: var(--primary-700);
 
 	--switch-handle-bg: var(--gray-24);
-	--switch-handle-bg-disabled: var(--gray-18);
+	--switch-handle-bg-checked: var(--primary-contrast);
+	--switch-handle-bg-disabled: var(--text-disabled);
+
+	// rate
+	--rate-placeholder: var(--gray-10);
+	--rate-star: lighten(@hue-50, 5%);
 }

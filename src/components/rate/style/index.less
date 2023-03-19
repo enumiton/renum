@@ -1,0 +1,47 @@
+@import (reference) "./variables.less";
+
+.@{rate-prefix} {
+	position: relative;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 1;
+
+	&-placeholder {
+		color: var(--rate-placeholder);
+	}
+
+	&-stars {
+		position: absolute;
+		inset: 0;
+		color: var(--rate-star);
+		z-index: 1;
+
+		& .@{rate-prefix}-star{
+			animation: rate @transition-speed-medium @transition-bounce forwards;
+		}
+	}
+
+	&-star {
+		position: relative;
+		color: inherit;
+	}
+
+	&-half {
+		clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+	}
+
+	& .@{icon-prefix} svg {
+		position: relative;
+		fill: currentColor;
+	}
+}
+
+@keyframes rate {
+	0% {
+		transform: translateZ(0) scale(0.5);
+	}
+	to {
+		transform: translateZ(0) scale(1);
+	}
+}

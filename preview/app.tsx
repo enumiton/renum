@@ -24,6 +24,7 @@ const COMPONENTS = [
 	'loading',
 	'listbox',
 	'radio',
+	'rate',
 	'select',
 	'switch',
 	'tooltip',
