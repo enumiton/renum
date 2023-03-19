@@ -7,7 +7,7 @@ const config = {
 
 function Simple() {
 	return (
-		<div style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }>
+		<div style={ { display: 'flex', flexDirection: 'column', gap: '0.25em' } }>
 			<Alert type="light">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, sequi.
 			</Alert>
@@ -32,7 +32,7 @@ function Simple() {
 
 function Banner() {
 	return (
-		<div style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }>
+		<div style={ { display: 'flex', flexDirection: 'column', gap: '0.25em' } }>
 			<Alert type="light" banner>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, sequi.
 			</Alert>
@@ -57,7 +57,7 @@ function Banner() {
 
 function Closeable() {
 	return (
-		<div style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }>
+		<div style={ { display: 'flex', flexDirection: 'column', gap: '0.25em' } }>
 			<Alert title="Closeable alert" closeable>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, sequi.
 			</Alert>
