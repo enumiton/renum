@@ -3,27 +3,31 @@
 
 @complementary-color: spin(@primary-color, 180);
 
-@hue-1: spin(@primary-color, -(hue(@primary-color)));
-@hue-2: spin(@hue-1, 30);
-@hue-3: spin(@hue-1, 60);
-@hue-4: spin(@hue-1, 90);
-@hue-5: spin(@hue-1, 120);
-@hue-6: spin(@hue-1, 150);
-@hue-7: spin(@hue-1, 180);
-@hue-8: spin(@hue-1, 210);
-@hue-9: spin(@hue-1, 240);
-@hue-10: spin(@hue-1, 270);
-@hue-11: spin(@hue-1, 300);
-@hue-12: spin(@hue-1, 330);
+@hue-0: spin(@primary-color, -(hue(@primary-color)));
+@hue-10: spin(@hue-0, 10);
+@hue-20: spin(@hue-0, 20);
+@hue-30: spin(@hue-0, 30);
+@hue-40: spin(@hue-0, 40);
+@hue-50: spin(@hue-0, 50);
+@hue-60: spin(@hue-0, 60);
+@hue-90: spin(@hue-0, 90);
+@hue-120: spin(@hue-0, 120);
+@hue-150: spin(@hue-0, 150);
+@hue-180: spin(@hue-0, 180);
+@hue-210: spin(@hue-0, 210);
+@hue-240: spin(@hue-0, 240);
+@hue-270: spin(@hue-0, 270);
+@hue-300: spin(@hue-0, 300);
+@hue-330: spin(@hue-0, 330);
 
-@red: mix(@primary-color, @hue-1, 2%);
-@orange: mix(@primary-color, @hue-2, 2%);
-@yellow: mix(@primary-color, @hue-3, 2%);
-@green: mix(@primary-color, @hue-5, 2%);
-@cyan: mix(@primary-color, @hue-7, 2%);
-@blue: mix(@primary-color, @hue-9, 2%);
-@purple: mix(@primary-color, @hue-10, 2%);
-@pink: mix(@primary-color, @hue-12, 2%);
+@red: @hue-0;
+@orange: @hue-30;
+@yellow: @hue-60;
+@green: @hue-120;
+@cyan: @hue-180;
+@azure: @hue-210;
+@purple: @hue-270;
+@pink: @hue-330;
 
 .common() {
 	--primary: @primary-color;
@@ -39,7 +43,7 @@
 	.shades(~"yellow", @yellow);
 	.shades(~"green", @green);
 	.shades(~"cyan", @cyan);
-	.shades(~"blue", @blue);
+	.shades(~"azure", @azure);
 	.shades(~"purple", @purple);
 	.shades(~"pink", @pink);
 }
