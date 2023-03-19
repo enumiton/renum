@@ -1,12 +1,14 @@
 import type { Locale } from './interface';
 
-const locale: Locale = {
+export default {
 	locale: 'en-NL',
 	close: 'Sluiten',
 	dialog: {
 		primaryButtonText: 'Ok',
 		cancelButtonText: 'Annuleren',
 	},
-};
-
-export default locale;
+	rate: {
+		star: 'ster',
+		stars: 'sterren',
+	},
+} satisfies Locale;

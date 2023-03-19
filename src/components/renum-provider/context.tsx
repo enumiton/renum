@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react';
-import locale from '../../locale/en-us';
+import DEFAULT_TRANSLATIONS from '../../locale/en-us';
 import type { RenumConfig } from './interface';
 
 const defaultConfig: RenumConfig = {
-	locale,
+	locale: DEFAULT_TRANSLATIONS,
 	getPrefixCls: function () {
-		throw Error('No context found');
+		throw Error('[Renum/Provider]: missing context');
 	},
 };
 
