@@ -17,12 +17,14 @@
 	font: inherit;
 	transition: @transition-easing @transition-speed-medium;
 	transition-property: background-color, border-color;
+	cursor: pointer;
+	z-index: 1;
 
 	&::before {
 		content: "";
 		position: absolute;
 		inset-block: @switch-padding;
-		inset-inline: 0;
+		.handle-position(start, end);
 		display: block;
 		min-width: @switch-handle-size;
 		background-color: var(--switch-handle-bg);
@@ -32,7 +34,13 @@
 		transition-property: inset, width, background-color;
 	}
 
-	&[aria-checked="true"] {
+	&:active:not(:is([disabled], [aria-disabled="true"], :disabled)) {
+		&::before {
+			.handle-position-active(start, end);
+		}
+	}
+
+	&:checked {
 		background-color: var(--switch-bg-checked);
 		border-color: var(--switch-bg-checked);
 
@@ -47,22 +55,12 @@
 		}
 	}
 
-	&[aria-checked="false"] {
-		&::before {
-			.handle-position(start, end);
-		}
-
-		&:active:not(:is([disabled], [aria-disabled="true"], :disabled)) {
-			&::before {
-				.handle-position-active(start, end);
-			}
-		}
-	}
-
 	&:is([disabled], [aria-disabled="true"], :disabled) {
+		background-color: var(--switch-bg-disabled);
+		border-color: var(--switch-bg-disabled);
 		cursor: not-allowed;
 
-		&[aria-checked="true"] {
+		&:checked {
 			background-color: var(--switch-bg-checked-disabled);
 			border-color: var(--switch-bg-checked-disabled);
 		}

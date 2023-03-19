@@ -1,13 +1,13 @@
-import type { MouseEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import type { SwitchProps } from './interface';
 import { useRenumProvider } from '../renum-provider';
-import { $ } from '../../utils';
+import { $, isHTMLInputElement } from '../../utils';
 
 /**
  * @note Provide the switch with a label through `aria-label` or `aria-labelledby`
  */
-const Switch = forwardRef<HTMLButtonElement, SwitchProps>(function Switch(props, ref) {
+const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(props, ref) {
 	const {
 		defaultValue,
 		value: _value,
@@ -21,40 +21,37 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(function Switch(props,
 
 	const [value, setValue] = useState(Boolean(defaultValue));
 
-	function toggle() {
-		if (!disabled) {
-			setValue(function (prev) {
-				return !prev;
-			});
+	function handleChange(e: ChangeEvent<HTMLInputElement>) {
+		const target = e.target;
+
+		if (!isHTMLInputElement(target) || disabled) {
+			return;
 		}
-	}
 
-	function handleClick(e: MouseEvent<HTMLButtonElement>) {
-		toggle();
+		const next = target.checked;
 
-		rest?.onClick?.(e);
+		setValue(next);
+
+		onChange?.(next, e);
 	}
 
 	useEffect(function () {
-		if (_value !== undefined) {
+		if (_value !== undefined && _value !== value) {
 			setValue(Boolean(_value));
 		}
 	}, [_value]);
 
-	useEffect(function () {
-		onChange?.(value);
-	}, [value]);
-
 	return (
-		<button
-			tabIndex={ 0 }
+		<input
 			{ ...rest }
-			type="button"
+			type="checkbox"
 			role="switch"
+			checked={ value }
 			aria-checked={ value }
+			disabled={ disabled }
 			aria-disabled={ disabled }
 			className={ $(prefixCls, rest.className) }
-			onClick={ handleClick }
+			onChange={ handleChange }
 			ref={ ref }
 		/>
 	);

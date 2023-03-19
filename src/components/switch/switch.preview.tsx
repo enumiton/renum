@@ -11,9 +11,9 @@ function Simple() {
 
 	return (
 		<div>
-			<label id={ id }>Kitchen lights</label>
+			<label htmlFor={ id }>Kitchen lights</label>
 			<br />
-			<Switch aria-labelledby={ id } />
+			<Switch id={ id } />
 		</div>
 	);
 }
