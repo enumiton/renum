@@ -52,6 +52,9 @@ export type {
 export { Radio } from './components/radio';
 export type { RadioProps } from './components/radio';
 
+export { Rate } from './components/rate';
+export type { RateProps } from './components/rate';
+
 export { Select } from './components/select';
 export type { SelectProps, SelectValue } from './components/select';
 
