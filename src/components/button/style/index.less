@@ -51,11 +51,6 @@
 		transform: translateZ(0);
 	}
 
-	&-inner {
-		font-size: inherit;
-		color: inherit;
-	}
-
 	&-icon-only {
 		min-width: 0;
 		width: @btn-height;
@@ -134,6 +129,22 @@
 
 	&-text {
 		background-color: transparent;
+		border-color: transparent;
+
+		&:hover,
+		&:focus {
+			background-color: var(--transparent-hover);
+			border-color: transparent;
+		}
+
+		&:active {
+			background-color: var(--transparent-active);
+			border-color: transparent;
+		}
+	}
+
+	&-light {
+		background-color: var(--transparent);
 		border-color: transparent;
 
 		&:hover,

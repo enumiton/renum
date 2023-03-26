@@ -1,7 +1,7 @@
 import type { ForwardRefExoticComponent, MouseEvent, RefAttributes } from 'react';
 import { forwardRef } from 'react';
 import type { ButtonProps } from './interface';
-import { $ } from '../../utils';
+import { $, isNonNullable } from '../../utils';
 import { useRenumProvider } from '../renum-provider';
 import { Loading } from '../loading';
 import { Group } from './group';
@@ -55,9 +55,7 @@ const Button: Button = forwardRef<HTMLButtonElement, ButtonProps>(function Butto
 			ref={ ref }
 		>
 			{ loading ? <Loading active /> : icon }
-			{ (!!props.children) ? (
-				<span className={ prefixCls + '-inner' }>{ props.children }</span>
-			) : null }
+			{ isNonNullable(props.children) ? props.children : null }
 			{ suffix }
 		</button>
 	);

@@ -20,6 +20,7 @@ function Types() {
 			<Button type="complementary">Complementary</Button>
 			<Button type="link">Link</Button>
 			<Button type="text">Text</Button>
+			<Button type="light">Light</Button>
 			<Button type="border">Border</Button>
 			<Button type="border-primary">Border primary</Button>
 			<Button dashed>Dashed border</Button>

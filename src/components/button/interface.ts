@@ -2,7 +2,16 @@ import type { ButtonHTMLAttributes, HTMLAttributes, ReactElement } from 'react';
 
 type Base = ButtonHTMLAttributes<HTMLButtonElement>;
 
-type ButtonType = 'default' | 'primary' | 'muted' | 'complementary' | 'link' | 'text' | 'border' | 'border-primary';
+type ButtonType =
+	'default'
+	| 'primary'
+	| 'muted'
+	| 'complementary'
+	| 'link'
+	| 'text'
+	| 'light'
+	| 'border'
+	| 'border-primary';
 
 type ButtonShape = 'default' | 'round' | 'pill' | 'circle';
 
