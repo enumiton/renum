@@ -25,7 +25,7 @@ function DialogFooter(props: DialogFooterProps) {
 				<Button key="confirm" type="primary" onClick={ onConfirm }>
 					{ locale.dialog.primaryButtonText }
 				</Button>,
-				<Button key="cancel" type="text" onClick={ onCancel }>
+				<Button key="cancel" type="light" onClick={ onCancel }>
 					{ locale.dialog.cancelButtonText }
 				</Button>,
 			]) : children }

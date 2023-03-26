@@ -78,7 +78,7 @@ function Actions() {
 					<Button key="report" type="primary">
 						Report issue
 					</Button>,
-					<Button key="reload" type="text">
+					<Button key="reload" type="light">
 						Reload page
 					</Button>,
 				] }
