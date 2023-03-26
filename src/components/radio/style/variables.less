@@ -2,10 +2,12 @@
 
 @radio-prefix: ~"@{renum-prefix}-radio";
 
-@radio-size: 1.125em;
+@radio-size: @font-size-large;
+@radio-gap: (unit(@line-height, em) / 3);
 @radio-border-radius: @border-radius-circle;
 @radio-border-width: @border-width-medium;
 @radio-border-width-active: 0.375em;
 @radio-border-width-focus: @border-width-large;
 
-@radio-label-padding-x: 0.5em;
+@radio-label-padding-block: 0.375em;
+@radio-label-padding-inline: 0.5em;

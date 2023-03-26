@@ -50,13 +50,13 @@ function HelpText() {
 			<div style={ { display: 'flex', flexDirection: 'column' } }>
 				<Radio name="help" value={ 1 }>
 					Option 1
-
-					<p style={ { color: 'var(--text-muted)', marginBlockStart: '0.5em' } }>More detailed value</p>
+					<br />
+					<span style={ { color: 'var(--text-muted)' } }>More detailed value</span>
 				</Radio>
 				<Radio name="help" value={ 2 }>
 					Option 2
-
-					<p style={ { color: 'var(--text-muted)', marginBlockStart: '0.5em' } }>More detailed value</p>
+					<br />
+					<span style={ { color: 'var(--text-muted)' } }>More detailed value</span>
 				</Radio>
 			</div>
 		</div>
