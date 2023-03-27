@@ -59,6 +59,7 @@ const Item = forwardRef<HTMLDivElement, AccordionItemProps>(function AccordionIt
 				style: titleStyle,
 				children: (
 					<button
+						type="button"
 						onClick={ handleClick }
 						aria-expanded={ open }
 						aria-controls={ regionId }
