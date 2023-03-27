@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.9.0
+
+- Added `Accordion` component
+- Fix tooltip portal having no `z-index`
+- Minor refactor `Radio` & `Checkbox`
+- Add button type `light`
+- Normalize
+  - Give `[hidden]` style `!important` in normalize
+  - remove `-webkit-tap-highlight-color`
+
 ## v0.8.1
 
 - 🤦‍♂️ export `Rate` component 🤦‍
