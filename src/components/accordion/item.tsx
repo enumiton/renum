@@ -55,7 +55,7 @@ const Item = forwardRef<HTMLDivElement, AccordionItemProps>(function AccordionIt
 		>
 			{ createElement(heading, {
 				id,
-				className: $(`${ prefixCls }-title`, titleClassName),
+				className: $(`${ prefixCls }-heading`, titleClassName),
 				style: titleStyle,
 				children: (
 					<button
@@ -70,7 +70,7 @@ const Item = forwardRef<HTMLDivElement, AccordionItemProps>(function AccordionIt
 						ref={ buttonRef }
 					>
 						{ icon }
-						<span className={ `${ prefixCls }-text` }>
+						<span className={ `${ prefixCls }-title` }>
 							{ title }
 						</span>
 						<ChevronDown className={ `${ prefixCls }-icon` } />
