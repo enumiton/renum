@@ -4,7 +4,7 @@
 @black: #000000;
 
 @mix-percentage: 2%;
-@mix-colors: true;
+@mix-colors: false;
 
 .grays(@base: @black) {
 	@min: 0;
@@ -16,7 +16,7 @@
 		@v: (@value / @max) * 100%;
 		@percentage: if(@is-dark, (100% - @v), @v);
 
-		--gray-@{value}: mix(@primary-color, hsl(0, 0%, @percentage), @mix-percentage);
+		--gray-@{value}: if(@mix-colors, mix(@primary-color, hsl(0, 0%, @percentage), @mix-percentage), rgb(hsl(0, 0%, @percentage)));
 	})
 }
 
