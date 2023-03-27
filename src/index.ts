@@ -1,3 +1,6 @@
+export { Accordion } from './components/accordion';
+export type { AccordionProps, AccordionItemProps, Headings } from './components/accordion';
+
 export { Alert } from './components/alert';
 export type { AlertProps } from './components/alert';
 

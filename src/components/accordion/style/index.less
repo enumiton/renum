@@ -1,0 +1,124 @@
+@import (reference) "./variables.less";
+
+.@{accordion-prefix} {
+	display: block;
+
+	&-item {
+		display: block;
+		margin-block-start: calc(@border-width-medium * -1);
+		background: var(--bg-default);
+		border: @border-width-base @border-style var(--border-default);
+		border-radius: 0;
+
+		&:first-child {
+			border-start-start-radius: @border-radius-large;
+			border-start-end-radius: @border-radius-large;
+			margin-block-start: 0;
+		}
+
+		&:last-child {
+			border-end-start-radius: @border-radius-large;
+			border-end-end-radius: @border-radius-large;
+		}
+	}
+
+	&-title {
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding-block: 0;
+		padding-inline: 0;
+		margin-block: 0;
+		margin-inline: 0;
+		border-radius: inherit;
+		font-size: @font-size-medium;
+		font-weight: @font-weight-normal;
+	}
+
+	& .@{icon-prefix} {
+		font-size: @font-size-extraLarge;
+	}
+
+	&-icon {
+		margin-inline-start: auto;
+		transition: transform @transition-speed-medium @transition-easing;
+		transform: translateZ(0) rotateX(0deg);
+	}
+
+	&-button {
+		.appearance();
+		.touch-action();
+		.user-select();
+		.outline();
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.375em;
+		width: 100%;
+		height: 100%;
+		padding-block: @padding-small;
+		padding-inline: @padding-medium;
+		margin: 0;
+		background-color: var(--bg-default);
+		border: 0;
+		border-radius: inherit;
+		font: inherit;
+		font-size: @font-size-medium;
+		font-weight: @font-weight-medium;
+		color: var(--text-default);
+		transition: @transition-speed-fast @transition-easing;
+		transition-property: background-color, color, outline;
+
+		&:hover,
+		&:focus {
+			background-color: var(--transparent);
+		}
+
+		&:active {
+			background-color: var(--transparent-hover);
+		}
+
+		&[aria-expanded="true"] {
+			background-color: var(--btn-bg-muted);
+			border-block-end: @border-width-base @border-style var(--border-default);
+			border-end-start-radius: 0;
+			border-end-end-radius: 0;
+			color: var(--btn-color-muted);
+
+			&:hover,
+			&:focus {
+				background-color: var(--btn-bg-muted-hover);
+			}
+
+			&:active {
+				background-color: var(--btn-bg-muted-active);
+			}
+
+			& .@{accordion-prefix}-icon {
+				transform: translateZ(0) rotateX(180deg);
+			}
+		}
+
+		&:disabled {
+			background-color: var(--btn-bg-disabled);
+			color: var(--btn-color-disabled);
+			cursor: not-allowed;
+		}
+	}
+
+	&-text {
+		font-size: @font-size-large;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+	&-region {
+		display: block;
+		padding-block: @padding-small;
+		padding-inline: @padding-medium;
+		border-radius: inherit;
+		overflow: hidden;
+	}
+}

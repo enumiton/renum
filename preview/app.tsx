@@ -16,6 +16,7 @@ import '../src/styles/renum.less';
 const EXTERNAL_ICON = <ExternalLink />;
 
 const COMPONENTS = [
+	'accordion',
 	'alert',
 	'button',
 	'checkbox',
