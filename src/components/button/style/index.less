@@ -26,13 +26,13 @@
 	font-feature-settings: inherit;
 	font-size: @font-size-medium;
 	color: var(--btn-color);
-	font-weight: @font-weight-medium;
+	font-weight: @font-weight-semiBold;
 	text-align: left;
 	white-space: nowrap;
 	vertical-align: inherit;
 	cursor: pointer;
 	transition: @transition-speed-fast @transition-easing;
-	transition-property: color, background-color, border;
+	transition-property: outline, color, background-color, border, transform;
 	z-index: 1;
 
 	&:hover,
@@ -112,6 +112,7 @@
 		background-color: transparent;
 		border-color: transparent;
 		color: var(--primary);
+		text-decoration: underline;
 
 		&:hover,
 		&:focus {
@@ -248,7 +249,7 @@
 		&:focus,
 		&:active {
 			background-color: var(--btn-bg-disabled);
-			border-color: var(--btn-bg-disabled);
+			border-color: var(--btn-border-disabled);
 			color: var(--btn-color-disabled);
 			cursor: not-allowed;
 		}

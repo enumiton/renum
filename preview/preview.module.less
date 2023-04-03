@@ -115,8 +115,13 @@ body {
 				display: block;
 				padding: @padding-small;
 
-				&:hover {
-					background-color: var(--bg-subtle);
+				&:hover,
+				&:focus {
+					background-color: var(--transparent);
+				}
+
+				&:active {
+					background-color: var(--transparent-hover);
 				}
 			}
 		}

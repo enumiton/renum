@@ -7,8 +7,8 @@
 	min-width: inherit;
 	padding: @padding-extraTiny;
 	margin: 0;
-	background-color: var(--listbox-bg);
-	border: @border-width-base @border-style var(--listbox-border);
+	background-color: var(--input-bg);
+	border: @border-width-base @border-style var(--input-border);
 	border-radius: @listbox-border-radius;
 	font-size: @font-size-medium;
 	overflow-y: auto;
@@ -20,7 +20,7 @@
 	list-style: none;
 
 	&:focus {
-		border-color: var(--listbox-border-focus);
+		border-color: var(--input-border-active);
 		box-shadow: @input-shadow-focus;
 	}
 
@@ -65,7 +65,7 @@
 			display: block;
 			width: 100%;
 			height: @border-width-medium;
-			background-color: var(--border-subtle);
+			background-color: var(--border-secondary);
 		}
 
 		&-label {
@@ -88,7 +88,7 @@
 		padding-inline: @input-padding-inline;
 		margin-block: (@margin-extraTiny / 2);
 		background-color: transparent;
-		color: var(--listbox-color);
+		color: var(--input-color);
 		font-size: @font-size-medium;
 		white-space: nowrap;
 		overflow: hidden;
@@ -109,12 +109,13 @@
 		transition: @transition-speed-fast @transition-easing;
 		transition-property: color, background-color;
 
-		&:hover {
-			background-color: var(--listbox-bg-option-hover);
+		&:hover,
+		&:focus {
+			background-color: var(--transparent-hover);
 		}
 
 		&:active {
-			background-color: var(--listbox-bg-option-active);
+			background-color: var(--transparent-active);
 		}
 
 		&.focused {
@@ -122,17 +123,18 @@
 		}
 
 		&[aria-selected="true"] {
-			background-color: var(--listbox-bg-option-selected);
-			color: var(--listbox-color-selected);
+			background-color: var(--primary-muted);
+			color: var(--primary-muted-color);
 
-			&:hover {
-				background-color: var(--listbox-bg-option-selected-hover);
-				color: var(--listbox-color-selected);
+			&:hover,
+			&:focus {
+				background-color: var(--primary-muted-hover);
+				color: var(--primary-muted-color);
 			}
 
 			&:active {
-				background-color: var(--listbox-bg-option-selected-active);
-				color: var(--listbox-color-selected);
+				background-color: var(--primary-muted-active);
+				color: var(--primary-muted-color);
 			}
 		}
 
@@ -142,7 +144,7 @@
 			&:focus,
 			&:active {
 				background-color: transparent;
-				color: var(--text-disabled);
+				color: var(--input-color-disabled);
 				cursor: not-allowed;
 			}
 		}

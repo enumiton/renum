@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import styles from './normalize.module.less';
 
 const headings = new Array(6).fill(null).map(function (_, i) {
-	return createElement('h' + ++i, { role: 'presentation', children: 'Heading h' + i });
+	return createElement('h' + ++i, { key: i, role: 'presentation', children: 'Heading h' + i });
 });
 
 function Normalize() {

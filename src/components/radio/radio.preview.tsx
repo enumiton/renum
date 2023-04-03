@@ -51,12 +51,12 @@ function HelpText() {
 				<Radio name="help" value={ 1 }>
 					Option 1
 					<br />
-					<span style={ { color: 'var(--text-muted)' } }>More detailed value</span>
+					<span style={ { color: 'var(--text-secondary)' } }>More detailed value</span>
 				</Radio>
 				<Radio name="help" value={ 2 }>
 					Option 2
 					<br />
-					<span style={ { color: 'var(--text-muted)' } }>More detailed value</span>
+					<span style={ { color: 'var(--text-secondary)' } }>More detailed value</span>
 				</Radio>
 			</div>
 		</div>

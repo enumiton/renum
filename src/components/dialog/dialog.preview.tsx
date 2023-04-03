@@ -117,24 +117,38 @@ function Simple() {
 					id={ id }
 					ref={ form }
 					method="dialog"
-					style={ { display: 'flex', flexDirection: 'column', gap: '1em' } }
 				>
-					<label>
-						<p>Username</p>
-						<Input name="username" autoComplete="username" required />
-					</label>
-					<label>
-						<p>E-mail</p>
-						<Input name="email" type="email" autoComplete="email" required />
-					</label>
-					<label>
-						<p>Password</p>
-						<Input name="password" type="password" autoComplete="new-password" required />
-					</label>
-					<label>
-						<p>Confirm password</p>
-						<Input name="password-confirm" type="password" autoComplete="new-password" required />
-					</label>
+					<label htmlFor="username">Username</label>
+					<Input
+						name="username"
+						id="username"
+						autoComplete="username"
+						required
+					/>
+					<label htmlFor="email">E-mail</label>
+					<Input
+						name="email"
+						id="email"
+						type="email"
+						autoComplete="email"
+						required
+					/>
+					<label htmlFor="password">Password</label>
+					<Input
+						name="password"
+						id="password"
+						type="password"
+						autoComplete="new-password"
+						required
+					/>
+					<label htmlFor="password-confirm">Confirm password</label>
+					<Input
+						name="password-confirm"
+						id="password-confirm"
+						type="password"
+						autoComplete="new-password"
+						required
+					/>
 				</form>
 			</Dialog.Modal>
 			<Dialog.Confirm

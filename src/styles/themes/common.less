@@ -1,7 +1,4 @@
 @import (reference) "./func.less";
-@import (reference) "../variables/shadow.less";
-
-@complementary-color: spin(@primary-color, 180);
 
 @hue-0: spin(@primary-color, -(hue(@primary-color)));
 @hue-10: spin(@hue-0, 10);
@@ -30,14 +27,6 @@
 @pink: @hue-330;
 
 .common() {
-	--primary: @primary-color;
-	--primary-contrast: contrast(@primary-color);
-	.shades(~"primary", @primary-color, false);
-
-	--complementary: @complementary-color;
-	--complementary-contrast: contrast(@complementary-color);
-	.shades(~"complementary", @complementary-color, false);
-
 	.shades(~"red", @red);
 	.shades(~"orange", @orange);
 	.shades(~"yellow", @yellow);
@@ -46,4 +35,58 @@
 	.shades(~"azure", @azure);
 	.shades(~"purple", @purple);
 	.shades(~"pink", @pink);
+
+	// btn
+	--btn-color: var(--text-default);
+	--btn-color-primary: var(--primary-contrast);
+	--btn-color-complementary: var(--complementary-contrast);
+	--btn-color-muted: var(--primary-muted-color);
+	--btn-color-text: var(--text-emphasis);
+	--btn-color-disabled: var(--text-disabled);
+
+	--btn-bg-disabled: var(--bg-disabled);
+
+	--btn-bg-primary: var(--primary);
+	--btn-bg-primary-hover: var(--primary-hover);
+	--btn-bg-primary-active: var(--primary-active);
+
+	--btn-bg-complementary: var(--complementary);
+	--btn-bg-complementary-hover: var(--complementary-hover);
+	--btn-bg-complementary-active: var(--complementary-active);
+
+	--btn-bg-muted: var(--primary-muted);
+	--btn-bg-muted-hover: var(--primary-muted-hover);
+	--btn-bg-muted-active: var(--primary-muted-active);
+
+	--btn-border: var(--border-default);
+	--btn-border-hover: var(--border-hover);
+	--btn-border-active: var(--border-active);
+	--btn-border-disabled: var(--border-disabled);
+
+	// input
+	--input-color: var(--text-default);
+	--input-color-placeholder: var(--text-placeholder);
+	--input-color-disabled: var(--text-disabled);
+
+	--input-bg: var(--bg-default);
+	--input-bg-fix: var(--bg-secondary);
+	--input-bg-disabled: var(--bg-disabled);
+
+	--input-border: var(--border-default);
+	--input-border-hover: var(--border-hover);
+	--input-border-active: var(--primary);
+	--input-border-disabled: var(--border-disabled);
+
+	// alert
+	--alert-color: var(--text-default);
+	--alert-color-primary: var(--primary-muted-color);
+
+	--alert-bg: var(--bg-secondary);
+	--alert-bg-primary: var(--primary-muted);
+
+	--alert-border: var(--border-secondary);
+	--alert-border-primary: var(--primary-muted-hover);
+
+	// clear
+	--clear-bg: var(--gray-18);
 }

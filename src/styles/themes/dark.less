@@ -1,39 +1,49 @@
 @import (reference) "./common.less";
 
 .dark-mode() {
-	--primary-hover: lighten(@primary-color, 5%);
-	--primary-active: lighten(@primary-color, 10%);
-	--primary-muted: rgba(@primary-color, 0.2);
-	--primary-muted-hover: rgba(@primary-color, 0.3);
-	--primary-muted-active: rgba(@primary-color, 0.4);
+	--primary: @primary-dark;
+	--primary-contrast: contrast(@primary-dark);
+	--primary-hover: lighten(@primary-dark, 5%);
+	--primary-active: lighten(@primary-dark, 10%);
+	--primary-muted: rgba(@primary-dark, 0.2);
+	--primary-muted-color: var(--primary-100);
+	--primary-muted-hover: rgba(@primary-dark, 0.3);
+	--primary-muted-active: rgba(@primary-dark, 0.4);
+	.shades(~"primary", @primary-dark, false);
 
-	--complementary-hover: lighten(@complementary-color, 5%);
-	--complementary-active: lighten(@complementary-color, 10%);
+	--complementary: @complementary-dark;
+	--complementary-contrast: contrast(@complementary-dark);
+	--complementary-hover: lighten(@complementary-dark, 5%);
+	--complementary-active: lighten(@complementary-dark, 10%);
+	.shades(~"complementary", @complementary-dark, false);
 
 	.grays(@white);
 
 	// body
-	--bg-inset: var(--gray-0);
-	--bg-subtle: var(--gray-1);
-	--bg-default: var(--gray-2);
-	--bg-overlay: var(--gray-3);
+	--bg-default: var(--gray-5);
+	--bg-secondary: var(--gray-6);
+	--bg-inset: var(--gray-4);
+	--bg-overlay: var(--gray-8);
+	--bg-disabled: var(--gray-5);
 
 	// text
-	--text-default: var(--gray-23);
+	--text-default: var(--gray-22);
 	--text-emphasis: var(--gray-24);
-	--text-subtle: var(--gray-19);
-	--text-muted: var(--gray-16);
-	--text-disabled: var(--gray-14);
+	--text-secondary: var(--gray-19);
+	--text-placeholder: var(--gray-19);
+	--text-disabled: var(--gray-20);
 	--text-inverse: var(--gray-1);
-	--text-placeholder: var(--gray-16);
 
 	// border
-	--border-default: var(--gray-8);
-	--border-muted: var(--gray-6);
-	--border-subtle: var(--gray-4);
+	--border-default: var(--gray-11);
+	--border-secondary: var(--gray-8);
+	--border-muted: var(--gray-8);
+	--border-hover: var(--gray-16);
+	--border-active: var(--gray-18);
+	--border-disabled: var(--gray-10);
 
 	// shadow
-	--shadow-color: rgba(@black, 0.5);
+	--shadow-color: rgba(@black, 0.25);
 
 	// tooltip
 	--tooltip-color: var(--text-inverse);
@@ -42,93 +52,32 @@
 	// hover
 	--transparent: rgba(@white, 0.05);
 	--transparent-hover: rgba(@white, 0.1);
-	--transparent-active: rgba(@white, 0.2);
+	--transparent-active: rgba(@white, 0.15);
 
 	// btn
-	--btn-color: var(--text-default);
-	--btn-color-primary: var(--primary-contrast);
-	--btn-color-complementary: var(--complementary-contrast);
-	--btn-color-muted: var(--primary-200);
-	--btn-color-text: var(--gray-24);
-	--btn-color-disabled: var(--gray-14);
-
-	--btn-bg: var(--gray-4);
-	--btn-bg-hover: var(--gray-5);
-	--btn-bg-active: var(--gray-6);
-
-	--btn-bg-primary: var(--primary);
-	--btn-bg-primary-hover: var(--primary-hover);
-	--btn-bg-primary-active: var(--primary-active);
-
-	--btn-bg-complementary: var(--complementary);
-	--btn-bg-complementary-hover: var(--complementary-hover);
-	--btn-bg-complementary-active: var(--complementary-active);
-
-	--btn-bg-muted: var(--primary-muted);
-	--btn-bg-muted-hover: var(--primary-muted-hover);
-	--btn-bg-muted-active: var(--primary-muted-active);
-	--btn-bg-disabled: var(--gray-3);
-
-	--btn-border: var(--gray-8);
-	--btn-border-hover: var(--gray-14);
-	--btn-border-active: var(--gray-16);
-
-	// input
-	--input-color: var(--text-default);
-	--input-color-placeholder: var(--text-muted);
-	--input-color-disabled: var(--gray-14);
-
-	--input-bg: var(--bg-inset);
-	--input-bg-fix: var(--bg-subtle);
-	--input-bg-disabled: var(--gray-1);
-
-	--input-border: var(--gray-8);
-	--input-border-hover: var(--gray-14);
-	--input-border-active: var(--primary);
-	--input-border-disabled: var(--gray-4);
-
-	// listbox
-	--listbox-color: var(--text-default);
-	--listbox-color-selected: var(--primary-200);
-
-	--listbox-bg: var(--input-bg);
-	--listbox-bg-option-hover: var(--transparent-hover);
-	--listbox-bg-option-active: var(--transparent-active);
-	--listbox-bg-option-selected: var(--primary-muted);
-	--listbox-bg-option-selected-hover: var(--primary-muted-hover);
-	--listbox-bg-option-selected-active: var(--primary-muted-active);
-
-	--listbox-border: var(--input-border);
-	--listbox-border-focus: var(--primary);
+	--btn-bg: var(--gray-9);
+	--btn-bg-hover: var(--gray-10);
+	--btn-bg-active: var(--gray-11);
 
 	// alert
-	--alert-color: var(--text-default);
-	--alert-color-primary: var(--primary-100);
 	--alert-color-info: var(--azure-100);
 	--alert-color-success: var(--green-100);
 	--alert-color-danger: var(--yellow-100);
 	--alert-color-error: var(--red-100);
 
-	--alert-bg: var(--bg-subtle);
-	--alert-bg-primary: rgba(@primary-color, 0.2);
 	--alert-bg-info: rgba(@azure, 0.2);
 	--alert-bg-success: rgba(@green, 0.2);
 	--alert-bg-danger: rgba(@yellow, 0.2);
 	--alert-bg-error: rgba(@red, 0.2);
 
-	--alert-border: var(--border-subtle);
-	--alert-border-primary: var(--primary-800);
 	--alert-border-info: var(--azure-800);
 	--alert-border-success: var(--green-800);
 	--alert-border-danger: var(--yellow-800);
 	--alert-border-error: var(--red-800);
 
-	// clear
-	--clear-bg: var(--gray-14);
-
 	// switch
-	--switch-bg: var(--gray-8);
-	--switch-bg-disabled: var(--gray-6);
+	--switch-bg: var(--gray-14);
+	--switch-bg-disabled: var(--gray-10);
 	--switch-bg-checked: var(--primary);
 	--switch-bg-checked-disabled: var(--primary-700);
 
@@ -137,6 +86,6 @@
 	--switch-handle-bg-disabled: var(--text-disabled);
 
 	// rate
-	--rate-placeholder: var(--gray-10);
+	--rate-placeholder: var(--gray-16);
 	--rate-star: lighten(@hue-50, 5%);
 }

@@ -1,10 +1,18 @@
 @primary-color: #0c72cc;
+@primary-dark: #45a8ff;
+@primary-light: @primary-color;
+
+@complementary-color: spin(@primary-color, 180);
+@complementary-dark: spin(@primary-dark, 180);
+@complementary-light: spin(@primary-light, 180);
+
+@adjust-primary-for-contrast: true;
 
 @white: #ffffff;
 @black: #000000;
 
 @mix-percentage: 2%;
-@mix-colors: false;
+@mix-colors: true;
 
 .grays(@base: @black) {
 	@min: 0;
@@ -12,11 +20,17 @@
 
 	@is-dark: boolean(lightness(@base) < 50%);
 
+	.multi(@i) {
+		@p1: min(max((@i / @max), 0), 1);
+		@p2: (@i / @max * 100);
+		@result: unit(@p2 * @p1, %);
+	}
+
 	each(range(@min, @max, 1), {
-		@v: (@value / @max) * 100%;
+		@v: .multi(@value)[@result];
 		@percentage: if(@is-dark, (100% - @v), @v);
 
-		--gray-@{value}: if(@mix-colors, mix(@primary-color, hsl(0, 0%, @percentage), @mix-percentage), rgb(hsl(0, 0%, @percentage)));
+		--gray-@{value}: if(@mix-colors, mix(@primary-color, hsl(0, 0%, @percentage), @mix-percentage), color(hsl(0, 0%, @percentage)));
 	})
 }
 

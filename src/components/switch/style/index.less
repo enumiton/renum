@@ -16,7 +16,7 @@
 	border-radius: @switch-border-radius;
 	font: inherit;
 	transition: @transition-easing @transition-speed-medium;
-	transition-property: background-color, border-color;
+	transition-property: outline, background-color, border-color;
 	cursor: pointer;
 	z-index: 1;
 
@@ -29,7 +29,7 @@
 		min-width: @switch-handle-size;
 		background-color: var(--switch-handle-bg);
 		border-radius: @border-radius-pill;
-		box-shadow: @shadow-small, @shadow-medium;
+		box-shadow: @shadow-small, @shadow-large;
 		transition: @transition-easing @transition-speed-medium;
 		transition-property: inset, width, background-color;
 	}
@@ -37,6 +37,7 @@
 	&:active:not(:is([disabled], [aria-disabled="true"], :disabled)) {
 		&::before {
 			.handle-position-active(start, end);
+			transition-delay: @transition-speed-medium;
 		}
 	}
 

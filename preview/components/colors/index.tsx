@@ -1,7 +1,7 @@
 import { capitalize } from '../../utils';
 import styles from './colors.module.less';
 
-const COLORS = ['primary', 'complementary', 'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple', 'pink', 'gray'];
+const COLORS = ['primary', 'complementary', 'red', 'orange', 'yellow', 'green', 'cyan', 'azure', 'purple', 'pink', 'gray'];
 
 function Color({ color }: { readonly color: string }) {
 	const gray = (color === 'gray');

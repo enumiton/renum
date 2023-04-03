@@ -11,7 +11,7 @@ import { default as ExternalLink } from '../src/icons/ExternalLink';
 import { Example } from './components/example';
 import { Colors } from './components/colors';
 import { capitalize } from './utils';
-import '../src/styles/renum.less';
+import './app.less';
 
 const EXTERNAL_ICON = <ExternalLink />;
 
