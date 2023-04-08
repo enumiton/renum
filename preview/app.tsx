@@ -19,6 +19,7 @@ const COMPONENTS = [
 	'accordion',
 	'alert',
 	'button',
+	'calendar',
 	'checkbox',
 	'dialog',
 	'input',

@@ -7,6 +7,26 @@ export type { AlertProps } from './components/alert';
 export { Button } from './components/button';
 export type { ButtonProps, ButtonType, ButtonShape, ButtonGroupProps } from './components/button';
 
+export {
+	BaseCalendar,
+	Calendar,
+	DayOfWeek,
+	DAYS_IN_WEEK,
+	startOfDay,
+	endOfDay,
+	startOfWeek,
+	endOfWeek,
+	startOfMonth,
+	endOfMonth,
+	addDays,
+	addWeeks,
+	daysInMonth,
+	weeksInMonth,
+	toDateISOString,
+	makeFormatters,
+} from './components/calendar';
+export type { BaseCalendarProps, CalendarProps } from './components/calendar';
+
 export { Checkbox } from './components/checkbox';
 export type { CheckboxProps } from './components/checkbox';
 
