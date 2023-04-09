@@ -65,12 +65,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 				<Button.Group>
 					<Button
 						onClick={ changeDate(-12) }
-						aria-label="Previous month" // @todo translations
+						aria-label={ locale.calendar.prev_year }
 						icon={ DOUBLE_CHEVRON_LEFT_ICON }
 					/>
 					<Button
 						onClick={ changeDate(-1) }
-						aria-label="Previous month" // @todo translations
+						aria-label={ locale.calendar.prev_month }
 						icon={ CHEVRON_LEFT_ICON }
 					/>
 				</Button.Group>
@@ -85,12 +85,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 				<Button.Group>
 					<Button
 						onClick={ changeDate(+1) }
-						aria-label="Next month" // @todo translations
+						aria-label={ locale.calendar.next_month }
 						icon={ CHEVRON_RIGHT_ICON }
 					/>
 					<Button
 						onClick={ changeDate(+12) }
-						aria-label="Next month" // @todo translations
+						aria-label={ locale.calendar.next_year }
 						icon={ DOUBLE_CHEVRON_RIGHT_ICON }
 					/>
 				</Button.Group>
