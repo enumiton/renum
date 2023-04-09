@@ -62,38 +62,42 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 	return (
 		<div className={ $(`${ prefixCls }-wrapper`, className) } style={ style } ref={ ref }>
 			<div className={ `${ prefixCls }-header` }>
-				<Button.Group>
+				<div className={ `${ prefixCls }-header-start` }>
 					<Button
+						type="text"
 						onClick={ changeDate(-12) }
 						aria-label={ locale.calendar.prev_year }
 						icon={ DOUBLE_CHEVRON_LEFT_ICON }
 					/>
 					<Button
+						type="text"
 						onClick={ changeDate(-1) }
 						aria-label={ locale.calendar.prev_month }
 						icon={ CHEVRON_LEFT_ICON }
 					/>
-				</Button.Group>
+				</div>
 				<time
 					id={ id }
-					className={ `${ prefixCls }-title` }
+					className={ `${ prefixCls }-header-title` }
 					dateTime={ `${ date.getFullYear() }-${ date.getMonth() + 1 }` }
 					aria-live="polite"
 				>
 					{ formatters.current.title(date) }
 				</time>
-				<Button.Group>
+				<div className={ `${ prefixCls }-header-end` }>
 					<Button
+						type="text"
 						onClick={ changeDate(+1) }
 						aria-label={ locale.calendar.next_month }
 						icon={ CHEVRON_RIGHT_ICON }
 					/>
 					<Button
+						type="text"
 						onClick={ changeDate(+12) }
 						aria-label={ locale.calendar.next_year }
 						icon={ DOUBLE_CHEVRON_RIGHT_ICON }
 					/>
-				</Button.Group>
+				</div>
 			</div>
 			<BaseCalendar
 				{ ...rest }

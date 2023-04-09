@@ -46,7 +46,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 	const nowDateISO = toDateISOString(new Date());
 	const valueDateISO = value ? toDateISOString(value) : undefined;
 
-	const monthStart = startOfWeek(startOfMonth(date));
+	const monthStart = startOfWeek(addDays(startOfMonth(date), -firstDayOfWeek));
 
 	let dates: Date[][] = [];
 
@@ -157,7 +157,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 									const isOutOfBounds = (day.getMonth() !== date.getMonth());
 
 									if (!showOutOfBoundsDate && isOutOfBounds) {
-										return <td aria-hidden="true" />;
+										return <td key={ j } aria-hidden="true" />;
 									}
 
 									return (

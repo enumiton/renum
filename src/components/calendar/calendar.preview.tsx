@@ -11,6 +11,7 @@ function Simple() {
 		<div>
 			<Calendar
 				firstDayOfWeek={ DayOfWeek.Monday }
+				onChange={ console.log }
 			/>
 		</div>
 	);

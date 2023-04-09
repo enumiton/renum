@@ -84,10 +84,17 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 1em;
-	}
 
-	&-title {
-		font-size: @font-size-large;
-		font-weight: @font-weight-bold;
+		&-title {
+			font-size: @font-size-large;
+			font-weight: @font-weight-bold;
+		}
+
+		&-start,
+		&-end {
+			& button + button {
+				margin-inline-start: 0.25em;
+			}
+		}
 	}
 }
