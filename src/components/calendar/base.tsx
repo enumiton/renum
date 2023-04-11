@@ -1,4 +1,4 @@
-import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import type { BaseCalendarProps } from './interface';
 import {
@@ -13,7 +13,7 @@ import {
 	toDateISOString,
 } from './date';
 import { useRenumProvider } from '../renum-provider';
-import { $, getKey, Key } from '../../utils';
+import { $, elementIsDisabled, getKey, Key } from '../../utils';
 import { useKeyDownListener } from '../../hooks';
 import { flushSync } from 'react-dom';
 
@@ -30,6 +30,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		onDateChange,
 		firstDayOfWeek = DayOfWeek.Sunday,
 		renderCell,
+		cellClassName,
 		showOutOfBoundsDate = false,
 		...rest
 	} = props;
@@ -60,12 +61,18 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		}
 	}
 
-	function setValue(v: Date) {
-		return function () {
-			if (!readonly && !disabled) {
-				$setValue(v);
-				onChange?.(v);
+	function setValue(next: Date) {
+		$setValue(next);
+		onChange?.(next);
+	}
+
+	function handleClick(day: Date) {
+		return function (e: ReactMouseEvent<HTMLTableDataCellElement>) {
+			if (readonly || disabled || elementIsDisabled(e.currentTarget)) {
+				return;
 			}
+
+			setValue(day);
 		};
 	}
 
@@ -73,9 +80,14 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		return function (e: ReactKeyboardEvent<HTMLTableDataCellElement>) {
 			const key = getKey(e.key);
 
-			if (key === Key.Space && !readonly && !disabled) {
-				$setValue(day);
+			if (readonly || disabled || key !== Key.Space || elementIsDisabled(e.currentTarget)) {
+				return;
 			}
+
+			e.stopPropagation();
+			e.preventDefault();
+
+			setValue(day);
 		};
 	}
 
@@ -126,65 +138,64 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 	}, [locale.locale]);
 
 	return (
-		<div>
-			<table
-				{ ...rest }
-				role="grid"
-				className={ $(prefixCls, rest.className) }
-				ref={ ref }
-			>
-				<thead>
-					<tr>
-						{ dates[0]!.map(function (day, i) {
-							return (
-								<th key={ i } scope="col" abbr={ formatters.current.weekdayLong(day) }>
-									{ formatters.current.weekdayShort(day) }
-								</th>
-							);
-						}) }
-					</tr>
-				</thead>
-				<tbody ref={ bodyRef }>
-					{ dates.map(function (week, i) {
-						if (i === (dates.length - 1) && week[0]?.getMonth() !== date.getMonth()) {
-							return null;
-						}
-
+		<table
+			{ ...rest }
+			role="grid"
+			className={ $(prefixCls, rest.className) }
+			ref={ ref }
+		>
+			<thead>
+				<tr>
+					{ dates[0]!.map(function (day, i) {
 						return (
-							<tr key={ i }>
-								{ week.map(function (day, j) {
-									const dayDateISO = toDateISOString(day);
-									const isOutOfBounds = (day.getMonth() !== date.getMonth());
-
-									if (!showOutOfBoundsDate && isOutOfBounds) {
-										return <td key={ j } aria-hidden="true" />;
-									}
-
-									return (
-										<td
-											key={ j }
-											onClick={ setValue(day) }
-											onKeyDown={ handleKeyDown(day) }
-											data-date={ dayDateISO }
-											aria-selected={ (dayDateISO === valueDateISO) }
-											aria-current={ (dayDateISO === nowDateISO) ? 'date' : undefined }
-											aria-disabled={ isOutOfBounds }
-											tabIndex={ (day.getDate() === date.getDate()) ? 0 : -1 }
-										>
-											{ renderCell ? renderCell(day, j) : (
-												<time dateTime={ dayDateISO }>
-													{ day.getDate() }
-												</time>
-											) }
-										</td>
-									);
-								}) }
-							</tr>
+							<th key={ i } scope="col" abbr={ formatters.current.weekdayLong(day) }>
+								{ formatters.current.weekdayShort(day) }
+							</th>
 						);
 					}) }
-				</tbody>
-			</table>
-		</div>
+				</tr>
+			</thead>
+			<tbody ref={ bodyRef }>
+				{ dates.map(function (week, i) {
+					if (i === (dates.length - 1) && week[0]?.getMonth() !== date.getMonth()) {
+						return null;
+					}
+
+					return (
+						<tr key={ i }>
+							{ week.map(function (day, j) {
+								const dayDateISO = toDateISOString(day);
+								const isOutOfBounds = (day.getMonth() !== date.getMonth());
+
+								if (!showOutOfBoundsDate && isOutOfBounds) {
+									return <td key={ j } aria-hidden="true" />;
+								}
+
+								return (
+									<td
+										key={ j }
+										onClick={ handleClick(day) }
+										onKeyDown={ handleKeyDown(day) }
+										data-date={ dayDateISO }
+										aria-selected={ (dayDateISO === valueDateISO) }
+										aria-current={ (dayDateISO === nowDateISO) ? 'date' : undefined }
+										aria-disabled={ isOutOfBounds }
+										tabIndex={ (day.getDate() === date.getDate()) ? 0 : -1 }
+										className={ (typeof cellClassName === 'function') ? cellClassName(day) : cellClassName }
+									>
+										{ renderCell ? renderCell(day) : (
+											<time dateTime={ dayDateISO }>
+												{ day.getDate() }
+											</time>
+										) }
+									</td>
+								);
+							}) }
+						</tr>
+					);
+				}) }
+			</tbody>
+		</table>
 	);
 });
 

@@ -17,6 +17,7 @@ const DOUBLE_CHEVRON_RIGHT_ICON = <DoubleChevronRightIcon />;
 
 const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(props, ref) {
 	const {
+		value,
 		date: _date,
 		tableClassName,
 		className,
@@ -102,6 +103,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 			<BaseCalendar
 				{ ...rest }
 				date={ date }
+				value={ value }
 				className={ tableClassName }
 				aria-labelledby={ id }
 				onChange={ onChange }

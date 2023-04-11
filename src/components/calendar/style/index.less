@@ -32,7 +32,9 @@
 
 		position: relative;
 		height: 3em;
+		background-color: transparent;
 		border-radius: @border-radius-circle;
+		color: inherit;
 		transition: @transition-speed-fast @transition-easing;
 		transition-property: color, background-color, font-size, font-weight;
 		cursor: pointer;
@@ -59,8 +61,14 @@
 		}
 
 		&[aria-disabled="true"] {
-			color: var(--text-disabled);
-			cursor: not-allowed;
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: transparent;
+				color: var(--text-disabled);
+				cursor: not-allowed;
+			}
 		}
 
 		&[aria-selected="true"] {
@@ -70,6 +78,17 @@
 
 			& > time {
 				font-size: @font-size-large;
+			}
+		}
+
+		&[aria-hidden="true"] {
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: transparent;
+				color: inherit;
+				cursor: default;
 			}
 		}
 	}

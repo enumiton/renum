@@ -14,7 +14,8 @@ interface BaseCalendarProps extends Omit<TableHTMLAttributes<HTMLTableElement>, 
 	readonly onDateChange?: ((date: Date) => void) | undefined;
 	/** @default DayOfWeek.Sunday */
 	readonly firstDayOfWeek?: DayOfWeek | undefined;
-	readonly renderCell?: ((date: Date, index: number) => ReactElement) | undefined;
+	readonly renderCell?: ((date: Date) => ReactElement) | undefined;
+	readonly cellClassName?: ((date: Date) => string) | string | undefined;
 	/** @default false */
 	readonly showOutOfBoundsDate?: boolean | undefined;
 }
