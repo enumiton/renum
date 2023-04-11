@@ -36,6 +36,12 @@ function isHTMLDialogElement(value: any): value is HTMLDialogElement {
 	return (value instanceof HTMLDialogElement);
 }
 
+type HasDisabled = { disabled?: boolean };
+
+function elementIsDisabled(element: HTMLElement | (HTMLElement & HasDisabled)): boolean {
+	return ('disabled' in element) ? element.disabled : (element.getAttribute('aria-disabled') === 'true');
+}
+
 export {
 	isNullable,
 	isNonNullable,
@@ -46,5 +52,6 @@ export {
 	isHTMLAnchorElement,
 	isHTMLButtonElement,
 	isHTMLDialogElement,
+	elementIsDisabled,
 };
 

@@ -105,6 +105,7 @@ export {
 	isHTMLAnchorElement,
 	isHTMLButtonElement,
 	isHTMLDialogElement,
+	elementIsDisabled,
 	clamp,
 	nop,
 } from './utils';

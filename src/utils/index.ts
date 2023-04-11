@@ -11,6 +11,7 @@ export {
 	isHTMLAnchorElement,
 	isHTMLButtonElement,
 	isHTMLDialogElement,
+	elementIsDisabled,
 } from './is';
 export { Key, getKey } from './keys';
 export { clamp } from './math';
