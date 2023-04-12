@@ -4,6 +4,7 @@ import { DayOfWeek, toDateISOString } from './date';
 import { Calendar } from './calendar';
 import { isHTMLInputElement } from '../../utils';
 import { Switch } from '../switch';
+import type { CalendarProps } from './interface';
 
 const config = {
 	title: 'calendar',
@@ -11,12 +12,12 @@ const config = {
 };
 
 function Simple() {
-	const [oob, setOob] = useState(false);
+	const [props, setProps] = useState<Partial<CalendarProps>>({ showOutOfBoundsDate: false, readonly: false });
 
 	return (
 		<div>
 			<Calendar
-				showOutOfBoundsDate={ oob }
+				{ ...props }
 				firstDayOfWeek={ DayOfWeek.Monday }
 			/>
 			<fieldset>
@@ -24,7 +25,27 @@ function Simple() {
 				<div>
 					<label>
 						<p>Show out of bounds date</p>
-						<Switch name="show_oob" value={ oob } onChange={ setOob } />
+						<Switch
+							name="show_oob"
+							value={ props.showOutOfBoundsDate }
+							onChange={ (v) => setProps((prev) => ({ ...prev, showOutOfBoundsDate: v })) }
+						/>
+					</label>
+					<label>
+						<p>Readonly</p>
+						<Switch
+							name="readonly"
+							value={ props.readonly }
+							onChange={ (v) => setProps((prev) => ({ ...prev, readonly: v })) }
+						/>
+					</label>
+					<label>
+						<p>Disabled</p>
+						<Switch
+							name="disabled"
+							value={ props.disabled }
+							onChange={ (v) => setProps((prev) => ({ ...prev, disabled: v })) }
+						/>
 					</label>
 				</div>
 			</fieldset>

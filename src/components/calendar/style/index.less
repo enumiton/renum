@@ -58,6 +58,26 @@
 
 		&[aria-current="date"] {
 			color: var(--primary);
+
+			&[aria-readonly="true"],
+			&[aria-disabled="true"] {
+				&,
+				&:hover,
+				&:focus,
+				&:active {
+					color: var(--primary-disabled);
+				}
+			}
+		}
+
+		&[aria-readonly="true"] {
+			&,
+			&:hover,
+			&:focus,
+			&:active {
+				background-color: transparent;
+				cursor: auto;
+			}
 		}
 
 		&[aria-disabled="true"] {
@@ -75,6 +95,27 @@
 			background-color: var(--primary-muted);
 			color: var(--primary-muted-color);
 			font-weight: @font-weight-bold;
+
+			&:hover,
+			&:focus {
+				background-color: var(--primary-muted-hover);
+			}
+
+			&:active {
+				background-color: var(--primary-muted-active);
+			}
+
+			&[aria-readonly="true"],
+			&[aria-disabled="true"] {
+				&,
+				&:hover,
+				&:focus,
+				&:active {
+					background-color: var(--primary-muted);
+					color: var(--primary-muted-color);
+					font-weight: @font-weight-bold;
+				}
+			}
 
 			& > time {
 				font-size: @font-size-large;

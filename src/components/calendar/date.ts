@@ -30,16 +30,13 @@ function endOfDay(date: Date) {
 	return dupe;
 }
 
-function startOfWeek(date: Date) {
-	const dupe = new Date(date);
-	dupe.setDate(date.getDate() - date.getDay());
-
-	return startOfDay(dupe);
+function startOfWeek(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
+	return startOfDay(addDays(date, -(date.getDay() - firstDayOfWeek)));
 }
 
-function endOfWeek(date: Date) {
+function endOfWeek(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
 	const dupe = new Date(date);
-	dupe.setDate(date.getDate() - date.getDay() + DAYS_IN_WEEK);
+	dupe.setDate(date.getDate() - (date.getDay() - firstDayOfWeek) + DAYS_IN_WEEK);
 
 	return endOfDay(dupe);
 }
@@ -72,18 +69,20 @@ function addWeeks(date: Date, amount: number) {
 	return dupe;
 }
 
+function addMonths(date: Date, amount: number) {
+	const dupe = new Date(date);
+	dupe.setMonth(date.getMonth() + amount);
+
+	return dupe;
+}
+
 function daysInMonth(date: Date) {
 	return endOfMonth(date).getDate();
 }
 
-function weeksInMonth(date: Date) {
-	let lower = new Date(date);
-	lower = startOfMonth(lower);
-	lower = startOfWeek(lower);
-
-	let upper = new Date(date);
-	upper = endOfMonth(upper);
-	upper = startOfWeek(upper);
+function weeksInMonth(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
+	const lower = startOfWeek(startOfMonth(new Date(date)), firstDayOfWeek);
+	const upper = startOfWeek(endOfMonth(new Date(date)), firstDayOfWeek);
 
 	return (upper.getTime() - lower.getTime()) / MILLISECONDS_IN_WEEK + 1 | 0;
 }
@@ -124,6 +123,7 @@ export {
 	endOfMonth,
 	addDays,
 	addWeeks,
+	addMonths,
 	daysInMonth,
 	weeksInMonth,
 	toDateISOString,

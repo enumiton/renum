@@ -3,9 +3,11 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import type { BaseCalendarProps } from './interface';
 import {
 	addDays,
+	addMonths,
 	addWeeks,
 	DayOfWeek,
 	DAYS_IN_WEEK,
+	endOfWeek,
 	makeFormatters,
 	startOfDay,
 	startOfMonth,
@@ -13,9 +15,10 @@ import {
 	toDateISOString,
 } from './date';
 import { useRenumProvider } from '../renum-provider';
-import { $, elementIsDisabled, getKey, Key } from '../../utils';
+import { $, elementIsDisabled, getKey, isHTMLElement, Key } from '../../utils';
 import { useKeyDownListener } from '../../hooks';
 import { flushSync } from 'react-dom';
+import { getDateElementByDate, getFocusableDate, resetTabindex } from './helpers';
 
 const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function BaseCalendar(props, ref) {
 	const {
@@ -31,6 +34,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		firstDayOfWeek = DayOfWeek.Sunday,
 		renderCell,
 		cellClassName,
+		cellDisabled,
 		showOutOfBoundsDate = false,
 		...rest
 	} = props;
@@ -47,7 +51,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 	const nowDateISO = toDateISOString(new Date());
 	const valueDateISO = value ? toDateISOString(value) : undefined;
 
-	const monthStart = startOfWeek(addDays(startOfMonth(date), -firstDayOfWeek));
+	const monthStart = startOfWeek(startOfMonth(date), firstDayOfWeek);
 
 	let dates: Date[][] = [];
 
@@ -57,7 +61,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		dates[i] ??= [];
 
 		for (let j = 0; j < DAYS_IN_WEEK; j++) {
-			dates[i]![j] = addDays(start, (j + firstDayOfWeek));
+			dates[i]![j] = addDays(start, j);
 		}
 	}
 
@@ -78,9 +82,13 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 
 	function handleKeyDown(day: Date) {
 		return function (e: ReactKeyboardEvent<HTMLTableDataCellElement>) {
+			if (readonly || disabled || elementIsDisabled(e.currentTarget)) {
+				return;
+			}
+
 			const key = getKey(e.key);
 
-			if (readonly || disabled || key !== Key.Space || elementIsDisabled(e.currentTarget)) {
+			if (key !== Key.Space && key !== Key.Enter) {
 				return;
 			}
 
@@ -91,35 +99,68 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		};
 	}
 
-	function moveFocus(amount: number) {
-		return function (_: KeyboardEvent, el: HTMLTableSectionElement) {
-			const focused = el.querySelector<HTMLTableDataCellElement>(`[tabindex="0"]`);
-			const prev = new Date(focused?.dataset.date ?? date);
+	function focusDate(next: Date) {
+		const tbody = bodyRef.current;
 
-			const next = addDays(prev, amount);
+		if (!isHTMLElement(tbody)) {
+			return;
+		}
 
-			if (next.getMonth() !== prev.getMonth()) {
-				flushSync(function () {
-					setDate(next);
-					onDateChange?.(next);
-				});
-			}
+		const prev = getFocusableDate(tbody, date);
 
-			const col = el.querySelector<HTMLTableDataCellElement>(`[data-date="${ toDateISOString(next) }"]`);
+		if (next.getFullYear() !== prev.getFullYear() || next.getMonth() !== prev.getMonth()) {
+			flushSync(function () {
+				setDate(next);
+				onDateChange?.(next);
+			});
+		}
 
-			focused?.setAttribute('tabindex', '-1');
+		resetTabindex(tbody);
 
-			col?.setAttribute('tabindex', '0');
-			col?.focus();
+		const col = getDateElementByDate(tbody, next);
+
+		col?.setAttribute('tabindex', '0');
+		col?.focus();
+	}
+
+	function moveDay(amount: number) {
+		return function (_: KeyboardEvent, tbody: HTMLTableSectionElement) {
+			const prev = getFocusableDate(tbody, date);
+
+			focusDate(addDays(prev, amount));
+		};
+	}
+
+	function moveStartOrEndWeek(position: 'start' | 'end') {
+		return function (_: KeyboardEvent, tbody: HTMLTableSectionElement) {
+			let prev = getFocusableDate(tbody, date);
+
+			prev = (position === 'start')
+				? startOfWeek(prev, firstDayOfWeek)
+				: endOfWeek(prev, firstDayOfWeek);
+
+			focusDate(prev);
+		};
+	}
+
+	function moveMonthOrYear(amount: number) {
+		return function (e: KeyboardEvent, tbody: HTMLTableSectionElement) {
+			const prev = getFocusableDate(tbody, date);
+
+			focusDate(addMonths(prev, (e.shiftKey) ? (amount * 12) : amount));
 		};
 	}
 
 	useKeyDownListener(bodyRef, {
-		[Key.Up]: moveFocus(-DAYS_IN_WEEK),
-		[Key.Down]: moveFocus(+DAYS_IN_WEEK),
-		[Key.Right]: moveFocus(+1),
-		[Key.Left]: moveFocus(-1),
-	}, { stopPropagation: true });
+		[Key.Up]: moveDay(-DAYS_IN_WEEK),
+		[Key.Down]: moveDay(+DAYS_IN_WEEK),
+		[Key.Right]: moveDay(+1),
+		[Key.Left]: moveDay(-1),
+		[Key.Home]: moveStartOrEndWeek('start'),
+		[Key.End]: moveStartOrEndWeek('end'),
+		[Key.PageUp]: moveMonthOrYear(-1),
+		[Key.PageDown]: moveMonthOrYear(+1),
+	}, { preventDefault: true, stopPropagation: true });
 
 	useEffect(function () {
 		if (_value !== undefined && toDateISOString(_value) !== valueDateISO) {
@@ -179,8 +220,9 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 										data-date={ dayDateISO }
 										aria-selected={ (dayDateISO === valueDateISO) }
 										aria-current={ (dayDateISO === nowDateISO) ? 'date' : undefined }
-										aria-disabled={ isOutOfBounds }
-										tabIndex={ (day.getDate() === date.getDate()) ? 0 : -1 }
+										aria-readonly={ readonly }
+										aria-disabled={ (disabled || cellDisabled?.(day)) }
+										tabIndex={ (day.getFullYear() === date.getFullYear() && day.getDate() === date.getDate()) ? 0 : -1 }
 										className={ (typeof cellClassName === 'function') ? cellClassName(day) : cellClassName }
 									>
 										{ renderCell ? renderCell(day) : (

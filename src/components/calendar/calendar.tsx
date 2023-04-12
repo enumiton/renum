@@ -42,6 +42,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 			next.setMonth(date.getMonth() + amount);
 
 			setDate(next);
+			onDateChange?.(next);
 		};
 	}
 
