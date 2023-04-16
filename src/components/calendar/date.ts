@@ -90,7 +90,10 @@ function weeksInMonth(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) 
 }
 
 function toDateISOString(date: Date) {
-	return `${ date.getFullYear() }-${ date.getMonth() + 1 }-${ date.getDate() }`;
+	const dom = String(date.getDate()).padStart(2, '0');
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+
+	return date.getFullYear() + '-' + month + '-' + dom;
 }
 
 function makeFormatters(locale: string) {
