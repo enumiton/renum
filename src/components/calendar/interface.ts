@@ -6,7 +6,9 @@ interface BaseCalendarProps extends Omit<TableHTMLAttributes<HTMLTableElement>, 
 	readonly value?: Date | undefined;
 	readonly defaultValue?: Date | undefined;
 	readonly date?: Date | undefined;
+	/** @note Exclusive */
 	readonly min?: Date | undefined;
+	/** @note Exclusive */
 	readonly max?: Date | undefined;
 	readonly readonly?: boolean | undefined;
 	readonly disabled?: boolean | undefined;

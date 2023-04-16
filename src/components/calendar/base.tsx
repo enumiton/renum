@@ -7,6 +7,7 @@ import {
 	addWeeks,
 	DayOfWeek,
 	DAYS_IN_WEEK,
+	endOfDay,
 	endOfWeek,
 	makeFormatters,
 	startOfDay,
@@ -187,6 +188,8 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		<table
 			{ ...rest }
 			role="grid"
+			aria-multiselectable="false"
+			aria-readonly={ readonly }
 			className={ $(prefixCls, rest.className) }
 			ref={ ref }
 		>
@@ -213,16 +216,27 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 									return <td key={ j } aria-hidden="true" />;
 								}
 
+								let isDisabled = (disabled || cellDisabled?.(day));
+
+								if (min) {
+									isDisabled ||= (day.getTime() < startOfDay(min).getTime());
+								}
+
+								if (max) {
+									isDisabled ||= (day.getTime() > endOfDay(max).getTime());
+								}
+
 								return (
 									<td
 										key={ j }
 										onClick={ handleClick(day) }
 										onKeyDown={ handleKeyDown(day) }
 										data-date={ dayDateISO }
+										aria-label={ formatters.current.cellDate(day) }
 										aria-selected={ (dayDateISO === valueDateISO) }
 										aria-current={ (dayDateISO === nowDateISO) ? 'date' : undefined }
 										aria-readonly={ readonly }
-										aria-disabled={ (disabled || cellDisabled?.(day)) }
+										aria-disabled={ isDisabled }
 										tabIndex={ (day.getFullYear() === date.getFullYear() && day.getDate() === date.getDate()) ? 0 : -1 }
 										className={ $({
 												[`${ prefixCls }-cell-oob`]: isOutOfBounds,
