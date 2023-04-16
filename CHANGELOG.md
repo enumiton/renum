@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.10.0
+
+- Added `Calendar` component
+- Fixed missing button type to accordion
+- Fixed switch handle filling entire track
+- Color
+  - `blue` -> `azure`
+  - `subtle` & `muted` -> `secondary`
+
 ## v0.9.0
 
 - Added `Accordion` component
