@@ -36,6 +36,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		cellClassName,
 		cellDisabled,
 		showOutOfBoundsDate = false,
+		minWeeks = 0,
 		...rest
 	} = props;
 
@@ -55,10 +56,14 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 
 	let dates: Date[][] = [];
 
-	for (let i = 0; i < 6; i++) {
+	for (let i = 0; i < Math.max(6, minWeeks); i++) {
 		const start = addWeeks(monthStart, i);
 
 		dates[i] ??= [];
+
+		if (i > minWeeks && start.getMonth() !== date.getMonth()) {
+			break;
+		}
 
 		for (let j = 0; j < DAYS_IN_WEEK; j++) {
 			dates[i]![j] = addDays(start, j);
@@ -198,10 +203,6 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 			</thead>
 			<tbody ref={ bodyRef }>
 				{ dates.map(function (week, i) {
-					if (i === (dates.length - 1) && week[0]?.getMonth() !== date.getMonth()) {
-						return null;
-					}
-
 					return (
 						<tr key={ i }>
 							{ week.map(function (day, j) {
@@ -223,7 +224,11 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 										aria-readonly={ readonly }
 										aria-disabled={ (disabled || cellDisabled?.(day)) }
 										tabIndex={ (day.getFullYear() === date.getFullYear() && day.getDate() === date.getDate()) ? 0 : -1 }
-										className={ (typeof cellClassName === 'function') ? cellClassName(day) : cellClassName }
+										className={ $({
+												[`${ prefixCls }-cell-oob`]: isOutOfBounds,
+											},
+											(typeof cellClassName === 'function') ? cellClassName(day) : cellClassName,
+										) }
 									>
 										{ renderCell ? renderCell(day) : (
 											<time dateTime={ dayDateISO }>

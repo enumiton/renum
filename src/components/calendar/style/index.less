@@ -34,7 +34,7 @@
 		height: 3em;
 		background-color: transparent;
 		border-radius: @border-radius-circle;
-		color: inherit;
+		color: var(--text-default);
 		transition: @transition-speed-fast @transition-easing;
 		transition-property: color, background-color, font-size, font-weight;
 		cursor: pointer;
@@ -56,10 +56,13 @@
 			background-color: var(--transparent-hover);
 		}
 
+		&.@{calendar-prefix}-cell-oob {
+			color: var(--text-secondary);
+		}
+
 		&[aria-current="date"] {
 			color: var(--primary);
 
-			&[aria-readonly="true"],
 			&[aria-disabled="true"] {
 				&,
 				&:hover,
@@ -105,8 +108,21 @@
 				background-color: var(--primary-muted-active);
 			}
 
-			&[aria-readonly="true"],
-			&[aria-disabled="true"] {
+			&[aria-current="date"] {
+				background-color: var(--primary);
+				color: var(--primary-contrast);
+
+				&:hover,
+				&:focus {
+					background-color: var(--primary-hover);
+				}
+
+				&:active {
+					background-color: var(--primary-active);
+				}
+			}
+
+			&[aria-readonly="true"] {
 				&,
 				&:hover,
 				&:focus,
@@ -114,6 +130,27 @@
 					background-color: var(--primary-muted);
 					color: var(--primary-muted-color);
 					font-weight: @font-weight-bold;
+				}
+
+				&[aria-current="date"] {
+					&,
+					&:hover,
+					&:focus,
+					&:active {
+						background-color: var(--primary);
+						color: var(--primary-contrast);
+					}
+				}
+			}
+
+			&[aria-disabled="true"] {
+				&,
+				&:hover,
+				&:focus,
+				&:active {
+					background-color: var(--bg-disabled);
+					color: var(--text-disabled);
+					cursor: not-allowed;
 				}
 			}
 

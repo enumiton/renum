@@ -31,7 +31,9 @@ function endOfDay(date: Date) {
 }
 
 function startOfWeek(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
-	return startOfDay(addDays(date, -(date.getDay() - firstDayOfWeek)));
+	const day = date.getDay();
+
+	return startOfDay(addDays(date, -((day < firstDayOfWeek ? DAYS_IN_WEEK : 0) + (day - firstDayOfWeek))));
 }
 
 function endOfWeek(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
