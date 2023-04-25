@@ -6,7 +6,7 @@
 
 ## Description
 
-Another React component library with two unique traits: no unnecessary depenencies and a small package size.
+Another React component library with two unique traits: no unnecessary dependencies and a small package size.
 
 ## Getting started
 
@@ -108,33 +108,6 @@ it a look.
 ## Contributing
 
 Todo
-
-## Todo
-
-- [ ] Better color scheme generation.
-- [ ] Publish & release a beta version.
-- Components:
-  - [x] Button
-  - [x] Button Group
-  - [x] Input
-  - [x] Select
-  - [x] Checkbox
-  - [x] Radio
-  - [ ] Segmented Control
-  - [x] Alert
-  - [ ] Breadcrumbs
-  - [ ] Badge
-  - [ ] Paper
-  - [ ] Menu
-  - [ ] Popover
-  - [x] Dialog
-  - [ ] Drawer
-  - [ ] Rate
-  - [ ] Slider
-  - [ ] Switch
-  - [ ] Tag
-  - [ ] Chip
-  - ...
 
 ## Development
 

@@ -24,6 +24,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 		style,
 		onChange,
 		onDateChange,
+		renderTitle,
 		...rest
 	} = props;
 
@@ -78,14 +79,16 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(pro
 						icon={ CHEVRON_LEFT_ICON }
 					/>
 				</div>
-				<time
-					id={ id }
-					className={ `${ prefixCls }-header-title` }
-					dateTime={ `${ date.getFullYear() }-${ date.getMonth() + 1 }` }
-					aria-live="polite"
-				>
-					{ formatters.current.title(date) }
-				</time>
+				{ renderTitle ? renderTitle(date, id) : (
+					<time
+						id={ id }
+						className={ `${ prefixCls }-header-title` }
+						dateTime={ `${ date.getFullYear() }-${ date.getMonth() + 1 }` }
+						aria-live="polite"
+					>
+						{ formatters.current.title(date) }
+					</time>
+				) }
 				<div className={ `${ prefixCls }-header-end` }>
 					<Button
 						type="text"

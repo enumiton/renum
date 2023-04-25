@@ -31,14 +31,13 @@ function endOfDay(date: Date) {
 }
 
 function startOfWeek(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
-	return startOfDay(addDays(date, -(date.getDay() - firstDayOfWeek)));
+	const day = date.getDay();
+
+	return startOfDay(addDays(date, -((day < firstDayOfWeek ? DAYS_IN_WEEK : 0) + (day - firstDayOfWeek))));
 }
 
 function endOfWeek(date: Date, firstDayOfWeek: DayOfWeek = DayOfWeek.Sunday) {
-	const dupe = new Date(date);
-	dupe.setDate(date.getDate() - (date.getDay() - firstDayOfWeek) + DAYS_IN_WEEK);
-
-	return endOfDay(dupe);
+	return endOfDay(addDays(startOfWeek(date, firstDayOfWeek), DAYS_IN_WEEK - 1));
 }
 
 function startOfMonth(date: Date) {
@@ -108,10 +107,18 @@ function makeFormatters(locale: string) {
 		weekday: 'long',
 	}).format;
 
+	const cellDate = Intl.DateTimeFormat(locale, {
+		day: 'numeric',
+		weekday: 'long',
+		month: 'long',
+		year: 'numeric',
+	}).format;
+
 	return {
 		title,
 		weekdayShort,
 		weekdayLong,
+		cellDate,
 	};
 }
 

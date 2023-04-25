@@ -7,6 +7,7 @@ import {
 	addWeeks,
 	DayOfWeek,
 	DAYS_IN_WEEK,
+	endOfDay,
 	endOfWeek,
 	makeFormatters,
 	startOfDay,
@@ -36,6 +37,7 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		cellClassName,
 		cellDisabled,
 		showOutOfBoundsDate = false,
+		minWeeks = 0,
 		...rest
 	} = props;
 
@@ -55,10 +57,14 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 
 	let dates: Date[][] = [];
 
-	for (let i = 0; i < 6; i++) {
+	for (let i = 0; i < Math.max(6, minWeeks); i++) {
 		const start = addWeeks(monthStart, i);
 
 		dates[i] ??= [];
+
+		if (i > minWeeks && start.getMonth() !== date.getMonth()) {
+			break;
+		}
 
 		for (let j = 0; j < DAYS_IN_WEEK; j++) {
 			dates[i]![j] = addDays(start, j);
@@ -182,6 +188,8 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 		<table
 			{ ...rest }
 			role="grid"
+			aria-multiselectable="false"
+			aria-readonly={ readonly }
 			className={ $(prefixCls, rest.className) }
 			ref={ ref }
 		>
@@ -198,10 +206,6 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 			</thead>
 			<tbody ref={ bodyRef }>
 				{ dates.map(function (week, i) {
-					if (i === (dates.length - 1) && week[0]?.getMonth() !== date.getMonth()) {
-						return null;
-					}
-
 					return (
 						<tr key={ i }>
 							{ week.map(function (day, j) {
@@ -212,18 +216,33 @@ const BaseCalendar = forwardRef<HTMLTableElement, BaseCalendarProps>(function Ba
 									return <td key={ j } aria-hidden="true" />;
 								}
 
+								let isDisabled = (disabled || cellDisabled?.(day));
+
+								if (min) {
+									isDisabled ||= (day.getTime() < startOfDay(min).getTime());
+								}
+
+								if (max) {
+									isDisabled ||= (day.getTime() > endOfDay(max).getTime());
+								}
+
 								return (
 									<td
 										key={ j }
 										onClick={ handleClick(day) }
 										onKeyDown={ handleKeyDown(day) }
 										data-date={ dayDateISO }
+										aria-label={ formatters.current.cellDate(day) }
 										aria-selected={ (dayDateISO === valueDateISO) }
 										aria-current={ (dayDateISO === nowDateISO) ? 'date' : undefined }
 										aria-readonly={ readonly }
-										aria-disabled={ (disabled || cellDisabled?.(day)) }
+										aria-disabled={ isDisabled }
 										tabIndex={ (day.getFullYear() === date.getFullYear() && day.getDate() === date.getDate()) ? 0 : -1 }
-										className={ (typeof cellClassName === 'function') ? cellClassName(day) : cellClassName }
+										className={ $({
+												[`${ prefixCls }-cell-oob`]: isOutOfBounds,
+											},
+											(typeof cellClassName === 'function') ? cellClassName(day) : cellClassName,
+										) }
 									>
 										{ renderCell ? renderCell(day) : (
 											<time dateTime={ dayDateISO }>

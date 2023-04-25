@@ -6,7 +6,9 @@ interface BaseCalendarProps extends Omit<TableHTMLAttributes<HTMLTableElement>, 
 	readonly value?: Date | undefined;
 	readonly defaultValue?: Date | undefined;
 	readonly date?: Date | undefined;
+	/** @note Exclusive */
 	readonly min?: Date | undefined;
+	/** @note Exclusive */
 	readonly max?: Date | undefined;
 	readonly readonly?: boolean | undefined;
 	readonly disabled?: boolean | undefined;
@@ -19,11 +21,17 @@ interface BaseCalendarProps extends Omit<TableHTMLAttributes<HTMLTableElement>, 
 	readonly cellDisabled?: ((date: Date) => boolean) | undefined;
 	/** @default false */
 	readonly showOutOfBoundsDate?: boolean | undefined;
+	/** @default 0 */
+	readonly minWeeks?: number | undefined;
 }
 
 interface CalendarProps extends Omit<BaseCalendarProps, 'aria-labelledby'> {
 	readonly 'aria-labelledby'?: string | undefined;
 	readonly tableClassName?: string | undefined;
+	/**
+	 * @note Apply the given `id` to the element containing the calendar date
+	 */
+	readonly renderTitle?: ((date: Date, id: string) => ReactElement) | undefined;
 }
 
 export type { BaseCalendarProps, CalendarProps };

@@ -1,7 +1,7 @@
 import type { Locale } from './interface';
 
 export default {
-	locale: 'en-NL',
+	locale: 'nl-NL',
 	close: 'Sluiten',
 	calendar: {
 		prev_year: 'Naar vorig jaar',
@@ -10,7 +10,7 @@ export default {
 		next_month: 'Naar volgende maand',
 	},
 	dialog: {
-		primaryButtonText: 'Ok',
+		primaryButtonText: 'Oké',
 		cancelButtonText: 'Annuleren',
 	},
 	rate: {
