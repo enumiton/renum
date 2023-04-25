@@ -1,0 +1,52 @@
+@import (reference) "./variables.less";
+
+.@{text-area-prefix} {
+	.appearance();
+	.touch-action();
+	.input();
+
+	resize: none;
+	height: calc((unit(@line-height, em) * var(--rows)) + (@input-padding-block * 2) + (@border-width-medium * 2));
+
+	&::placeholder {
+		font: inherit;
+		font-size: @font-size-medium;
+		color: var(--text-placeholder);
+		opacity: 1;
+	}
+
+	&::-ms-reveal {
+		color: inherit;
+		background-color: currentColor;
+	}
+
+	//noinspection CssInvalidPseudoSelector
+	&::-webkit-credentials-auto-fill-button {
+		color: inherit;
+		background-color: currentColor;
+	}
+
+	//noinspection CssInvalidPseudoSelector
+	&::-webkit-search-cancel-button,
+	&::-webkit-contacts-auto-fill-button,
+	&::-webkit-inner-spin-button,
+	&::-webkit-credentials-auto-fill-button,
+	&::-webkit-caps-lock-indicator {
+		background-color: var(--text-secondary);
+		cursor: pointer;
+	}
+
+	&-resize {
+		resize: both;
+	}
+
+	&-resize-block {
+		resize: vertical; /* thx chromium */
+		resize: block;
+	}
+
+	&-resize-inline {
+		resize: horizontal; /* thx chromium */
+		resize: inline;
+	}
+}

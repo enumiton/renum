@@ -84,6 +84,9 @@ export type { SelectProps, SelectValue } from './components/select';
 export { Switch } from './components/switch';
 export type { SwitchProps } from './components/switch';
 
+export { TextArea } from './components/text-area';
+export type { TextAreaProps } from './components/text-area';
+
 export { Tooltip } from './components/tooltip';
 export type { TooltipProps } from './components/tooltip';
 

@@ -29,6 +29,7 @@ const COMPONENTS = [
 	'rate',
 	'select',
 	'switch',
+	'text-area',
 	'tooltip',
 ] as const;
 
