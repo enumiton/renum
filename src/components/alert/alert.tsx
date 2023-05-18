@@ -7,7 +7,7 @@ import { default as CircleCheckIcon } from '../../icons/CircleCheck';
 import { default as AlertTriangleIcon } from '../../icons/AlertTriangle';
 import { default as AlertCirceIcon } from '../../icons/AlertCircle';
 import { default as CloseIcon } from '../../icons/X';
-import { $, isString } from '../../utils';
+import { $, isNullable, isString } from '../../utils';
 
 const INFO_ICON = <InfoIcon />;
 const SUCCESS_ICON = <CircleCheckIcon />;
@@ -62,39 +62,6 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) 
 		}
 	}
 
-	function renderActions() {
-		if (!actions) {
-			return null;
-		}
-
-		if (Array.isArray(actions) && actions.length <= 0) {
-			return null;
-		}
-
-		return (
-			<div className={ `${ prefixCls }-actions` }>
-				{ actions }
-			</div>
-		);
-	}
-
-	function renderCloseBtn() {
-		if (!closeable) {
-			return null;
-		}
-
-		return (
-			<Button
-				aria-label={ locale.close }
-				className={ `${ prefixCls }-close` }
-				icon={ CLOSE_ICON }
-				onClick={ handleClose }
-				shape="circle"
-				type="text"
-			/>
-		);
-	}
-
 	if (closed) {
 		return null;
 	}
@@ -110,15 +77,30 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) 
 		>
 			{ renderIcon() }
 			<div className={ $(`${ prefixCls }-content`) }>
-				{ title ? (
+				{ (title) ? (
 					<div className={ `${ prefixCls }-title` }>{ title }</div>
 				) : null }
-				{ isString(children) && title ? (
+				{ (isString(children) && title) ? (
 					<p>{ children }</p>
 				) : children }
-				{ renderActions() }
+				{ (isNullable(actions) || (Array.isArray(actions) && actions.length === 0) ? null : (
+					<div className={ `${ prefixCls }-actions` }>
+						{ actions }
+					</div>
+				)) }
 			</div>
-			{ renderCloseBtn() }
+			{ (closeable) ? (
+				<div>
+					<Button
+						aria-label={ locale.close }
+						className={ `${ prefixCls }-close` }
+						icon={ CLOSE_ICON }
+						onClick={ handleClose }
+						shape="circle"
+						type="text"
+					/>
+				</div>
+			) : null }
 		</div>
 	);
 });
