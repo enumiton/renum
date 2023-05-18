@@ -6,12 +6,12 @@
 @input-padding-inline: 0.75em;
 @input-padding-icon: (1em + @input-padding-inline);
 
-@input-height: (unit(@line-height, em) + (@input-padding-block * 2));
+@input-height: calc(unit(@line-height, em) + (@input-padding-block * 2) + (@border-width-medium * 2));
 
 @input-border-radius: @border-radius-medium;
 @input-border-radius-fix: @input-border-radius;
 
-@input-icon-top: ((@input-height - 1em) * 0.5);
+@input-icon-top: 0.6875em;
 
 @input-shadow-focus: 0 0 0 @outline-width var(--primary-muted);
 
@@ -50,6 +50,7 @@
 		&:hover,
 		&:focus,
 		&:active {
+			-webkit-text-fill-color: var(--input-color-disabled);
 			color: var(--input-color-disabled);
 			background-color: var(--input-bg-disabled);
 			border-color: var(--input-border-disabled);

@@ -7,6 +7,7 @@
 
 	resize: none;
 	height: calc((unit(@line-height, em) * var(--rows)) + (@input-padding-block * 2) + (@border-width-medium * 2));
+	min-height: @input-height;
 
 	&::placeholder {
 		font: inherit;

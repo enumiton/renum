@@ -39,7 +39,6 @@
 		position: relative;
 		display: inline-flex;
 		flex-flow: row nowrap;
-		align-items: center;
 		width: 100%;
 		white-space: nowrap;
 		z-index: 1;
@@ -67,7 +66,7 @@
 		& > .@{icon-prefix} {
 			position: absolute;
 			inset-block-start: @input-icon-top;
-			inset-inline-start: (@input-padding-inline * 0.5);
+			inset-inline-start: @input-padding-inline;
 			transform: translateZ(0) scale(unit(@font-size-large));
 			pointer-events: none;
 			z-index: 3;
@@ -76,7 +75,7 @@
 		& .@{input-prefix}-clear {
 			position: absolute;
 			inset-block-start: @input-icon-top;
-			inset-inline-end: (@input-padding-inline * 0.5);
+			inset-inline-end: @input-padding-inline;
 			opacity: 1;
 			z-index: 3;
 
@@ -108,7 +107,7 @@
 		position: relative;
 		display: inline-block;
 		padding: 0;
-		height: @input-height;
+		height: auto;
 		background-color: var(--input-bg-fix);
 		border: @border-width-medium @border-style var(--input-border);
 		border-radius: @input-border-radius-fix;
@@ -147,7 +146,7 @@
 	}
 
 	&-icon {
-		padding-inline-start: @input-padding-icon;
+		padding-inline-start: (@input-padding-icon + @input-padding-inline);
 	}
 
 	&-borderless {
